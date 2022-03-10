@@ -1,0 +1,24 @@
+.parent
+{
+    -fx-background-color:#f5f5f7;
+}
+.side_bar{
+    -fx-background-color: #354052;
+    -fx-background-radius: 5px;
+
+}
+.btn:hover{
+    -fx-background-color: #202332;
+}
+.round_lbl{
+    -fx-background-color: #FE7E79;
+    -fx-background-radius: 100%;
+}
+.card-01{
+    -fx-background-color: rgba(0,162,211,0.3);
+}
+.round_box{
+    -fx-background-radius: 100%;
+    -fx-border-radius: 100%;
+    -fx-border-width: 5px;
+}

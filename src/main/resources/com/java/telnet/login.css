@@ -1,3 +1,21 @@
-*{
-    -fx-background-color:BLACK;
+.parent{
+    -fx-background-color: transparent;
+}
+
+.tf_box{
+    -fx-background-color: transparent;
+    -fx-border-color: #DEDEE4;
+    -fx-border-width: 0px 0px 1px 0px;
+    -fx-text-fill: WHITE;
+    -fx-background-radius: 5px;
+    -fx-font-size: 15px;
+
+
+}
+
+.btn{
+    -fx-background-color: #00A4E4;
+    -fx-background-radius: 5px;
+    -fx-font-size: 15px;
+
 }
