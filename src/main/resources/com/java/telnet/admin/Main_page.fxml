@@ -17,9 +17,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="parent" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Dashboard">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="808.0" prefWidth="1280.0" styleClass="parent" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Dashboard">
    <children>
-      <BorderPane layoutX="114.0" layoutY="54.0" prefHeight="866.0" prefWidth="1280.0" styleClass="parent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="114.0" layoutY="54.0" prefHeight="882.0" prefWidth="1280.0" styleClass="parent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <AnchorPane prefHeight="65.0" prefWidth="200.0" style="-fx-background-color: WHITE;" styleClass="scroll" BorderPane.alignment="CENTER">
                <children>
@@ -61,10 +61,10 @@
             </AnchorPane>
          </top>
          <center>
-            <StackPane fx:id="content" prefHeight="800.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <StackPane fx:id="content" prefHeight="800.0" prefWidth="200.0" styleClass="parent" BorderPane.alignment="CENTER" />
          </center>
          <left>
-            <ScrollPane fx:id="slider" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="736.0" prefWidth="338.0" BorderPane.alignment="CENTER">
+            <ScrollPane fx:id="slider" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="736.0" prefWidth="338.0" styleClass="parent" BorderPane.alignment="CENTER">
                <content>
                   <AnchorPane minWidth="-Infinity" prefHeight="600.0" prefWidth="320.0" styleClass="side_bar1">
                      <children>
