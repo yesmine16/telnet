@@ -1,6 +1,7 @@
 .parent
 {
     -fx-background-color:#f5f5f7;
+
 }
 .side_bar1{
     -fx-background-color: #1F2F46;
@@ -118,7 +119,7 @@
     -fx-min-height: 30;
 }
 
-/* Colors on hover */
+
 .pagination > .pagination-control > .control-box > .number-button:hover,
 .pagination > .pagination-control > .control-box > .bullet-button:hover,
 .pagination > .pagination-control > .control-box > .left-arrow-button:hover,
@@ -126,6 +127,7 @@
     -fx-background-insets: 0;
     -fx-background-color: lightgray;
 }
+
 
 .pagination > .pagination-control > .control-box > .number-button:selected,
 .pagination > .pagination-control > .control-box > .bullet-button:selected{
@@ -139,4 +141,47 @@
 .table-view .column-header-background .filler {
     -fx-background-color: #00a4e4;
     -fx-text-fill: white;
+    -fx-border-radius: 1.3em;
+
+}
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-border-radius: 1.3em;
+}
+
+
+.tab-pane .tab
+{
+    -fx-background-color: #00a4e4;
+    -fx-border-radius: 1.3em;
+    -fx-font-family: "Lucida Console";
+
+
+}
+.tab-pane{
+    -fx-background-color: #ccd1d4;
+}
+.tab-pane .tab:selected
+{
+    -fx-background-color: #f5f5f7;
+    -fx-text-fill: #00a4e4;
+
+
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 1.3em;
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #00a4e4;
 }

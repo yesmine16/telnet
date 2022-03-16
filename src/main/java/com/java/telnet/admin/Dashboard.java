@@ -10,9 +10,11 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -45,6 +47,10 @@ public class Dashboard implements Initializable {
 
     @FXML
     private HBox project;
+    @FXML
+    private HBox achat;
+    @FXML
+    private HBox history;
 
     @FXML
     private ScrollPane slider;
@@ -54,6 +60,8 @@ public class Dashboard implements Initializable {
 
     @FXML
     private HBox users;
+    @FXML
+    private AnchorPane menu;
 
 
     @Override
@@ -139,10 +147,35 @@ public class Dashboard implements Initializable {
         }catch (IOException ex){
 
         }});
+        achat.setOnMouseClicked(event -> {try {
+            Parent fxml = FXMLLoader.load(getClass().getResource("achat.fxml"));
+            content.getChildren().removeAll();
+            content.getChildren().setAll(fxml);
+
+        }catch (IOException ex){
+
+        }});
+        history.setOnMouseClicked(event -> {try {
+            Parent fxml = FXMLLoader.load(getClass().getResource("history.fxml"));
+            content.getChildren().removeAll();
+            content.getChildren().setAll(fxml);
+
+        }catch (IOException ex){
+
+        }});
+    }
+
+
+    public void setMenu(boolean x) {
+        if(x){
+            menu.setEffect(new BoxBlur(5.0, 5.0, 1));
+        }
+        else menu.setEffect(new BoxBlur(0, 0, 0));
 
     }
 
-    }
+
+}
 
      
 

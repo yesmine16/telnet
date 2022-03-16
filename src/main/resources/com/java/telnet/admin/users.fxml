@@ -15,9 +15,9 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="551.0" prefWidth="921.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="main" prefHeight="551.0" prefWidth="921.0" style="-fx-background-color: #f5f5f7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Users">
    <children>
-      <BorderPane layoutX="1.0" layoutY="1.0" prefHeight="581.0" prefWidth="972.0">
+      <BorderPane layoutX="1.0" layoutY="1.0" prefHeight="581.0" prefWidth="972.0" style="-fx-background-color: #f5f5f7;">
          <top>
             <Pane prefHeight="105.0" prefWidth="1026.0" BorderPane.alignment="CENTER">
                <children>
@@ -31,10 +31,13 @@
                         </FontAwesomeIconView>
                      </children>
                   </HBox>
-                  <Button layoutX="818.0" layoutY="53.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: #3cad45; -fx-background-radius: 2.0em;" text="Ajouter" textFill="WHITE">
+                  <Button layoutX="818.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#add" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: #3cad45; -fx-background-radius: 2.0em;" text="Ajouter" textFill="WHITE">
                      <font>
                         <Font name="Lucida Console" size="14.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children></Pane>
          </top>
