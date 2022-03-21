@@ -23,10 +23,10 @@ public class Projet implements Initializable {
 
 
     @FXML
-     TableColumn<Const, String> nom;
+    private TableColumn<Const, String> nom;
 
     @FXML
-     TableColumn<Const, String> etat;
+    private TableColumn<Const, String> etat;
 
     @FXML
     private FontAwesomeIconView eye;
@@ -38,7 +38,7 @@ public class Projet implements Initializable {
     private TabPane tab_pane;
 
     @FXML
-     TableView<Const> table;
+    private TableView<Const> table;
     @FXML
     private HBox titre;
 
@@ -54,19 +54,16 @@ ObservableList<Const> list=FXCollections.observableArrayList(
             nom.setCellValueFactory(new PropertyValueFactory<Const, String>("nom"));
             etat.setCellValueFactory(new PropertyValueFactory<Const, String>("etat"));
             table.setItems(list);
-
-
-
-        if(table.getSelectionModel().isEmpty()){
-            eye.setVisible(true);
-            tab_pane.setVisible(false);
-            titre.setVisible(false);
-        }
-        else{ eye.setVisible(false);
-            tab_pane.setVisible(true);
-            titre.setVisible(true);}
-
-
+           /*
+                if (table.getSelectionModel().getSelectedItem() == null) {
+                    eye.setVisible(true);
+                    tab_pane.setVisible(false);
+                    titre.setVisible(false);
+                } else {
+                    eye.setVisible(false);
+                    tab_pane.setVisible(true);
+                    titre.setVisible(true);
+                }*/
 
 
 

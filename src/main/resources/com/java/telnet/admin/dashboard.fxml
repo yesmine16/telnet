@@ -44,7 +44,7 @@
                                     </DropShadow>
                                  </effect>
                                  <children>
-                                    <FontAwesomeIconView fill="#f7912f" glyphName="ARCHIVE" layoutX="25.0" layoutY="45.0" size="3em" />
+                                    <FontAwesomeIconView fill="#F8B124" glyphName="ARCHIVE" layoutX="25.0" layoutY="45.0" size="3em" />
                                     <Label layoutX="68.0" layoutY="22.0" text="Etat du stock" textFill="#7c8184">
                                        <font>
                                           <Font name="Lucida Console" size="20.0" />

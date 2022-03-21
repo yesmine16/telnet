@@ -1,13 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="603.0" prefWidth="1056.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane layoutX="172.0" layoutY="78.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <TableView prefHeight="200.0" prefWidth="200.0" stylesheets="@style.css" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+         </center>
+         <top>
+            <AnchorPane prefHeight="123.0" prefWidth="770.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane prefHeight="154.0" prefWidth="1056.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" layoutX="854.0" layoutY="21.0" prefHeight="36.0" prefWidth="188.0">
+                           <children>
+                              <TextField prefHeight="26.0" prefWidth="212.0" style="-fx-background-radius: 2.0em;" />
+                              <FontAwesomeIconView fill="#7c8184" glyphName="SEARCH" size="1.3em" text="">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </FontAwesomeIconView>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="8.0" layoutY="61.0" prefHeight="80.0" prefWidth="700.0" spacing="20.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0">
+                                 <children>
+                                    <Label prefHeight="18.0" prefWidth="66.0" text="Nom" textFill="#7c8184" />
+                                    <TextField prefHeight="26.0" prefWidth="123.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0">
+                                 <children>
+                                    <Label prefHeight="18.0" prefWidth="107.0" text="footprint" textFill="#7c8184" />
+                                    <TextField />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0">
+                                 <children>
+                                    <Label prefHeight="18.0" prefWidth="64.0" text="lebel" textFill="#7c8184" />
+                                    <TextField />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0">
+                                 <children>
+                                    <Label prefHeight="18.0" prefWidth="78.0" text="Origine" textFill="#7c8184" />
+                                    <TextField />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="199.0" layoutY="21.0" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #F8B124;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="FILTER" size="1.3em" />
+                           </graphic>
+                        </Label>
+                        <Label layoutX="31.0" layoutY="21.0" prefHeight="30.0" prefWidth="113.0" text="Historique" textFill="#ccd1d4">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </top>
+      </BorderPane>
+   </children>
 </AnchorPane>

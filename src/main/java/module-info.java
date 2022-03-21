@@ -11,6 +11,7 @@ module com.java.telnet {
     requires eu.hansolo.tilesfx;
     requires javafx.graphics;
     requires de.jensd.fx.glyphs.fontawesome;
+    requires java.sql;
 
     exports com.java.telnet.admin;
     opens com.java.telnet.admin to javafx.graphics,javafx.fxml;

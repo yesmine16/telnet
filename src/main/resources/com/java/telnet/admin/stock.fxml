@@ -1,29 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="parent" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Stock">
+<AnchorPane prefHeight="559.0" prefWidth="978.0" styleClass="parent" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Stock">
    <children>
       <BorderPane layoutX="200.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <Pane prefHeight="75.0" prefWidth="600.0" styleClass="parent" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="75.0" prefWidth="600.0" styleClass="parent" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox fx:id="titre" alignment="CENTER" layoutX="225.0" layoutY="20.0" prefHeight="41.0" prefWidth="375.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="132.0" text="inventaire" textFill="#ccd1d4">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <FontAwesomeIconView fx:id="fleche" fill="#7c8184" glyphName="ANGLE_RIGHT" size="3em" wrappingWidth="30.457118034362793" />
+                        <Label text="Nom de l'inventaire" textFill="#F8B124">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="746.0" layoutY="29.0" prefHeight="39.0" prefWidth="187.0" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #F8B124;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="1.3em" text="" wrappingWidth="14.099957466125488" />
+                           </graphic>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #F8B124;">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" size="1.3em" wrappingWidth="15.699994087219238" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #F8B124;">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="1.3em" text="" wrappingWidth="12.499981880187988" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children></Pane>
          </top>
          <left>
-            <Pane fx:id="pane" prefHeight="357.0" prefWidth="200.0" style="-fx-background-color: #f5f5f7;" BorderPane.alignment="CENTER">
+            <Pane fx:id="pane" prefHeight="357.0" prefWidth="200.0" style="-fx-background-radius: 1.3em;" BorderPane.alignment="CENTER">
                <children>
-                  <VBox layoutX="-1.0" prefHeight="324.0" prefWidth="200.0" style="-fx-background-radius: 1.3em;">
+                  <VBox layoutX="-1.0" prefHeight="482.0" prefWidth="200.0" style="-fx-background-radius: 1.3em;">
                      <children>
-                        <TreeView fx:id="tree" prefHeight="324.0" prefWidth="200.0" />
+                        <TreeView fx:id="tree" prefHeight="474.0" prefWidth="200.0" style="-fx-background-radius: 1.3em;" />
                      </children>
                   </VBox>
                </children>
             </Pane>
          </left>
+         <center>
+            <TableView prefHeight="430.0" prefWidth="778.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>

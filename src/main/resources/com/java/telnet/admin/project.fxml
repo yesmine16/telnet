@@ -20,7 +20,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="1177.0" styleClass="parent" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="1177.0" styleClass="parent" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Projet">
    <content>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="683.0" prefWidth="1161.0" styleClass="parent" stylesheets="@style.css">
          <top>
@@ -53,7 +53,7 @@
                <top>
                   <Pane prefHeight="59.0" prefWidth="932.0" BorderPane.alignment="CENTER">
                      <children>
-                        <HBox fx:id="titre" layoutX="14.0" layoutY="8.0" prefHeight="41.0" prefWidth="264.0">
+                        <HBox fx:id="titre" layoutX="14.0" layoutY="8.0" prefHeight="41.0" prefWidth="435.0" spacing="10.0">
                            <children>
                               <Label prefHeight="18.0" prefWidth="70.0" text="Projet" textFill="#ccd1d4">
                                  <font>
@@ -61,14 +61,41 @@
                                  </font>
                               </Label>
                               <FontAwesomeIconView fx:id="fleche" fill="#7c8184" glyphName="ANGLE_RIGHT" size="3em" wrappingWidth="30.457118034362793" />
-                              <Label fx:id="nom_projet" text="Nom du projet" textFill="#f7912f">
+                              <Label fx:id="nom_projet" prefHeight="30.0" prefWidth="153.0" text="Nom du projet" textFill="#F8B124">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #F8B124;">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="UPLOAD" size="1.3em" />
+                                 </graphic>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #F8B124;">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="DOWNLOAD" size="1.3em" />
+                                 </graphic>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #F8B124;">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="FILTER" size="1.3em" />
+                                 </graphic>
                               </Label>
                            </children>
                         </HBox>
-                        <Button layoutX="697.0" layoutY="21.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="128.0" style="-fx-background-color: #3cad45; -fx-background-radius: 2.0em;" text="Ajouter" textFill="WHITE">
+                        <Button layoutX="782.0" layoutY="21.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="128.0" style="-fx-background-color: #3cad45; -fx-background-radius: 2.0em;" text="Ajouter" textFill="WHITE">
                            <font>
                               <Font name="Lucida Console" size="14.0" />
                            </font>
@@ -103,7 +130,7 @@
                                                 </HBox>
                                                 <HBox alignment="CENTER" prefHeight="47.0" prefWidth="217.0" spacing="10.0">
                                                    <children>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER"  prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #f7912f;">
+                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #F8B124;">
                                                          <cursor>
                                                             <Cursor fx:constant="HAND" />
                                                          </cursor>
@@ -111,7 +138,7 @@
                                                             <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="1.3em" text="" wrappingWidth="14.099957466125488" />
                                                          </graphic>
                                                       </Label>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #f7912f;">
+                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #F8B124;">
                                                          <graphic>
                                                             <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" size="1.3em" wrappingWidth="15.699994087219238" />
                                                          </graphic>
@@ -119,7 +146,7 @@
                                                             <Cursor fx:constant="HAND" />
                                                          </cursor>
                                                       </Label>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #f7912f;">
+                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #F8B124;">
                                                          <graphic>
                                                             <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="1.3em" text="" wrappingWidth="12.499981880187988" />
                                                          </graphic>
@@ -159,7 +186,7 @@
                                                             <FontAwesomeIconView fill="WHITE" glyphName="FILE" />
                                                          </graphic>
                                                       </Label>
-                                                      <Label alignment="CENTER" layoutX="372.0" layoutY="40.0" prefHeight="32.0" prefWidth="128.0" style="-fx-background-radius: 1.3em; -fx-background-color: #f7912f;" text="En cours" textFill="WHITE">
+                                                      <Label alignment="CENTER" layoutX="372.0" layoutY="40.0" prefHeight="32.0" prefWidth="128.0" style="-fx-background-radius: 1.3em; -fx-background-color: #F8B124;" text="En cours" textFill="WHITE">
                                                          <font>
                                                             <Font name="Lucida Console" size="15.0" />
                                                          </font>

@@ -31,7 +31,6 @@ public class Users  implements Initializable  {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
-    Dashboard d=new Dashboard();
 
     @FXML
     private void add(MouseEvent event) {

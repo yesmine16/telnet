@@ -20,12 +20,12 @@ public class Stock implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        TreeItem<String> root=new TreeItem<>("root mode");
+        TreeItem<String> root=new TreeItem<>("Stockage principale");
         root.setExpanded(true);
         root.getChildren().addAll(
-                new TreeItem<String>("Item 1"),
-                new TreeItem<String>("Item 2"),
-                new TreeItem<String>("Item 3")
+                new TreeItem<String>("rang A"),
+                new TreeItem<String>("rang B"),
+                new TreeItem<String>("rang C")
         );
 
         tree.setRoot(root);

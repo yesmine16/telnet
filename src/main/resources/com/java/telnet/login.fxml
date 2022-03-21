@@ -2,6 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="473.0" style="-fx-background-color: #1F2F46;" stylesheets="@login.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="473.0" style="-fx-background-color: #1F2F46;" stylesheets="@login.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.LoginController">
    <top>
       <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="600.0" style="-fx-background-color: #f5f5f7;" BorderPane.alignment="CENTER">
          <padding>
@@ -41,16 +42,19 @@
             </Label>
             <AnchorPane prefHeight="200.0" prefWidth="458.0">
                <children>
-                  <TextField layoutX="14.0" layoutY="35.0" prefHeight="40.0" prefWidth="400.0" promptText="Matricule" styleClass="tf_box" stylesheets="@login.css" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="44.0" />
+                  <TextField fx:id="matricule" layoutX="14.0" layoutY="35.0" prefHeight="40.0" prefWidth="400.0" promptText="Matricule" styleClass="tf_box" stylesheets="@login.css" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="44.0" />
                   <FontAwesomeIconView fill="#7c8184" glyphName="USER" layoutX="400.0" layoutY="72.0" size="20" />
                   <FontAwesomeIconView fill="#7c8184" glyphName="LOCK" layoutX="400.0" layoutY="166.0" size="20" />
-                  <PasswordField layoutX="14.0" layoutY="129.0" prefHeight="40.0" prefWidth="400.0" promptText="Mot de passe" styleClass="tf_box" />
+                  <PasswordField fx:id="password" layoutX="14.0" layoutY="129.0" prefHeight="40.0" prefWidth="400.0" promptText="Mot de passe" styleClass="tf_box" />
                </children>
             </AnchorPane>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="btn" stylesheets="@login.css" text="Se connecter" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#loginHandler" prefHeight="40.0" prefWidth="200.0" styleClass="btn" stylesheets="@login.css" text="Se connecter" textFill="WHITE">
                <font>
                   <Font name="Lucida Console" size="12.0" />
-               </font></Button>
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
             <Hyperlink text="problème de connexion ?" textFill="#00a4e4">
                <VBox.margin>
                   <Insets top="20.0" />

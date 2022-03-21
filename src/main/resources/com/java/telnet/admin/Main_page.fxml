@@ -57,12 +57,14 @@
                         <FontAwesomeIconView fill="#7e7e7e" glyphName="BARS" />
                      </graphic>
                   </Label>
+                  <Label fx:id="time" alignment="CENTER" contentDisplay="CENTER" layoutX="567.0" layoutY="31.0" prefHeight="35.0" prefWidth="280.0" text="time" textFill="#7c8184" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="31.0">
+                     <font>
+                        <Font name="Lucida Console" size="15.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </top>
-         <center>
-            <StackPane fx:id="content" prefHeight="800.0" prefWidth="200.0" styleClass="parent" BorderPane.alignment="CENTER" />
-         </center>
          <left>
             <ScrollPane fx:id="slider" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="736.0" prefWidth="338.0" styleClass="parent" BorderPane.alignment="CENTER">
                <content>
@@ -188,7 +190,7 @@
                               <HBox fx:id="stock" alignment="CENTER" layoutX="10.0" layoutY="332.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn">
                                  <children>
                                     <FontAwesomeIconView fill="#aeb4b9" glyphName="ARCHIVE" size="1.3em" styleClass="icon_btn" />
-                                    <Label  alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="stockage" textFill="#aeb4b9">
+                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="stockage" textFill="#aeb4b9">
                                        <font>
                                           <Font name="Lucida Console" size="14.0" />
                                        </font>
@@ -232,6 +234,13 @@
                </BorderPane.margin>
             </ScrollPane>
          </left>
+         <center>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <content>
+                  <StackPane fx:id="content" prefHeight="800.0" prefWidth="933.0" styleClass="parent" />
+               </content>
+            </ScrollPane>
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>

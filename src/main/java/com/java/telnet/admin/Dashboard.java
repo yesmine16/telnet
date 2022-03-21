@@ -1,8 +1,9 @@
 package com.java.telnet.admin;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,6 +25,13 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Dashboard implements Initializable {
@@ -34,7 +42,7 @@ public class Dashboard implements Initializable {
     private Label Menu;
 
     @FXML
-    private Label MenuClose;
+    private Label MenuClose,time;
 
     @FXML
     private Circle avatar;
@@ -66,6 +74,13 @@ public class Dashboard implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            time.setText(LocalDateTime.now().format(formatter));
+        }), new KeyFrame(Duration.seconds(1)));
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
+
 
         Menu.setOnMouseClicked(event -> {
             TranslateTransition slide = new TranslateTransition();
