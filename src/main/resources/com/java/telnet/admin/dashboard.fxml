@@ -28,7 +28,7 @@
                            <children>
                               <Pane prefHeight="46.0" prefWidth="768.0">
                                  <children>
-                                    <Label layoutX="28.0" layoutY="13.0" prefHeight="15.0" text="Tableau de bord" textFill="#7c8184">
+                                    <Label layoutX="28.0" layoutY="13.0" prefHeight="15.0" text="Tableau de bord" textFill="#1c263d">
                                        <font>
                                           <Font name="Lucida Console" size="20.0" />
                                        </font>

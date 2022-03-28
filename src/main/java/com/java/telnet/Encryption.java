@@ -6,8 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 // Java program to calculate MD5 hash value
 public class Encryption {
-    public static String getMd5(String input)
-    {
+    public static String getMd5(String input) {
         try {
 
             // Static getInstance method is called with hashing MD5

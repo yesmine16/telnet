@@ -17,9 +17,8 @@ public class Login extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Se Connecter");
         stage.setScene(scene);
-        stage.show();}
-
-
+        stage.show();
+    }
 
 
     public static void main(String[] args) {

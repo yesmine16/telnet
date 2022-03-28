@@ -12,12 +12,14 @@ module com.java.telnet {
     requires javafx.graphics;
     requires de.jensd.fx.glyphs.fontawesome;
     requires java.sql;
-
+    requires json.simple;
+    requires java.desktop;
     exports com.java.telnet.admin;
-    opens com.java.telnet.admin to javafx.graphics,javafx.fxml;
+    opens com.java.telnet.admin to javafx.graphics,javafx.fxml,javafx.base;
     exports com.java.telnet;
     opens com.java.telnet to javafx.graphics,javafx.fxml;
-
+    exports com.java.telnet.admin.models;
+    opens com.java.telnet.admin.models to javafx.fxml, javafx.graphics;
 
 
 }

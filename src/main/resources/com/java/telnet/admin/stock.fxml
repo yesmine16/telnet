@@ -27,7 +27,7 @@
                            </font>
                         </Label>
                         <FontAwesomeIconView fx:id="fleche" fill="#7c8184" glyphName="ANGLE_RIGHT" size="3em" wrappingWidth="30.457118034362793" />
-                        <Label text="Nom de l'inventaire" textFill="#F8B124">
+                        <Label text="Nom de l'inventaire" textFill="#7C90AD">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -36,7 +36,7 @@
                   </HBox>
                   <HBox alignment="CENTER" layoutX="746.0" layoutY="29.0" prefHeight="39.0" prefWidth="187.0" spacing="10.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #F8B124;">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #7C90AD;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -44,7 +44,7 @@
                               <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="1.3em" text="" wrappingWidth="14.099957466125488" />
                            </graphic>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #F8B124;">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #7C90AD;">
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" size="1.3em" wrappingWidth="15.699994087219238" />
                            </graphic>
@@ -52,7 +52,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #F8B124;">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #7C90AD;">
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="1.3em" text="" wrappingWidth="12.499981880187988" />
                            </graphic>

@@ -1,8 +1,8 @@
-package com.java.telnet.admin;
+package com.java.telnet.admin.models;
 
 public class Const {
-     String nom;
-      String etat;
+    String nom;
+    String etat;
 
     public String getNom() {
         return nom;

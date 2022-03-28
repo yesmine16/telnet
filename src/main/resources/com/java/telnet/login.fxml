@@ -15,16 +15,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="473.0" style="-fx-background-color: #1F2F46;" stylesheets="@login.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="473.0" style="-fx-background-color: #1C263D;" stylesheets="@login.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.LoginController">
    <top>
-      <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="600.0" style="-fx-background-color: #f5f5f7;" BorderPane.alignment="CENTER">
+      <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="600.0" style="-fx-background-color: #E6E7E4;" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
    </top>
-   <right>
+   <center>
       <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="124.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true">
@@ -35,7 +36,7 @@
                   <Insets bottom="40.0" />
                </VBox.margin>
             </ImageView>
-            <Label text="Se connecter" textFill="#f5f5f7">
+            <Label text="Se connecter" textFill="#e6e7e4">
                <font>
                   <Font name="Lucida Console" size="15.0" />
                </font>
@@ -43,9 +44,15 @@
             <AnchorPane prefHeight="200.0" prefWidth="458.0">
                <children>
                   <TextField fx:id="matricule" layoutX="14.0" layoutY="35.0" prefHeight="40.0" prefWidth="400.0" promptText="Matricule" styleClass="tf_box" stylesheets="@login.css" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="44.0" />
-                  <FontAwesomeIconView fill="#7c8184" glyphName="USER" layoutX="400.0" layoutY="72.0" size="20" />
-                  <FontAwesomeIconView fill="#7c8184" glyphName="LOCK" layoutX="400.0" layoutY="166.0" size="20" />
+                  <FontAwesomeIconView fill="#e6e7e4" glyphName="USER" layoutX="400.0" layoutY="72.0" size="20" />
+                  <FontAwesomeIconView fill="#e6e7e4" glyphName="LOCK" layoutX="400.0" layoutY="166.0" size="20" />
                   <PasswordField fx:id="password" layoutX="14.0" layoutY="129.0" prefHeight="40.0" prefWidth="400.0" promptText="Mot de passe" styleClass="tf_box" />
+                  <Text fx:id="actiontarget" fill="#f40000" layoutX="14.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false">
+                     <font>
+                        <Font name="Lucida Console" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="actiontarget1" fill="#f40000" layoutX="14.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
                </children>
             </AnchorPane>
             <Button mnemonicParsing="false" onAction="#loginHandler" prefHeight="40.0" prefWidth="200.0" styleClass="btn" stylesheets="@login.css" text="Se connecter" textFill="WHITE">
@@ -55,7 +62,7 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Hyperlink text="problème de connexion ?" textFill="#00a4e4">
+            <Hyperlink onAction="#handle" text="problème de connexion ?" textFill="#e6e7e4">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -65,5 +72,5 @@
             </Hyperlink>
          </children>
       </VBox>
-   </right>
+   </center>
 </BorderPane>

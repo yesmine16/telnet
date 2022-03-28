@@ -17,10 +17,9 @@ public class Stock implements Initializable {
     private Pane pane;
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        TreeItem<String> root=new TreeItem<>("Stockage principale");
+        TreeItem<String> root = new TreeItem<>("Stockage principale");
         root.setExpanded(true);
         root.getChildren().addAll(
                 new TreeItem<String>("rang A"),

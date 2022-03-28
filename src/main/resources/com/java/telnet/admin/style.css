@@ -1,15 +1,16 @@
 .parent
 {
     -fx-background-color:#f5f5f7;
+
 }
 .side_bar1{
-    -fx-background-color: #1F2F46;
+    -fx-background-color: #1C263D;
     -fx-background-radius : 2.0em;
 
 
 }
 .btn:hover{
-    -fx-background-color: #202332;
+    -fx-background-color: #0D1B2B;
 
 }
 .icon_btn:hover{
@@ -30,7 +31,6 @@
     -fx-background-radius: 100%;
     -fx-border-radius: 100%;
     -fx-border-width: 5px;
-    -fx-border-color: #F8B124;
 
 }
 
@@ -131,14 +131,14 @@
 .pagination > .pagination-control > .control-box > .number-button:selected,
 .pagination > .pagination-control > .control-box > .bullet-button:selected{
     -fx-background-insets: 0;
-    -fx-background-color:  #F8B124;
+    -fx-background-color:  #7C90AD;
     -fx-text-fill: #f5f5f7;
 }
 .table-view .column-header,
 .table-view .column-header .filler,
 .table-view .column-header .label,
 .table-view .column-header-background .filler {
-    -fx-background-color: #00a4e4;
+    -fx-background-color: #1C263D;
     -fx-text-fill: white;
     -fx-border-radius: 1.3em;
 
@@ -155,7 +155,7 @@
 
 .tab-pane .tab
 {
-    -fx-background-color: #00a4e4;
+    -fx-background-color: #435B7B;
     -fx-border-radius: 1.3em;
     -fx-font-family: "Lucida Console";
 
@@ -167,7 +167,7 @@
 .tab-pane .tab:selected
 {
     -fx-background-color: #f5f5f7;
-    -fx-text-fill: #00a4e4;
+    -fx-text-fill: #435B7B;
 
 
 }
@@ -184,3 +184,63 @@
     -fx-alignment: CENTER;
     -fx-text-fill: #00a4e4;
 }
+
+.dialog-pane{
+    -fx-background-color: white;
+    -fx-border-color:transparent;
+    -fx-border-width:2.0px;
+    -fx-border-radius: 1.3em;
+    -fx-font-family: "Lucida Console";
+    -fx-text-fill: #0D1B2B;
+
+}
+
+/**Costumization of The Bar where the buttons are located**/
+.dialog-pane > .button-bar > .container {
+    -fx-background-color:#E6E7E4;
+    -fx-background-radius:1.3em;
+
+}
+
+.dialog-pane > .content.label {
+    -fx-padding: 0.5em 0.5em 0.5em 0.5em;
+    -fx-font-size:15.0px;
+    -fx-text-fill: #435B7B;
+
+
+}
+.dialog-pane:header .header-panel {
+    -fx-background-radius:1.3em;
+    -fx-pref-height: 60px;
+
+
+
+}
+
+.dialog-pane:header .header-panel .label{
+    -fx-background-radius:1.3em;
+    -fx-font-size:15.0px;
+    -fx-text-fill: #0D1B2B;
+
+}
+
+.dialog-pane .button{
+    -fx-background-color:#1C263D;
+    -fx-text-fill:#E6E7E4;
+    -fx-wrap-text: true;
+    -fx-cursor:hand;
+    -fx-background-radius: 1.3em;
+}
+
+.dialog-pane .button:hover{
+    -fx-background-color:#0D1B2B;
+    -fx-text-fill:#E6E7E4;
+    -fx-font-weight:bold;
+}
+/*palette{*/
+/*    #0D1B2B*/
+/*    #1C263D*/
+/*    #435B7B*/
+/*    #7C90AD*/
+/*    #E6E7E4*/
+/*}*/

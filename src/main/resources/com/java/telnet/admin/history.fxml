@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="603.0" prefWidth="1056.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane layoutX="172.0" layoutY="78.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -56,7 +55,7 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0">
                                  <children>
-                                    <Label prefHeight="18.0" prefWidth="64.0" text="lebel" textFill="#7c8184" />
+                                    <Label prefHeight="18.0" prefWidth="64.0" text="label" textFill="#7c8184" />
                                     <TextField />
                                  </children>
                               </HBox>
@@ -68,7 +67,7 @@
                               </HBox>
                            </children>
                         </HBox>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="199.0" layoutY="21.0" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #F8B124;">
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="199.0" layoutY="21.0" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -76,7 +75,7 @@
                               <FontAwesomeIconView fill="WHITE" glyphName="FILTER" size="1.3em" />
                            </graphic>
                         </Label>
-                        <Label layoutX="31.0" layoutY="21.0" prefHeight="30.0" prefWidth="113.0" text="Historique" textFill="#ccd1d4">
+                        <Label layoutX="31.0" layoutY="21.0" prefHeight="30.0" prefWidth="113.0" text="Historique" textFill="#1c263d">
                            <font>
                               <Font size="20.0" />
                            </font>

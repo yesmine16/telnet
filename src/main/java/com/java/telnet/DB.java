@@ -10,9 +10,10 @@ public class DB {
             con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/telnet", "postgres", "admin");
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-return con;    }
+        return con;
+    }
 
 }
