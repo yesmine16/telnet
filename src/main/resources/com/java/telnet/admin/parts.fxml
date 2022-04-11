@@ -173,10 +173,10 @@
                         <TableView fx:id="table" prefHeight="554.0" prefWidth="1784.0">
                            <columns>
                               <TableColumn fx:id="internal_pn" minWidth="100.0" prefWidth="-1.0" text="numéro interne" />
-                              <TableColumn fx:id="part_numb" minWidth="100.0" prefWidth="-1.0" text="numéro externe" />
                               <TableColumn fx:id="nom" minWidth="100.0" prefWidth="75.0" text="nom" />
                               <TableColumn fx:id="label" minWidth="100.0" prefWidth="-1.0" text="label" />
                               <TableColumn fx:id="desc" minWidth="100.0" prefWidth="75.0" text="Description" />
+                              <TableColumn fx:id="cat" prefWidth="75.0" text="Catégorie" />
                               <TableColumn fx:id="soft" minWidth="100.0" prefWidth="-1.0" text="etat software" />
                               <TableColumn fx:id="param" minWidth="100.0" prefWidth="-1.0" text="paramètres" />
                               <TableColumn fx:id="classification" minWidth="100.0" prefWidth="-1.0" text="classification" />
@@ -190,6 +190,7 @@
                               <TableColumn fx:id="modif_by" minWidth="100.0" prefWidth="-1.0" text="modifier par" />
                               <TableColumn fx:id="comment" minWidth="100.0" prefWidth="-1.0" text="commentaire" />
                               <TableColumn fx:id="etat" minWidth="100.0" prefWidth="-1.0" text="etat" />
+                              <TableColumn fx:id="av" prefWidth="75.0" text="Disponibilité" />
                            </columns>
                            <contextMenu>
                               <ContextMenu fx:id="menu">

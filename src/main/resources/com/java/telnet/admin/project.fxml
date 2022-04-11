@@ -20,18 +20,24 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="742.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Projet">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Projet">
    <children>
       <BorderPane layoutX="209.0" layoutY="137.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <ScrollPane prefHeight="604.0" prefWidth="226.0" styleClass="parent" BorderPane.alignment="CENTER">
+            <ScrollPane prefHeight="712.0" prefWidth="304.0" styleClass="parent" BorderPane.alignment="CENTER">
                <content>
-                  <AnchorPane prefHeight="634.0" prefWidth="230.0" style="-fx-background-radius: 1.3em;" styleClass="parent">
+                  <AnchorPane prefHeight="714.0" prefWidth="735.0" style="-fx-background-radius: 1.3em;" styleClass="parent">
                      <children>
-                        <TableView fx:id="table" layoutX="1.0" layoutY="6.0" prefHeight="671.0" prefWidth="230.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="table" prefHeight="712.0" prefWidth="603.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
                               <TableColumn fx:id="nom" prefWidth="75.0" text="nom" />
-                              <TableColumn fx:id="etat" prefWidth="75.0" text="etat" />
+                              <TableColumn fx:id="desc" prefWidth="75.0" text="description" />
+                              <TableColumn fx:id="etat" prefWidth="75.0" text="production" />
+                              <TableColumn fx:id="tarif" prefWidth="75.0" text="tarification" />
+                              <TableColumn fx:id="date" prefWidth="75.0" text="Date création" />
+                              <TableColumn fx:id="created_by" prefWidth="75.0" text="crée par" />
+                              <TableColumn fx:id="team" prefWidth="75.0" text="Chargé par " />
+                              <TableColumn fx:id="comment" prefWidth="75.0" text="commentaire" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -92,7 +98,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <Button layoutX="782.0" layoutY="21.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="128.0" style="-fx-background-color: #435B7B; -fx-background-radius: 2.0em;" text="Ajouter" textFill="WHITE">
+                        <Button layoutX="777.0" layoutY="15.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="133.0" style="-fx-background-color: #435B7B; -fx-background-radius: 2.0em;" text="Ajouter" textFill="WHITE">
                            <font>
                               <Font name="Lucida Console" size="14.0" />
                            </font>
@@ -117,7 +123,7 @@
                                              <children>
                                                 <HBox alignment="CENTER_LEFT" layoutX="509.0" layoutY="-1.0" prefHeight="46.0" prefWidth="206.0">
                                                    <children>
-                                                      <TextField prefHeight="26.0" prefWidth="212.0" style="-fx-background-radius: 2.0em;" />
+                                                      <TextField fx:id="recherche" prefHeight="26.0" prefWidth="212.0" style="-fx-background-radius: 2.0em;" />
                                                       <FontAwesomeIconView fill="#7c8184" glyphName="SEARCH" size="1.3em" text="">
                                                          <cursor>
                                                             <Cursor fx:constant="HAND" />
@@ -127,7 +133,7 @@
                                                 </HBox>
                                                 <HBox alignment="CENTER" prefHeight="47.0" prefWidth="217.0" spacing="10.0">
                                                    <children>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
+                                                      <Label fx:id="add" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
                                                          <cursor>
                                                             <Cursor fx:constant="HAND" />
                                                          </cursor>
@@ -159,9 +165,22 @@
                                        <center>
                                           <TableView fx:id="table2" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                              <columns>
-                                                <TableColumn prefWidth="75.0" text="C1" />
-                                                <TableColumn prefWidth="75.0" text="C2" />
+                                                <TableColumn fx:id="num" prefWidth="143.1999877691269" text="Numéro du composant" />
+                                                <TableColumn fx:id="name" prefWidth="75.0" text="Nom du composant" />
+                                                <TableColumn fx:id="label" prefWidth="88.79995727539062" text="label" />
+                                                <TableColumn fx:id="description" prefWidth="75.0" text="Description" />
+                                                <TableColumn fx:id="design" prefWidth="75.0" text="designators" />
+                                                <TableColumn fx:id="qty" prefWidth="75.0" text="Quantité" />
+                                                <TableColumn fx:id="comm" prefWidth="75.0" text="comment" />
+                                                <TableColumn fx:id="in_stock" prefWidth="75.0" text="Quantité en stock" />
+                                                <TableColumn fx:id="to_buy" prefWidth="122.39996337890625" text="Quantité à acheter" />
+                                                <TableColumn fx:id="resp" prefWidth="65.60009765625" text="Ajouté par" />
+                                                <TableColumn fx:id="date_creation" prefWidth="75.0" text="Date ajout" />
+                                                <TableColumn fx:id="etat_bom" prefWidth="75.0" text="Etat " />
                                              </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
                                           </TableView>
                                        </center>
                                     </BorderPane>
@@ -191,7 +210,7 @@
                                                             <FontAwesomeIconView fill="WHITE" glyphName="SPINNER" />
                                                          </graphic>
                                                       </Label>
-                                                      <Label alignment="CENTER" layoutX="623.0" layoutY="39.0" prefHeight="32.0" prefWidth="128.0" style="-fx-background-radius: 1.3em; -fx-background-color: #3cad45;" text="Assemblé" textFill="WHITE">
+                                                      <Label alignment="CENTER" layoutX="623.0" layoutY="39.0" prefHeight="32.0" prefWidth="128.0" style="-fx-background-radius: 1.3em; -fx-background-color: #3cad45;" text="Terminé" textFill="WHITE">
                                                          <font>
                                                             <Font name="Lucida Console" size="15.0" />
                                                          </font>

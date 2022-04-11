@@ -4,10 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
-import java.util.List;
 
 public class Main_page extends Application {
     @Override
@@ -20,8 +18,6 @@ public class Main_page extends Application {
     }
 
 
-    public static void main(String[] args) throws IOException {
-        launch();
-    }
+
 
 }

@@ -4,100 +4,365 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" prefHeight="565.0" prefWidth="512.0" style="-fx-background-radius: 2.0em;" styleClass="parent" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-   <effect>
-      <DropShadow height="10.0" radius="4.5" width="10.0">
-         <color>
-            <Color opacity="0.6541095972061157" />
-         </color>
-      </DropShadow>
-   </effect>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="963.0" prefWidth="1022.0" styleClass="parent" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Privileges">
    <children>
-      <Label prefHeight="22.0" prefWidth="334.0" text="Ajouter nouveau utilisateur" textFill="#00a4e4">
-         <VBox.margin>
-            <Insets bottom="70.0" top="30.0" />
-         </VBox.margin>
-         <font>
-            <Font name="Lucida Console" size="20.0" />
-         </font>
-      </Label>
-      <AnchorPane prefHeight="59.0" prefWidth="602.0">
-         <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="286.0" layoutY="30.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="54.0" style="-fx-background-color: #ef3648; -fx-background-radius: 30px;">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="CAMERA" selectionEnd="1" size="1.5em" />
-               </graphic>
-            </Button>
-            <Circle fx:id="avatar" fill="TRANSPARENT" layoutX="256.0" layoutY="14.0" radius="65.0" stroke="#ef3648" strokeType="INSIDE" />
-         </children>
-         <VBox.margin>
-            <Insets top="20.0" />
-         </VBox.margin>
-      </AnchorPane>
-      <HBox alignment="CENTER" prefHeight="55.0" prefWidth="470.0">
-         <children>
-            <Label text="Matricule">
-               <HBox.margin>
-                  <Insets right="100.0" />
-               </HBox.margin>
-            </Label>
-            <TextField>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </TextField>
-         </children>
-         <VBox.margin>
-            <Insets top="50.0" />
-         </VBox.margin>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="55.0" prefWidth="470.0">
-         <children>
-            <Label text="Nom et Prénom">
-               <HBox.margin>
-                  <Insets right="100.0" />
-               </HBox.margin>
-            </Label>
-            <TextField>
-               <HBox.margin>
-                  <Insets right="50.0" />
-               </HBox.margin>
-            </TextField>
-         </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="55.0" prefWidth="470.0">
-         <children>
-            <Label text="Statut">
-               <HBox.margin>
-                  <Insets right="100.0" />
-               </HBox.margin>
-            </Label>
-            <TextField />
-         </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </HBox>
-      <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="230.0" style="-fx-background-radius: 1.3em; -fx-background-color: #3cad45;" text="submit" textFill="WHITE">
-         <VBox.margin>
-            <Insets top="50.0" />
-         </VBox.margin>
-      </Button>
+      <ScrollPane layoutX="637.0" layoutY="126.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <BorderPane prefHeight="935.0" prefWidth="1050.0">
+               <center>
+                  <VBox prefHeight="698.0" prefWidth="968.0" stylesheets="@style.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label prefHeight="22.0" prefWidth="334.0" text="Ajouter nouveau utilisateur" textFill="#1c263d">
+                           <font>
+                              <Font name="Lucida Console" size="20.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="300.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label prefHeight="22.0" prefWidth="334.0" text="Information personnelle :" textFill="#1c263d">
+                           <VBox.margin>
+                              <Insets bottom="70.0" top="30.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Lucida Console" size="20.0" />
+                           </font>
+                        </Label>
+                        <AnchorPane prefHeight="59.0" prefWidth="602.0">
+                           <children>
+                              <Button fx:id="pic" alignment="CENTER" contentDisplay="CENTER" layoutX="570.0" layoutY="61.0" mnemonicParsing="false" onAction="#img" prefHeight="55.0" prefWidth="54.0" style="-fx-background-color: #0D1B2B; -fx-background-radius: 30px;">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="CAMERA" selectionEnd="1" size="1.5em" />
+                                 </graphic>
+                              </Button>
+                              <Circle fx:id="avatar" fill="TRANSPARENT" layoutX="505.0" layoutY="30.0" radius="92.0" stroke="#0d1b2b" strokeType="INSIDE" style="-fx-focus-traversable: absolute;" AnchorPane.leftAnchor="413.0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </AnchorPane>
+                        <VBox alignment="CENTER" prefHeight="668.0" prefWidth="1006.0">
+                           <children>
+                              <GridPane alignment="CENTER" prefHeight="238.0" prefWidth="1050.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="55.0" prefWidth="470.0">
+                                       <children>
+                                          <Label text="Matricule" textFill="#435b7b">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField fx:id="mat">
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets />
+                                       </GridPane.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="55.0" prefWidth="470.0" GridPane.columnIndex="1">
+                                       <children>
+                                          <Label text="Nom et Prénom" textFill="#435b7b">
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField fx:id="nom">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="55.0" prefWidth="470.0" GridPane.rowIndex="1">
+                                       <children>
+                                          <Label text="Statut" textFill="#435b7b">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField fx:id="stat">
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="55.0" prefWidth="470.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <children>
+                                          <Label text="Email" textFill="#435b7b">
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField fx:id="mail">
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="74.0" prefWidth="670.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+                                       <children>
+                                          <Label text="Numero telephone" textFill="#435b7b">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField fx:id="phone">
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets />
+                                       </GridPane.margin>
+                                    </HBox>
+                                 </children>
+                              </GridPane>
+                              <Line endX="-485.9771423339844" opacity="0.21" startX="500.0" />
+                              <VBox prefHeight="418.0" prefWidth="1050.0">
+                                 <children>
+                                    <Label prefHeight="22.0" prefWidth="334.0" text="Les privilèges :" textFill="#1c263d">
+                                       <font>
+                                          <Font name="Lucida Console" size="20.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="20.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <CheckBox fx:id="tout" mnemonicParsing="false" onAction="#select" text="Tout Selectionner" textFill="#0d1b2b" />
+                                    <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="900.0">
+                                       <children>
+                                          <Label prefHeight="87.0" prefWidth="167.0" text="Tableau de board " textFill="#435b7b">
+                                             <font>
+                                                <Font name="Lucida Console" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <ToggleButton fx:id="tb1" mnemonicParsing="false" text="Oui">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="grp" />
+                                             </toggleGroup>
+                                          </ToggleButton>
+                                          <ToggleButton fx:id="tb2" mnemonicParsing="false" text="Non" toggleGroup="$grp" />
+                                          <ChoiceBox fx:id="tableau" prefWidth="150.0" visible="false">
+                                             <HBox.margin>
+                                                <Insets left="500.0" />
+                                             </HBox.margin>
+                                          </ChoiceBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="900.0">
+                                       <children>
+                                          <Label prefHeight="87.0" prefWidth="167.0" text="Utilisateurs" textFill="#435b7b">
+                                             <font>
+                                                <Font name="Lucida Console" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <ToggleButton mnemonicParsing="false" text="Oui">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="grp2" />
+                                             </toggleGroup>
+                                          </ToggleButton>
+                                          <ToggleButton mnemonicParsing="false" text="Non" toggleGroup="$grp2" />
+                                          <ChoiceBox fx:id="users" prefWidth="150.0" visible="false">
+                                             <HBox.margin>
+                                                <Insets left="500.0" />
+                                             </HBox.margin>
+                                          </ChoiceBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="900.0">
+                                       <children>
+                                          <Label prefHeight="87.0" prefWidth="167.0" text="Les composants" textFill="#435b7b">
+                                             <font>
+                                                <Font name="Lucida Console" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <ToggleButton mnemonicParsing="false" text="Oui">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="grp3" />
+                                             </toggleGroup>
+                                          </ToggleButton>
+                                          <ToggleButton mnemonicParsing="false" text="Non" toggleGroup="$grp3" />
+                                          <ChoiceBox fx:id="parts" prefWidth="150.0" visible="false">
+                                             <HBox.margin>
+                                                <Insets left="500.0" />
+                                             </HBox.margin>
+                                          </ChoiceBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="900.0">
+                                       <children>
+                                          <Label prefHeight="87.0" prefWidth="167.0" text="Historique" textFill="#435b7b">
+                                             <font>
+                                                <Font name="Lucida Console" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <ToggleButton mnemonicParsing="false" text="Oui">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="grp4" />
+                                             </toggleGroup>
+                                          </ToggleButton>
+                                          <ToggleButton mnemonicParsing="false" text="Non" toggleGroup="$grp4" />
+                                          <ChoiceBox fx:id="hist" prefWidth="150.0" visible="false">
+                                             <HBox.margin>
+                                                <Insets left="500.0" />
+                                             </HBox.margin>
+                                          </ChoiceBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="900.0">
+                                       <children>
+                                          <Label prefHeight="87.0" prefWidth="167.0" text="Les projets" textFill="#435b7b">
+                                             <font>
+                                                <Font name="Lucida Console" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <ToggleButton mnemonicParsing="false" text="Oui">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="grp5" />
+                                             </toggleGroup>
+                                          </ToggleButton>
+                                          <ToggleButton mnemonicParsing="false" text="Non" toggleGroup="$grp5" />
+                                          <ChoiceBox fx:id="projet" prefWidth="150.0" visible="false">
+                                             <HBox.margin>
+                                                <Insets left="500.0" />
+                                             </HBox.margin>
+                                          </ChoiceBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="900.0">
+                                       <children>
+                                          <Label prefHeight="87.0" prefWidth="167.0" text="Storage" textFill="#435b7b">
+                                             <font>
+                                                <Font name="Lucida Console" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <ToggleButton mnemonicParsing="false" text="Oui">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="grp6" />
+                                             </toggleGroup>
+                                          </ToggleButton>
+                                          <ToggleButton mnemonicParsing="false" text="Non" toggleGroup="$grp6" />
+                                          <ChoiceBox fx:id="store" prefWidth="150.0" visible="false">
+                                             <HBox.margin>
+                                                <Insets left="500.0" />
+                                             </HBox.margin>
+                                          </ChoiceBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="900.0">
+                                       <children>
+                                          <Label prefHeight="87.0" prefWidth="167.0" text="Achat" textFill="#435b7b">
+                                             <font>
+                                                <Font name="Lucida Console" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <ToggleButton mnemonicParsing="false" text="Oui">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="grp7" />
+                                             </toggleGroup>
+                                          </ToggleButton>
+                                          <ToggleButton mnemonicParsing="false" text="Non" toggleGroup="$grp7" />
+                                          <ChoiceBox fx:id="buy" prefWidth="150.0" visible="false">
+                                             <HBox.margin>
+                                                <Insets left="500.0" />
+                                             </HBox.margin>
+                                          </ChoiceBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </center>
+               <bottom>
+                  <Button fx:id="submit" mnemonicParsing="false" prefHeight="39.0" prefWidth="230.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;" text="submit" textFill="WHITE" BorderPane.alignment="CENTER">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </bottom>
+            </BorderPane>
+         </content>
+      </ScrollPane>
    </children>
-</VBox>
+</AnchorPane>

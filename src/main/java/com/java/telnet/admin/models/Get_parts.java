@@ -3,12 +3,27 @@ package com.java.telnet.admin.models;
 import java.sql.Timestamp;
 
 public class Get_parts {
-   String internal_pn,part_number, name, label, classification, access, origin, project, storage,  modified_by, comment,stat,description, soft_version, parametre,stock;
+   String internal_pn,part_number, name, label, classification, access, origin, project, storage, av,cat, modified_by, comment,stat,description, soft_version, parametre,stock;
    Timestamp created_on, modified_on;
 
-    public Get_parts(String internal_pn, String part_number, String name, String label, String classification, String access, String origin, String project, String storage,Timestamp created_on, Timestamp modified_on, String modified_by, String comment, String stat, String description, String soft_version, String parametre, String stock) {
+    public String getAv() {
+        return av;
+    }
+
+    public void setAv(String av) {
+        this.av = av;
+    }
+
+    public String getCat() {
+        return cat;
+    }
+
+    public void setCat(String cat) {
+        this.cat = cat;
+    }
+
+    public Get_parts(String internal_pn, String name, String label, String classification, String access, String origin, String project, String storage, Timestamp created_on, Timestamp modified_on, String modified_by, String comment, String stat, String description, String soft_version, String parametre, String stock, String cat, String av) {
         this.internal_pn = internal_pn;
-        this.part_number = part_number;
         this.name = name;
         this.label = label;
         this.classification = classification;
@@ -25,6 +40,8 @@ public class Get_parts {
         this.soft_version = soft_version;
         this.parametre = parametre;
         this.stock = stock;
+        this.cat=cat;
+        this.av=av;
 
     }
 

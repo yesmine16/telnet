@@ -8,11 +8,9 @@ module com.java.telnet {
     requires validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
-    requires eu.hansolo.tilesfx;
     requires javafx.graphics;
     requires de.jensd.fx.glyphs.fontawesome;
     requires java.sql;
-    requires json.simple;
     requires java.desktop;
     exports com.java.telnet.admin;
     opens com.java.telnet.admin to javafx.graphics,javafx.fxml,javafx.base;

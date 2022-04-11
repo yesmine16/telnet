@@ -18,16 +18,16 @@
 
 <AnchorPane fx:id="menu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="808.0" prefWidth="1280.0" styleClass="parent" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Dashboard">
    <children>
-      <ScrollPane fx:id="main_page" layoutX="10.0" layoutY="10.0" prefHeight="748.0" prefWidth="3000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+      <ScrollPane fx:id="main_page" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
          <content>
-            <StackPane fx:id="content" prefHeight="800.0" prefWidth="2500.0" styleClass="parent" />
+            <StackPane fx:id="content" styleClass="parent" />
          </content>
       </ScrollPane>
       <ScrollPane fx:id="slider" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="736.0" prefWidth="321.0" styleClass="parent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <content>
-            <AnchorPane minWidth="-Infinity" prefHeight="600.0" prefWidth="320.0" styleClass="side_bar1" stylesheets="@style.css">
+            <AnchorPane minWidth="-Infinity" styleClass="side_bar1" stylesheets="@style.css">
                <children>
-                  <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="76.0" prefHeight="612.0" prefWidth="320.0" spacing="10.0" stylesheets="@style.css" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+                  <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="76.0" prefHeight="612.0" prefWidth="320.0" spacing="10.0" stylesheets="@style.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
                      <children>
                         <Circle fx:id="avatar" fill="TRANSPARENT" radius="65.0" stroke="#00a4e4" strokeType="INSIDE">
                            <VBox.margin>
@@ -44,7 +44,7 @@
                         </Label>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                            <children>
-                              <FontAwesomeIconView fill="#E6E7E4" glyphName="GEAR" size="1.5em" styleClass="icon_btn">
+                              <FontAwesomeIconView fx:id="param" fill="#E6E7E4" glyphName="GEAR" size="1.5em" styleClass="icon_btn">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -57,7 +57,7 @@
                            </children>
                         </HBox>
                         <Line endX="100.0" startX="-100.0" stroke="#bdc0c1" />
-                        <HBox fx:id="dashboard" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn">
+                        <HBox fx:id="dashboard" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
                            <children>
                               <FontAwesomeIconView fill="#E6E7E4" glyphName="DASHBOARD" selectionFill="#FFFFFF" size="1.3em" styleClass="icon_btn" text="" wrappingWidth="16.499986171722412">
                                  <HBox.margin>
@@ -80,7 +80,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </HBox>
-                        <HBox fx:id="users" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn">
+                        <HBox fx:id="users" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
                            <children>
                               <FontAwesomeIconView fill="#E6E7E4" glyphName="USERS" size="1.3em" styleClass="icon_btn" text="" />
                               <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Utilisateurs" textFill="#E6E7E4">
@@ -96,7 +96,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </HBox>
-                        <HBox fx:id="project" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn">
+                        <HBox fx:id="project" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
                            <children>
                               <FontAwesomeIconView fill="#E6E7E4" glyphName="LIST" size="1.3em" styleClass="icon_btn" />
                               <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Projets" textFill="#E6E7E4">
@@ -112,7 +112,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </HBox>
-                        <HBox fx:id="parts" alignment="CENTER" layoutX="10.0" layoutY="161.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn">
+                        <HBox fx:id="parts" alignment="CENTER" layoutX="10.0" layoutY="161.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
                            <children>
                               <FontAwesomeIconView fill="#E6E7E4" glyphName="MICROCHIP" size="1.3em" styleClass="icon_btn" />
                               <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Les composants" textFill="#E6E7E4">
@@ -128,7 +128,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </HBox>
-                        <HBox fx:id="history" alignment="CENTER" layoutX="10.0" layoutY="111.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn">
+                        <HBox fx:id="history" alignment="CENTER" layoutX="10.0" layoutY="111.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
                            <children>
                               <FontAwesomeIconView fill="#E6E7E4" glyphName="HISTORY" size="1.3em" styleClass="icon_btn" />
                               <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Historique" textFill="#E6E7E4">
@@ -144,7 +144,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </HBox>
-                        <HBox fx:id="stock" alignment="CENTER" layoutX="10.0" layoutY="332.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn">
+                        <HBox fx:id="stock" alignment="CENTER" layoutX="10.0" layoutY="332.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
                            <children>
                               <FontAwesomeIconView fill="#E6E7E4" glyphName="ARCHIVE" size="1.3em" styleClass="icon_btn" />
                               <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="stockage" textFill="#E6E7E4">
@@ -160,7 +160,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </HBox>
-                        <HBox fx:id="achat" alignment="CENTER" layoutX="10.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn">
+                        <HBox fx:id="achat" alignment="CENTER" layoutX="10.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
                            <children>
                               <FontAwesomeIconView fill="#E6E7E4" glyphName="SHOPPING_CART" size="1.3em" styleClass="icon_btn" />
                               <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Achat" textFill="#E6E7E4">

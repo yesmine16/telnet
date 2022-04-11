@@ -4,6 +4,7 @@ import com.java.telnet.DB;
 import com.java.telnet.Login;
 import com.java.telnet.LoginController;
 import com.java.telnet.admin.models.Get_user;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -20,13 +21,11 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -39,10 +38,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Dashboard implements Initializable {
 
@@ -85,6 +81,8 @@ public class Dashboard implements Initializable {
     private AnchorPane menu;
     @FXML
     private Label name;
+    @FXML
+    private FontAwesomeIconView param;
 
     public void load() {
         DB db = new DB();
@@ -118,7 +116,14 @@ public class Dashboard implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //load();
+        load();
+        dashboard.setManaged(false);
+        parts.setManaged(false);
+        project.setManaged(false);
+        history.setManaged(false);
+        achat.setManaged(false);
+        stock.setManaged(false);
+        users.setManaged(false);
         name.setText(LoginController.name);
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -166,92 +171,129 @@ public class Dashboard implements Initializable {
                 MenuClose.setVisible(false);
             });
         });
+        String[] s = LoginController.getS();
+        for (int i = 0; i < 7; i++) {
+            List ls = List.of(s[i].replaceAll("[{}]", "").split(","));
+            if (ls.get(0).equals("oui") && i == 0) {
+                dashboard.setVisible(true);
+                dashboard.setManaged(true);
+                try {
+                    content.getChildren().setAll((Node) FXMLLoader.load(getClass().getResource("dashboard.fxml")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                dashboard.setOnMouseClicked(event -> {
+                    try {
+                        Parent fxml = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+                        content.getChildren().removeAll();
+                        content.getChildren().setAll(fxml);
 
+                    } catch (IOException ex) {
 
-        try {
-            content.getChildren().setAll((Node) FXMLLoader.load(getClass().getResource("dashboard.fxml")));
-        } catch (IOException e) {
-            e.printStackTrace();
+                    }
+                });
+            }
+            if (ls.get(0).equals("oui") && i == 3) {
+                project.setVisible(true);
+                project.setManaged(true);
+                project.setOnMouseClicked(event -> {
+                    try {
+                        Parent fxml = FXMLLoader.load(getClass().getResource("project.fxml"));
+                        content.getChildren().removeAll();
+                        content.getChildren().setAll(fxml);
+
+                    } catch (IOException ex) {
+
+                    }
+                });
+            }
+            if (ls.get(0).equals("oui") && i == 1) {
+                users.setVisible(true);
+                users.setManaged(true);
+                users.setOnMouseClicked(event -> {
+                    try {
+                        Parent fxml = FXMLLoader.load(getClass().getResource("users.fxml"));
+                        content.getChildren().removeAll();
+                        content.getChildren().setAll(fxml);
+
+                    } catch (IOException ex) {
+
+                    }
+                });
+            }
+            if (ls.get(0).equals("oui") && i == 2) {
+                parts.setVisible(true);
+                parts.setManaged(true);
+
+                parts.setOnMouseClicked(event -> {
+                    try {
+                        Parent fxml = FXMLLoader.load(getClass().getResource("parts.fxml"));
+                        content.getChildren().removeAll();
+                        content.getChildren().setAll(fxml);
+
+                    } catch (IOException ex) {
+
+                    }
+                });
+            }
+            if (ls.get(0).equals("oui") && i == 4) {
+                stock.setVisible(true);
+                stock.setManaged(true);
+                stock.setOnMouseClicked(event -> {
+                    try {
+                        Parent fxml = FXMLLoader.load(getClass().getResource("stock.fxml"));
+                        content.getChildren().removeAll();
+                        content.getChildren().setAll(fxml);
+
+                    } catch (IOException ex) {
+
+                    }
+                });
+            }
+            if (ls.get(0).equals("oui") && i == 6) {
+                achat.setVisible(true);
+                achat.setManaged(true);
+
+                achat.setOnMouseClicked(event -> {
+                    try {
+                        Parent fxml = FXMLLoader.load(getClass().getResource("achat.fxml"));
+                        content.getChildren().removeAll();
+                        content.getChildren().setAll(fxml);
+
+                    } catch (IOException ex) {
+
+                    }
+                });
+            }
+            if (ls.get(0).equals("oui") && i == 5) {
+                history.setVisible(true);
+                history.setManaged(true);
+                history.setOnMouseClicked(event -> {
+                    try {
+                        Parent fxml = FXMLLoader.load(getClass().getResource("history.fxml"));
+                        content.getChildren().removeAll();
+                        content.getChildren().setAll(fxml);
+
+                    } catch (IOException ex) {
+
+                    }
+                });
+            }
         }
-        dashboard.setOnMouseClicked(event -> {
-            try {
-                Parent fxml = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-                content.getChildren().removeAll();
-                content.getChildren().setAll(fxml);
+        param.setOnMouseClicked(event->{
 
-            } catch (IOException ex) {
-
-            }
-        });
-        project.setOnMouseClicked(event -> {
-            try {
-                Parent fxml = FXMLLoader.load(getClass().getResource("project.fxml"));
-                content.getChildren().removeAll();
-                content.getChildren().setAll(fxml);
-
-            } catch (IOException ex) {
-
-            }
-        });
-        users.setOnMouseClicked(event -> {
-            try {
-                Parent fxml = FXMLLoader.load(getClass().getResource("users.fxml"));
-                content.getChildren().removeAll();
-                content.getChildren().setAll(fxml);
-
-            } catch (IOException ex) {
-
-            }
-        });
-        parts.setOnMouseClicked(event -> {
-            try {
-                Parent fxml = FXMLLoader.load(getClass().getResource("parts.fxml"));
-                content.getChildren().removeAll();
-                content.getChildren().setAll(fxml);
-
-            } catch (IOException ex) {
-
-            }
-        });
-        stock.setOnMouseClicked(event -> {
-            try {
-                Parent fxml = FXMLLoader.load(getClass().getResource("stock.fxml"));
-                content.getChildren().removeAll();
-                content.getChildren().setAll(fxml);
-
-            } catch (IOException ex) {
-
-            }
-        });
-        achat.setOnMouseClicked(event -> {
-            try {
-                Parent fxml = FXMLLoader.load(getClass().getResource("achat.fxml"));
-                content.getChildren().removeAll();
-                content.getChildren().setAll(fxml);
-
-            } catch (IOException ex) {
-
-            }
-        });
-        history.setOnMouseClicked(event -> {
-            try {
-                Parent fxml = FXMLLoader.load(getClass().getResource("history.fxml"));
-                content.getChildren().removeAll();
-                content.getChildren().setAll(fxml);
-
-            } catch (IOException ex) {
-
-            }
+                FXMLLoader loader = new FXMLLoader();
+                try {
+                    Pane pane = loader.load(getClass().getResource("parametre.fxml").openStream());
+                    Stage stage = new Stage();
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.setScene(new Scene(pane));
+                    stage.show();
+                } catch (IOException e) {
+                }
         });
     }
 
-
-    public void setMenu(boolean x) {
-        if (x) {
-            menu.setEffect(new BoxBlur(5.0, 5.0, 1));
-        } else menu.setEffect(new BoxBlur(0, 0, 0));
-
-    }
 
     @FXML
     void logout(MouseEvent event) {
@@ -285,6 +327,6 @@ public class Dashboard implements Initializable {
 
 }
 
-     
+
 
 

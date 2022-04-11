@@ -1,19 +1,18 @@
 package com.java.telnet.admin.models;
 
 import javafx.scene.image.ImageView ;
+import javafx.scene.layout.HBox;
 
-import java.sql.Timestamp;
-import java.util.Date;
 
 public class Get_user {
     Integer id;
-    String matricule;
+    String matricule,phone,email;
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getUser() {
+    public  String getUser() {
         return user;
     }
 
@@ -21,26 +20,58 @@ public class Get_user {
         this.user = user;
     }
 
-    public Timestamp getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    String nom,user;
+    String nom;
+     String user;
     ImageView photo;
     String statut;
-    Timestamp date;
+    String date;
 
-    public Get_user(Integer id, String matricule, ImageView photo, Timestamp date, String nom,String user) {
+    public HBox getAction() {
+        return action;
+    }
+
+    public void setAction(HBox action) {
+        this.action = action;
+    }
+
+    HBox action;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Get_user(Integer id, String matricule, ImageView photo, String date, String nom, String user, HBox action, String phone, String email) {
         this.id = id;
         this.matricule = matricule;
         this.photo=photo;
         this.date=date;
         this.nom=nom;
         this.user=user;
+        this.action=action;
+        this.phone=phone;
+        this.email=email;
+
+
 
     }
 

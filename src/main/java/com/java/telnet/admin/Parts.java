@@ -1,7 +1,6 @@
 package com.java.telnet.admin;
 
 import com.java.telnet.DB;
-import com.java.telnet.admin.models.Const;
 import com.java.telnet.admin.models.Get_parts;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
@@ -19,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -48,7 +48,7 @@ public class Parts implements Initializable {
     private TableColumn<Get_parts, Date> date_modif;
 
     @FXML
-    private TableColumn<Get_parts, String> desc;
+    private TableColumn<Get_parts, String> desc,cat,av;
 
     @FXML
     private TableColumn<Get_parts, String> etat;
@@ -57,7 +57,7 @@ public class Parts implements Initializable {
     private HBox filter;
 
     @FXML
-    private Label filter_btn,name;
+    private Label filter_btn, name;
 
 
     @FXML
@@ -141,32 +141,8 @@ public class Parts implements Initializable {
             PreparedStatement ps = db.connect().prepareStatement("select * from ressources");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Get_parts(
-                        rs.getString(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getString(7),
-                        rs.getString(8),
-                        rs.getString(9),
-                        rs.getTimestamp(14),
-                        rs.getTimestamp(15),
-                        rs.getString(12),
-                        rs.getString(13),
-                        rs.getString(10),
-                        rs.getString(11),
-                        rs.getString(16),
-                        rs.getString(17),
-                        rs.getString(18)));
+                list.add(new Get_parts(rs.getString(1), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getTimestamp(14), rs.getTimestamp(15), rs.getString(12), rs.getString(13), rs.getString(10), rs.getString(11), rs.getString(16), rs.getString(17), rs.getString(18), rs.getString(19), rs.getString(20)));
                 table.setItems(list);
-
-
-
-/*
-                SELECT internal_pn, part_number, name, label, description_id, soft_version, parametre, classification, access, origin, project_id, storage, stock, created_on, modified_on, modified_by, comment, history_id, purchase_id, stat
-*/
 
             }
             ps.close();
@@ -207,6 +183,7 @@ public class Parts implements Initializable {
         scroll.setPrefHeight(80.0);
         child.setPrefHeight(70.0);
         AnchorPane.setRightAnchor(content, 0.0);
+        description.setVisible(false);
         open.setOnMouseClicked(event -> {
             open.setVisible(false);
             close.setVisible(true);
@@ -221,7 +198,6 @@ public class Parts implements Initializable {
             description.setVisible(false);
         });
         internal_pn.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("internal_pn"));
-        part_numb.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("part_number"));
         nom.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("name"));
         label.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("label"));
         classification.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("classification"));
@@ -229,7 +205,6 @@ public class Parts implements Initializable {
         origin.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("origin"));
         projet.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("project"));
         storage.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("storage"));
-
         modif_by.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("modified_by"));
         comment.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("comment"));
         etat.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("stat"));
@@ -237,6 +212,9 @@ public class Parts implements Initializable {
         soft.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("soft_version"));
         param.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("parametre"));
         stock.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("stock"));
+        av.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("av"));
+        cat.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("cat"));
+
         load();
         table.setOnMouseClicked(eventHandler -> {
             eye.setVisible(false);
@@ -244,30 +222,10 @@ public class Parts implements Initializable {
                 for (int i = 1; i <= 1; i++) {
                     list2.clear();
                     eye.setVisible(false);
-                    desc_pane.setVisible(true);
+                    description.setVisible(true);
                     open.setVisible(false);
                     name.setText(list.getName());
-                    list2.add(new Get_parts(
-                            list.getInternal_pn(),
-                            list.getPart_number(),
-                            list.getName(),
-                            list.getLabel(),
-                            list.getClassification(),
-                            list.getAccess(),
-                            list.getOrigin(),
-                            list.getProject(),
-                            list.getStorage(),
-                            list.getCreated_on(),
-                            list.getModified_on(),
-                            list.getModified_by(),
-                            list.getComment(),
-                            list.getStat(),
-                            list.getDescription(),
-                            list.getSoft_version(),
-                            list.getParametre(),
-                            list.getStock()
-
-                    ));
+                    list2.add(new Get_parts(list.getInternal_pn(), list.getName(), list.getLabel(), list.getClassification(), list.getAccess(), list.getOrigin(), list.getProject(), list.getStorage(), list.getCreated_on(), list.getModified_on(), list.getModified_by(), list.getComment(), list.getStat(), list.getDescription(), list.getSoft_version(), list.getParametre(), list.getStock(),null,null));
                 }
 
 
@@ -276,4 +234,5 @@ public class Parts implements Initializable {
 
 
     }
+
 }
