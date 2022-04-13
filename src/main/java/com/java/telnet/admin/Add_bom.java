@@ -46,7 +46,6 @@ public class Add_bom implements Initializable {
 
     @FXML
     private ComboBox<String> part_name;
-
     MenuButton mb = new MenuButton("Label");
     @FXML
     private TextArea descr;
@@ -67,6 +66,9 @@ public class Add_bom implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        part_name.getEditor().textProperty().addListener((obs, oldText, newText) -> {
+            part_name.setValue(newText);
+        });
         txt1.setManaged(false);
         txt2.setManaged(false);
         txt3.setManaged(false);
@@ -109,8 +111,6 @@ public class Add_bom implements Initializable {
             } else ;
 
         });
-
-
         cat.getItems().addAll("Matériel", "Logiciel", "Bureautique");
         DB db = new DB();
         try {
@@ -164,64 +164,66 @@ public class Add_bom implements Initializable {
     }
 
     public void submit() throws SQLException {
-        if (part_name.getSelectionModel().isEmpty()||cat.getSelectionModel().isEmpty()||quantite.getText().isEmpty()){
+        if (part_name.getValue().isEmpty()) {
             txt1.setVisible(true);
             txt1.setManaged(true);
+        } else if (cat.getSelectionModel().isEmpty()) {
             txt2.setVisible(true);
             txt2.setManaged(true);
+        } else if (quantite.getText().isEmpty()) {
             txt3.setVisible(true);
             txt3.setManaged(true);
-        }else{
-        DB db = new DB();
-        CallableStatement call = db.connect().prepareCall("call add_bom(?,?,?,?,?,?,?,?,?,?)");
-        if (id.isDisabled())
-            call.setString(1, null);
-        else
-            call.setString(1, internal_pn.getSelectionModel().getSelectedItem());
-        call.setString(2, design.getText());
-        call.setInt(3, Integer.parseInt(quantite.getText()));
-        call.setString(4, descr.getText());
-        call.setString(5, Projet.pr);
-
-        PreparedStatement ps = db.connect().prepareStatement("select stock from ressources where internal_pn=?");
-        ps.setString(1, internal_pn.getSelectionModel().getSelectedItem());
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            call.setInt(6, rs.getInt(1));
-            call.setInt(7, Math.abs(rs.getInt(1) - Integer.parseInt(quantite.getText())));
         } else {
-            call.setInt(6, 0);
-            call.setInt(7, Integer.parseInt(quantite.getText()));
-        }
-        call.setString(8, LoginController.name);
-        call.setString(9,mb.getText());
-        if(internal_pn.isDisabled()==false)
-            call.setString(10,part_name.getSelectionModel().getSelectedItem());
-        else call.setString(10,part_name.getEditor().getText());
-        call.execute();Stage stage = (Stage) submit.getScene().getWindow();
-            stage.close();
-        if (internal_pn.isDisabled() == false) {
+
+            DB db = new DB();
+            if (id.isDisabled()) {
+                CallableStatement call2 = db.connect().prepareCall("call achat(?,?,?,?,?)");
+                call2.setString(1, part_name.getValue());
+                call2.setInt(2, Integer.parseInt(quantite.getText()));
+                call2.setString(3, descr.getText());
+                call2.setString(4, Projet.pr);
+                call2.setString(5, LoginController.name);
+                call2.execute();
+                call2.close();
+                Stage stage = (Stage) submit.getScene().getWindow();
+                stage.close();
+            }
+            else{
+            CallableStatement call = db.connect().prepareCall("call add_bom(?,?,?,?,?,?,?,?,?,?)");
+            call.setString(1, internal_pn.getSelectionModel().getSelectedItem());
+            call.setString(2, design.getText());
+            call.setInt(3, Integer.parseInt(quantite.getText()));
+            call.setString(4, descr.getText());
+            call.setString(5, Projet.pr);
+
+            PreparedStatement ps = db.connect().prepareStatement("select stock from ressources where internal_pn=?");
+            ps.setString(1, internal_pn.getSelectionModel().getSelectedItem());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                call.setInt(6, rs.getInt(1));
+                call.setInt(7, Math.abs(rs.getInt(1) - Integer.parseInt(quantite.getText())));
+            }
+            call.setString(8, LoginController.name);
+            call.setString(9, mb.getText());
+            call.setString(10, part_name.getSelectionModel().getSelectedItem());
+            call.execute();
+                CallableStatement call2 = db.connect().prepareCall("call history(?,?,?)");
+                call2.setString(1,internal_pn.getSelectionModel().getSelectedItem());
+                call2.setString(2,LoginController.name);
+                call2.setString(3,"Ajout un composant au nomeclature du projet "+Projet.pr);
+                call2.execute();
+                call2.close();
+
             PreparedStatement ps1 = db.connect().prepareStatement("UPDATE ressources SET av='Réservé' WHERE internal_pn=?");
             ps1.setString(1, internal_pn.getSelectionModel().getSelectedItem());
             ps1.executeUpdate();
             ps1.close();
-
-        }else{
-            CallableStatement call2 = db.connect().prepareCall("call achat(?,?,?,?,?)");
-            call2.setString(1,part_name.getEditor().getText());
-            call2.setInt(2,Math.abs(rs.getInt(1) - Integer.parseInt(quantite.getText())));
-            call2.setString(3,descr.getText());
-            call2.setString(4,Projet.pr);
-            call2.setString(5,LoginController.name);
-            call2.execute();
-            call2.close();
+            Stage stage = (Stage) submit.getScene().getWindow();
+            stage.close();
+            call.close();}
 
         }
-
-
-        call.close();
-
-    }}
+    }
 
 
 }

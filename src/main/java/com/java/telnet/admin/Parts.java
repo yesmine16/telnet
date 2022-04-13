@@ -1,6 +1,8 @@
 package com.java.telnet.admin;
 
+import com.google.zxing.WriterException;
 import com.java.telnet.DB;
+import com.java.telnet.LoginController;
 import com.java.telnet.admin.models.Get_parts;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
@@ -11,15 +13,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -101,7 +105,8 @@ public class Parts implements Initializable {
     private FontAwesomeIconView open;
     @FXML
     private FontAwesomeIconView eye;
-
+    @FXML
+    private ImageView img;
     @FXML
     private TableColumn<Get_parts, String> stock;
 
@@ -197,6 +202,8 @@ public class Parts implements Initializable {
             AnchorPane.setRightAnchor(content, 0.0);
             description.setVisible(false);
         });
+
+
         internal_pn.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("internal_pn"));
         nom.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("name"));
         label.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("label"));
@@ -220,6 +227,9 @@ public class Parts implements Initializable {
             eye.setVisible(false);
             for (Get_parts list : table.getSelectionModel().getSelectedItems()) {
                 for (int i = 1; i <= 1; i++) {
+
+
+
                     list2.clear();
                     eye.setVisible(false);
                     description.setVisible(true);
@@ -234,5 +244,6 @@ public class Parts implements Initializable {
 
 
     }
+
 
 }

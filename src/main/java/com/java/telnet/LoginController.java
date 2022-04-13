@@ -1,7 +1,9 @@
 package com.java.telnet;
 
 import com.java.telnet.admin.Main_page;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,10 +19,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
+import javafx.stage.*;
 
 import java.io.*;
 import java.net.URL;
@@ -41,7 +40,8 @@ public class LoginController extends Application implements Initializable {
     private PasswordField password;
     @FXML
     private Text actiontarget;
-
+    @FXML
+    private FontAwesomeIconView close,hide;
     @FXML
     private Text actiontarget1;
     public static String name;
@@ -59,71 +59,71 @@ public class LoginController extends Application implements Initializable {
     @FXML
     void loginHandler(ActionEvent event) {
 
-            DB db = new DB();
+        DB db = new DB();
 
-            final ContextMenu usernameValidator = new ContextMenu();
-            usernameValidator.setAutoHide(false);
-            final ContextMenu passValidator = new ContextMenu();
-            passValidator.setAutoHide(false);
-            try {
-                CallableStatement login = db.connect().prepareCall("{ ? = call login(?,?) }");
-                login.setString(2, matricule.getText());
-                login.setString(3, password.getText());
-                login.registerOutParameter(1, Types.INTEGER);
-                login.execute();
-                PreparedStatement ps = db.connect().prepareStatement("SELECT \"user\",nom FROM login_info WHERE id = ?");
-                ps.setInt(1, login.getInt(1));
-                ResultSet rs = ps.executeQuery();
-                PreparedStatement pss = db.connect().prepareStatement("SELECT \"table\", users, parts, projects, storage, history, buy FROM privilege WHERE id = ?");
-                pss.setInt(1, login.getInt(1));
-                ResultSet rss = pss.executeQuery();
-                while (rss.next()) {
+        final ContextMenu usernameValidator = new ContextMenu();
+        usernameValidator.setAutoHide(false);
+        final ContextMenu passValidator = new ContextMenu();
+        passValidator.setAutoHide(false);
+        try {
+            CallableStatement login = db.connect().prepareCall("{ ? = call login(?,?) }");
+            login.setString(2, matricule.getText());
+            login.setString(3, password.getText());
+            login.registerOutParameter(1, Types.INTEGER);
+            login.execute();
+            PreparedStatement ps = db.connect().prepareStatement("SELECT \"user\",nom FROM login_info WHERE id = ?");
+            ps.setInt(1, login.getInt(1));
+            ResultSet rs = ps.executeQuery();
+            PreparedStatement pss = db.connect().prepareStatement("SELECT \"table\", users, parts, projects, storage, history, buy FROM privilege WHERE id = ?");
+            pss.setInt(1, login.getInt(1));
+            ResultSet rss = pss.executeQuery();
+            while (rss.next()) {
 
-                    for (int i = 1; i <= 7; i++) {
-                        s[i - 1] = rss.getArray(i).toString();
+                for (int i = 1; i <= 7; i++) {
+                    s[i - 1] = rss.getArray(i).toString();
 
+                }
+            }
+            if (rs.next()) {
+                name = rs.getString(2);
+            }
+            id = login.getInt(1);
+
+            if (matricule.getText().equals("")) {
+                actiontarget.setVisible(true);
+                actiontarget.setText("champ obligatoire");
+
+            }
+            if (password.getText().equals("")) {
+                actiontarget1.setVisible(true);
+                actiontarget1.setText("champ obligatoire");
+            } else {
+                if (login.getInt(1) != 0) {
+                    try {
+                        login.close();
+                        ps.close();
+                        FXMLLoader fxmlLoader = new FXMLLoader(Main_page.class.getResource("Main_page.fxml"));
+                        Scene scene = new Scene(fxmlLoader.load());
+                        Stage stage = new Stage();
+                        stage.setScene(scene);
+                        stage.show();
+                        Node node = (Node) event.getSource();
+                        Stage thisStage = (Stage) node.getScene().getWindow();
+                        thisStage.close();
+
+                    } catch (IOException ex) {
                     }
-                }
-                if (rs.next()) {
-                    name = rs.getString(2);
-                }
-                id = login.getInt(1);
 
-                if (matricule.getText().equals("")) {
-                    actiontarget.setVisible(true);
-                    actiontarget.setText("champ obligatoire");
-
-                }
-                if (password.getText().equals("")) {
-                    actiontarget1.setVisible(true);
-                    actiontarget1.setText("champ obligatoire");
                 } else {
-                    if (login.getInt(1) != 0) {
-                        try {
-                            login.close();
-                            ps.close();
-                            FXMLLoader fxmlLoader = new FXMLLoader(Main_page.class.getResource("Main_page.fxml"));
-                            Scene scene = new Scene(fxmlLoader.load());
-                            Stage stage = new Stage();
-                            stage.setScene(scene);
-                            stage.show();
-                            Node node = (Node) event.getSource();
-                            Stage thisStage = (Stage) node.getScene().getWindow();
-                            thisStage.close();
-
-                        } catch (IOException ex) {
-                        }
-
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setContentText("veuillez vérifier votre matricule ou mot de passe");
-                        alert.show();
-                    }
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("veuillez vérifier votre matricule ou mot de passe");
+                    alert.show();
                 }
+            }
 
 
-            } catch (SQLException e) {
-                e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
 
         }
     }
@@ -135,8 +135,16 @@ public class LoginController extends Application implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-matricule.setText("12");
-password.setText("0000");
+        matricule.setText("12");
+        password.setText("0000");
+        close.setOnMouseClicked(e -> {
+            Platform.exit();
+
+        });
+        hide.setOnMouseClicked(event -> {
+            Stage stage = (Stage) hide.getScene().getWindow();
+            stage.setIconified(true);
+        });
 
 
     }

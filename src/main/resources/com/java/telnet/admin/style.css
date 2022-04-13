@@ -237,15 +237,34 @@
     -fx-fill: rgba(255,0,0, .5); /* <-- NUEVO */
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,.2), 10.0, 0.5, 2.0, 2.0);
 }
-.text-field {
-    -fx-background-color: #a9a9a9 , white , white;
-    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+.text-field .text-area{
+
+    -fx-background-color: transparent;
+    -fx-border-color: #435B7B;
+    -fx-border-width: 0px 0px 1px 0px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 15px;
+
+
+}.text-field:focused.text-area:focused {
+    -fx-border-color:#0D1B2B ;
+     -fx-background-color: #a9a9a9 , #E6E7E4 , #E6E7E4;
+     -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+ }
+
+.choice-box {
+    -fx-background-color: #E6E7E4;
+    -fx-mark-color: #1C263D;
 }
 
-.text-field:focused {
-    -fx-background-color: #a9a9a9 , white , white;
-    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
-}
+   .choice-box > .label { -fx-text-fill: #1C263D; }
+   .choice-box{ -fx-background-color: #E6E7E4; }
+   .choice-box .menu-item:focused { -fx-background-color: #1C263D; }
+.choice-box .menu-item:hover { -fx-background-color: #1C263D; -fx-text-fill: #E6E7E4;}
+
+.choice-box .menu-item > .label { -fx-text-fill: #1C263D; }
+   .choice-box .menu-item:focused > .label { -fx-text-fill: #E6E7E4;}
+
 
 /*palette{*/
 /*   #0D1B2B*!*/

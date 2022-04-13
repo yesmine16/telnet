@@ -11,6 +11,8 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 
@@ -83,6 +85,7 @@ public class Privileges implements Initializable {
     private TextField stat, phone;
     @FXML
     private Button submit;
+    Image img = new Image(getClass().getResource("pdp.png").toString());
 
     public void select() {
 
@@ -142,31 +145,30 @@ public class Privileges implements Initializable {
 
         parts.getItems().addAll("Lecture", "Lecture et Ecriture");
         parts.getSelectionModel().selectFirst();
-        submit.setOnMouseClicked(event -> {
-//            if (list.isEmpty()) {
-//                try {
-//                    insert();
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//            } else {
-//                try {
-//                    update();
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-
-        });
-
+//        submit.setOnMouseClicked(event -> {
+////            if (list.isEmpty()) {
+////                try {
+////                    insert();
+////                } catch (SQLException e) {
+////                    e.printStackTrace();
+////                } catch (FileNotFoundException e) {
+////                    e.printStackTrace();
+////                }
+////            } else {
+////                try {
+////                    update();
+////                } catch (SQLException e) {
+////                    e.printStackTrace();
+////                } catch (FileNotFoundException e) {
+////                    e.printStackTrace();
+////                }
+////            }
+//
+//        });
+        avatar.setFill(new ImagePattern(img));
     }
 
-    public File file1;
-
+    public File file1=null;
     public void img() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
@@ -177,11 +179,10 @@ public class Privileges implements Initializable {
             avatar.setFill(new ImagePattern(image1));
             file1 = new File(file.toURI().getPath());
         }
-
     }
 
 
-    public void insert() throws SQLException, FileNotFoundException {
+    public void insert() throws SQLException, IOException {
         DB db = new DB();
         PreparedStatement ps = db.connect().prepareStatement("INSERT INTO login_info (matricule, \"user\", photo, nom, email, phone) VALUES ( ?,?,?,?,?,?);");
         PreparedStatement insert = db.connect().prepareStatement("INSERT into privilege(\"table\", users, parts, projects, storage, history, buy)VALUES (?,?,?,?,?,?,?);");
@@ -190,8 +191,16 @@ public class Privileges implements Initializable {
         ps.setString(2, stat.getText());
         ps.setString(5, mail.getText());
         ps.setString(6, phone.getText());
-        FileInputStream fin = new FileInputStream(file1);
-        ps.setBinaryStream(3, fin, (int) file1.length());
+        if (file1 != null) {
+            FileInputStream fin = new FileInputStream(file1);
+            ps.setBinaryStream(3, fin, (int) file1.length());
+        } else {
+            BufferedImage bImage = ImageIO.read(new File("pdp.png"));
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ImageIO.write(bImage, "png", bos);
+            byte[] data = bos.toByteArray();
+            ps.setBytes(3, data);
+        }
         if (grp.getToggles().get(0).isSelected()) {
             if (tableau.getSelectionModel().isSelected(0)) {
                 insert.setArray(1, db.connect().createArrayOf("varchar", new Object[]{"oui", "non"}));
@@ -227,8 +236,7 @@ public class Privileges implements Initializable {
                 insert.setArray(7, db.connect().createArrayOf("varchar", new Object[]{"oui", "non"}));
             } else insert.setArray(7, db.connect().createArrayOf("varchar", new Object[]{"oui", "oui"}));
         } else insert.setArray(7, db.connect().createArrayOf("varchar", new Object[]{"non", "non"}));
-        ps.executeUpdate();
-
+        ps.executeQuery();
         insert.close();
         ps.close();
 

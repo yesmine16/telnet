@@ -5,13 +5,15 @@ module com.java.telnet {
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
-    requires validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires javafx.graphics;
     requires de.jensd.fx.glyphs.fontawesome;
     requires java.sql;
     requires java.desktop;
+    requires com.google.zxing;
+    requires com.google.zxing.javase;
+
     exports com.java.telnet.admin;
     opens com.java.telnet.admin to javafx.graphics,javafx.fxml,javafx.base;
     exports com.java.telnet;

@@ -177,18 +177,12 @@
                               <TableColumn fx:id="label" minWidth="100.0" prefWidth="-1.0" text="label" />
                               <TableColumn fx:id="desc" minWidth="100.0" prefWidth="75.0" text="Description" />
                               <TableColumn fx:id="cat" prefWidth="75.0" text="Catégorie" />
-                              <TableColumn fx:id="soft" minWidth="100.0" prefWidth="-1.0" text="etat software" />
-                              <TableColumn fx:id="param" minWidth="100.0" prefWidth="-1.0" text="paramètres" />
                               <TableColumn fx:id="classification" minWidth="100.0" prefWidth="-1.0" text="classification" />
                               <TableColumn fx:id="access" minWidth="100.0" prefWidth="-1.0" text="acces" />
                               <TableColumn fx:id="origin" minWidth="100.0" prefWidth="-1.0" text="Origine" />
                               <TableColumn fx:id="projet" minWidth="100.0" prefWidth="-1.0" text="Projet" />
                               <TableColumn fx:id="storage" minWidth="100.0" prefWidth="-1.0" text="storage" />
-                              <TableColumn fx:id="stock" minWidth="100.0" prefWidth="-1.0" text="Stock" />
-                              <TableColumn fx:id="date_creation" minWidth="100.0" prefWidth="-1.0" text="date creation" />
-                              <TableColumn fx:id="date_modif" minWidth="100.0" prefWidth="-1.0" text="date modification" />
-                              <TableColumn fx:id="modif_by" minWidth="100.0" prefWidth="-1.0" text="modifier par" />
-                              <TableColumn fx:id="comment" minWidth="100.0" prefWidth="-1.0" text="commentaire" />
+                              <TableColumn fx:id="date_creation" minWidth="100.0" prefWidth="-1.0" text="date ajout au stock" />
                               <TableColumn fx:id="etat" minWidth="100.0" prefWidth="-1.0" text="etat" />
                               <TableColumn fx:id="av" prefWidth="75.0" text="Disponibilité" />
                            </columns>

@@ -30,7 +30,7 @@ public class Get_user {
 
     String nom;
      String user;
-    ImageView photo;
+    ImageView photo,qr;
     String statut;
     String date;
 
@@ -60,7 +60,7 @@ public class Get_user {
         this.email = email;
     }
 
-    public Get_user(Integer id, String matricule, ImageView photo, String date, String nom, String user, HBox action, String phone, String email) {
+    public Get_user(Integer id, String matricule, ImageView photo, String date, String nom, String user, HBox action, String phone, String email,ImageView qr) {
         this.id = id;
         this.matricule = matricule;
         this.photo=photo;
@@ -70,9 +70,18 @@ public class Get_user {
         this.action=action;
         this.phone=phone;
         this.email=email;
+        this.qr=qr;
 
 
 
+    }
+
+    public ImageView getQr() {
+        return qr;
+    }
+
+    public void setQr(ImageView qr) {
+        this.qr = qr;
     }
 
     public Get_user() {

@@ -76,11 +76,10 @@ public class Get_project {
         this.etat = etat;
     }
 
-    public Get_project(String id,String nom,String desc, String etat,String tarif,String date,String created_by,String team,String comment) {
+    public Get_project(String id,String nom,String desc,String tarif,String date,String created_by,String team,String comment) {
         this.id=id;
         this.nom = nom;
         this.desc=desc;
-        this.etat = etat;
         this.tarif=tarif;
         this.date=date;
         this.created_by=created_by;

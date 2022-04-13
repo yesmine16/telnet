@@ -56,7 +56,7 @@
                                     <FontAwesomeIconView fill="WHITE" glyphName="CAMERA" selectionEnd="1" size="1.5em" />
                                  </graphic>
                               </Button>
-                              <Circle fx:id="avatar" fill="TRANSPARENT" layoutX="505.0" layoutY="30.0" radius="92.0" stroke="#0d1b2b" strokeType="INSIDE" style="-fx-focus-traversable: absolute;" AnchorPane.leftAnchor="413.0" />
+                              <Circle fx:id="avatar" fill="TRANSPARENT" layoutX="505.0" layoutY="34.0" radius="88.0" stroke="#0d1b2b" strokeType="INSIDE" style="-fx-focus-traversable: absolute;" AnchorPane.leftAnchor="413.0" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -355,7 +355,7 @@
                   </VBox>
                </center>
                <bottom>
-                  <Button fx:id="submit" mnemonicParsing="false" prefHeight="39.0" prefWidth="230.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;" text="submit" textFill="WHITE" BorderPane.alignment="CENTER">
+                  <Button fx:id="insert" mnemonicParsing="false" prefHeight="39.0" prefWidth="230.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;" text="submit" textFill="WHITE" BorderPane.alignment="CENTER">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

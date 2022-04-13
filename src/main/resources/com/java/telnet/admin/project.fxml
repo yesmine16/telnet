@@ -32,7 +32,6 @@
                            <columns>
                               <TableColumn fx:id="nom" prefWidth="75.0" text="nom" />
                               <TableColumn fx:id="desc" prefWidth="75.0" text="description" />
-                              <TableColumn fx:id="etat" prefWidth="75.0" text="production" />
                               <TableColumn fx:id="tarif" prefWidth="75.0" text="tarification" />
                               <TableColumn fx:id="date" prefWidth="75.0" text="Date création" />
                               <TableColumn fx:id="created_by" prefWidth="75.0" text="crée par" />
@@ -239,12 +238,20 @@
                                              <center>
                                                 <TableView prefHeight="266.0" prefWidth="720.0" BorderPane.alignment="CENTER">
                                                    <columns>
-                                                      <TableColumn prefWidth="75.0" text="C1" />
-                                                      <TableColumn prefWidth="75.0" text="C2" />
+                                                      <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+                                                      <TableColumn fx:id="date_debut" prefWidth="75.0" text="Date début" />
+                                                      <TableColumn fx:id="last_update" prefWidth="75.0" text="Derniére modification" />
+                                                      <TableColumn fx:id="qty_used" prefWidth="75.0" text="Quantité utilisé" />
+                                                      <TableColumn fx:id="stat" prefWidth="75.0" text="Etat" />
+                                                      <TableColumn fx:id="responsable" prefWidth="75.0" text="Responsable" />
+                                                      <TableColumn fx:id="commentaire" prefWidth="75.0" text="Commentaire" />
                                                    </columns>
                                                    <BorderPane.margin>
                                                       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                                    </BorderPane.margin>
+                                                   <columnResizePolicy>
+                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                   </columnResizePolicy>
                                                 </TableView>
                                              </center>
                                              <bottom>

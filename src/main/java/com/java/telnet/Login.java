@@ -6,12 +6,14 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
 public class Login extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        stage.initStyle(StageStyle.UNDECORATED);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Login.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());

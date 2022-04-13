@@ -3,8 +3,17 @@ package com.java.telnet.admin.models;
 import javafx.scene.control.Label;
 
 public class Get_achat {
-    String nom;
+    String nom,projet;
     int qty;
+
+    public String getProjet() {
+        return projet;
+    }
+
+    public void setProjet(String projet) {
+        this.projet = projet;
+    }
+
     String date;
     String desc;
     Label action;
@@ -18,12 +27,13 @@ public class Get_achat {
         this.resp = resp;
     }
 
-    public Get_achat(String nom, int qty, String date, String desc, String resp, Label action) {
+    public Get_achat(String nom, int qty, String date, String desc, String resp,String projet, Label action) {
         this.nom = nom;
         this.qty = qty;
         this.date = date;
         this.desc = desc;
         this.resp=resp;
+        this.projet=projet;
         this.action = action;
     }
 

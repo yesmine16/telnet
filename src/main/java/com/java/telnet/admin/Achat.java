@@ -50,7 +50,6 @@ public class Achat implements Initializable {
     public Label action() {
         Label label = new Label();
         label.setText("Valider");
-        label.setStyle("-fxbackground-color:green;");
         label.setCursor(Cursor.HAND);
         return label;
     }
@@ -66,12 +65,12 @@ public class Achat implements Initializable {
 
 
         DB db = new DB();
-        Label l = action();
         try {
             PreparedStatement ps = db.connect().prepareStatement("select * from \"purchase_list \"");
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                list.add(new Get_achat(rs.getString(2), rs.getInt(3), rs.getTimestamp(5).toString(), rs.getString(4), null, l));
+            while (rs.next()) {
+                Label l = action();
+                list.add(new Get_achat(rs.getString(2), rs.getInt(3), rs.getTimestamp(5).toString(), rs.getString(4), rs.getString(6),rs.getString(7), l));
                 table.setItems(list);
             }
             table.setOnMouseClicked(eventHandler -> {

@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -22,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
 import org.controlsfx.control.PopOver;
@@ -69,15 +71,16 @@ public class Users extends Application implements Initializable {
     private TextField recherche;
 
     ObservableList<Get_user> list = FXCollections.observableArrayList();
-     static List<Get_user> list2 = new ArrayList<Get_user>() {};
+    static List<Get_user> list2 = new ArrayList<Get_user>() {
+    };
 
 
-    public ImageView img(ResultSet rs) throws Exception {
+    public ImageView img(ResultSet rs, String name) throws Exception {
         ImageView imgView = new ImageView();
         imgView.setFitHeight(50);
         imgView.setFitWidth(50);
         imgView.setPreserveRatio(true);
-        InputStream is = rs.getBinaryStream("photo");
+        InputStream is = rs.getBinaryStream(name);
         OutputStream os = new FileOutputStream(new File("photo.jpg"));
         byte[] content = new byte[2048];
         int size = 0;
@@ -111,19 +114,26 @@ public class Users extends Application implements Initializable {
 
 
     public HBox action() {
-        FontAwesomeIconView edit, delete;
+        FontAwesomeIconView edit, delete, qr;
 
         edit = new FontAwesomeIconView();
         delete = new FontAwesomeIconView();
+        qr = new FontAwesomeIconView();
+
         HBox hbox = new HBox();
         edit.setGlyphName("PENCIL");
+        qr.setGlyphName("QRCODE");
         delete.setGlyphName("TRASH");
         edit.setSize("1.5em");
+        qr.setSize("1.5em");
+        delete.setSize("1.5em");
         edit.setCursor(Cursor.HAND);
         delete.setCursor(Cursor.HAND);
-        delete.setSize("1.5em");
+        qr.setCursor(Cursor.HAND);
         edit.setFill(Color.web("#435B7B"));
+        qr.setFill(Color.web("#435B7B"));
         delete.setFill(Color.web("#435B7B"));
+        hbox.getChildren().add(qr);
         hbox.getChildren().add(edit);
         hbox.getChildren().add(delete);
         hbox.setSpacing(20.0);
@@ -138,9 +148,11 @@ public class Users extends Application implements Initializable {
             PreparedStatement ps = db.connect().prepareStatement("select * from login_info");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                ImageView imgView = img(rs);
+                ImageView imgView = img(rs, "photo");
+                ImageView imgView2 = img(rs, "qr");
+
                 HBox hbox = action();
-                list.add(new Get_user(rs.getInt(1), rs.getString(2), imgView, rs.getTimestamp(5).toString(), rs.getString(6), rs.getString(3), hbox, rs.getString(7), rs.getString(8)));
+                list.add(new Get_user(rs.getInt(1), rs.getString(2), imgView, rs.getTimestamp(5).toString(), rs.getString(6), rs.getString(3), hbox, rs.getString(7), rs.getString(8), imgView2));
             }
             table.setItems(list);
             ps.close();
@@ -177,17 +189,17 @@ public class Users extends Application implements Initializable {
         table.setOnMouseClicked(eventHandler -> {
             for (Get_user list : table.getSelectionModel().getSelectedItems()) {
                 for (int i = 1; i <= 1; i++) {
-                    list.getAction().getChildren().get(0).setOnMouseClicked(event -> {
+                    list.getAction().getChildren().get(1).setOnMouseClicked(event -> {
                         try {
                             list2.clear();
                             add();
-                            list2.add(new Get_user(list.getId(), list.getMatricule(), list.getPhoto(), null, list.getNom(), list.getUser(), null, list.getPhone(), list.getEmail()));
+                            list2.add(new Get_user(list.getId(), list.getMatricule(), list.getPhoto(), null, list.getNom(), list.getUser(), null, list.getPhone(), list.getEmail(), null));
 
                         } catch (IOException ex) {
                         }
                     });
 
-                    list.getAction().getChildren().get(1).setOnMouseClicked(event -> {
+                    list.getAction().getChildren().get(2).setOnMouseClicked(event -> {
 
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         DialogPane dialogPane = alert.getDialogPane();
@@ -213,36 +225,61 @@ public class Users extends Application implements Initializable {
                         }
 
                     });
+                    list.getAction().getChildren().get(0).setOnMouseClicked(event -> {
+                        DB db = new DB();
+                        PopOver popup = new PopOver();
+                        try {
+                            PreparedStatement ps = db.connect().prepareStatement("select qr from login_info");
+                            ResultSet rs = ps.executeQuery();
+                            while (rs.next()) {
+                                ImageView imgView2 = img(rs, "qr");
+                                imgView2.prefHeight(100.0);
+                                imgView2.prefWidth(100.0);
+                                popup.setContentNode(imgView2);
+                                popup.show(list.getAction().getChildren().get(0));
+                                popup.setAutoHide(true);
+
+
+                            }
+
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+
+                    });
                 }
             }
         });
     }
 
-public void filter(){
-    FilteredList<Get_user> filteredData = new FilteredList<>(list, b -> true);
-    recherche.textProperty().addListener((observable, oldValue, newValue) -> {
-        filteredData.setPredicate(users -> {
+    public void filter() {
+        FilteredList<Get_user> filteredData = new FilteredList<>(list, b -> true);
+        recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(users -> {
 
-            if (newValue == null || newValue.isEmpty()) {
-                return true;
-            }
-            String lowerCaseFilter = newValue.toLowerCase();
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
 
-            if (users.getNom().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-                return true;
-            } else if (users.getUser().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                return true;
-            }
-            else if (String.valueOf(users.getMatricule()).indexOf(lowerCaseFilter)!=-1)
-                return true;
-            else
-                return false;
+                if (users.getNom().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (users.getUser().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (String.valueOf(users.getMatricule()).indexOf(lowerCaseFilter) != -1)
+                    return true;
+                else
+                    return false;
+            });
         });
-    });
-    SortedList<Get_user> sortedData = new SortedList<>(filteredData);
-    sortedData.comparatorProperty().bind(table.comparatorProperty());
-    table.setItems(sortedData);
-}
+        SortedList<Get_user> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(table.comparatorProperty());
+        table.setItems(sortedData);
+    }
 
     @Override
     public void start(Stage stage) throws Exception {

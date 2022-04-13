@@ -101,7 +101,6 @@ public class Projet implements Initializable {
         titre.setVisible(false);
         tab_pane.setVisible(false);
         nom.setCellValueFactory(new PropertyValueFactory<Get_project, String>("nom"));
-        etat.setCellValueFactory(new PropertyValueFactory<Get_project, String>("etat"));
         desc.setCellValueFactory(new PropertyValueFactory<Get_project, String>("desc"));
         created_by.setCellValueFactory(new PropertyValueFactory<Get_project, String>("created_by"));
         date.setCellValueFactory(new PropertyValueFactory<Get_project, String>("date"));
@@ -128,12 +127,13 @@ public class Projet implements Initializable {
             e.printStackTrace();
         }
         table.setOnMouseClicked(eventHandler -> {
-                    eye.setVisible(false);
-                    tab_pane.setVisible(true);
-                    titre.setVisible(true);
+
 
                     for (Get_project list : table.getSelectionModel().getSelectedItems()) {
                         for (int i = 1; i <= 1; i++) {
+                            eye.setVisible(false);
+                            tab_pane.setVisible(true);
+                            titre.setVisible(true);
                             list2.clear();
                             nom_projet.setText(list.getNom());
                             pr=list.getId();
@@ -210,7 +210,7 @@ public class Projet implements Initializable {
         PreparedStatement ps = db.connect().prepareStatement("select * from projet");
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
-            list.add(new Get_project(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getTimestamp(6).toString(), rs.getString(7), rs.getString(8), rs.getString(9)));
+            list.add(new Get_project(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getTimestamp(5).toString(), rs.getString(6), rs.getString(7), rs.getString(8)));
             table.setItems(list);
         }
     }

@@ -28,7 +28,6 @@ public class Parametre implements Initializable {
 
                 Pane pane = loader.load(getClass().getResource("mdp.fxml").openStream());
                 pane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-
                 Stage stage = new Stage();
                 stage.setScene(new Scene(pane));
                 stage.show();

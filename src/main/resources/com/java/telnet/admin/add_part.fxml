@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
@@ -18,10 +19,9 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="803.0" prefWidth="865.0" style="-fx-background-radius: 1.3em;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Add_part">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="815.0" prefWidth="865.0" style="-fx-background-radius: 1.3em;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Add_part">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="803.0" prefWidth="866.0">
+      <VBox alignment="TOP_CENTER" prefHeight="815.0" prefWidth="866.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="532.0" text="Ajouter nouveau matériel au inventaire" textFill="#1c263d">
                <font>
@@ -33,29 +33,30 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ImageView fx:id="img" fitHeight="113.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0">
-                           <color>
-                              <Color opacity="0.58" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                  </ImageView>
-                  <Label text="Ajouter image">
-                     <HBox.margin>
-                        <Insets top="90.0" />
-                     </HBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Label>
+                  <AnchorPane prefHeight="123.0" prefWidth="175.0">
+                     <children>
+                        <ImageView fx:id="img" fitHeight="113.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                           <effect>
+                              <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0">
+                                 <color>
+                                    <Color opacity="0.58" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </ImageView>
+                        <FontAwesomeIconView fx:id="add" fill="#1c263d" glyphName="PLUS" layoutX="152.0" layoutY="119.0" size="2.0em">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </FontAwesomeIconView>
+                     </children>
+                  </AnchorPane>
                </children>
             </HBox>
             <GridPane prefHeight="526.0" prefWidth="866.0">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="538.2000122070312" minWidth="10.0" prefWidth="449.5999755859375" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="417.6000122070312" minWidth="10.0" prefWidth="416.8000244140625" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -65,10 +66,11 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="106.0" prefWidth="438.0">
                      <children>
                         <Label prefHeight="18.0" prefWidth="114.0" text="Numero interne" />
-                        <TextField fx:id="id"  />
+                        <TextField fx:id="id" />
+                        <Label fx:id="txt" text="Le numero est deja utilisé" textFill="#ac2c2c" visible="false" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
@@ -83,16 +85,9 @@
                         <ChoiceBox fx:id="cat" prefWidth="150.0" />
                      </children>
                   </HBox>
-                  <HBox fx:id="label" alignment="CENTER" disable="true" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <HBox fx:id="label_box" alignment="CENTER" disable="true" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
                         <Label text="Label" />
-                        <TextField />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
-                     <children>
-                        <Label text="Description" />
-                        <Button mnemonicParsing="false" onAction="#add_desc" text="Ajouter description" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -104,7 +99,7 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                      <children>
                         <Label text="Access" />
-                        <ComboBox fx:id="access" prefWidth="150.0" />
+                        <ChoiceBox fx:id="access" prefWidth="150.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -113,15 +108,32 @@
                         <ChoiceBox fx:id="origine" prefWidth="150.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
+                  <HBox fx:id="store" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                      <children>
                         <Label text="Storage" />
-                        <ChoiceBox fx:id="store" prefWidth="150.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="97.0" prefWidth="866.0" GridPane.rowIndex="4">
+                     <children>
+                        <Label text="Description" />
+                        <TextArea fx:id="descr" prefHeight="84.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <children>
+                        <TextField fx:id="comment" />
+                        <Button mnemonicParsing="false" onAction="#load" prefHeight="43.0" prefWidth="101.0" text="Datasheet" />
                      </children>
                   </HBox>
                </children>
             </GridPane>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="102.0" text="Ajouter" />
+            <Button mnemonicParsing="false" onAction="#submit" prefHeight="38.0" prefWidth="130.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;" text="Ajouter" textFill="WHITE">
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </children>
       </VBox>
    </children>
