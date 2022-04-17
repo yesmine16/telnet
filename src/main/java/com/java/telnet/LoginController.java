@@ -81,7 +81,6 @@ public class LoginController extends Application implements Initializable {
 
                 for (int i = 1; i <= 7; i++) {
                     s[i - 1] = rss.getArray(i).toString();
-
                 }
             }
             if (rs.next()) {

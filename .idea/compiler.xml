@@ -13,4 +13,9 @@
       <module name="telnet" target="17" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="telnet" options="--add-exports org.controlsfx.controls/impl.org.controlsfx=com.java.telnet" />
+    </option>
+  </component>
 </project>

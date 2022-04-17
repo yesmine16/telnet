@@ -3,8 +3,8 @@ package com.java.telnet.admin.models;
 import java.sql.Timestamp;
 
 public class Get_parts {
-   String internal_pn,part_number, name, label, classification, access, origin, project, storage, av,cat, modified_by, comment,stat,description, soft_version, parametre,stock;
-   Timestamp created_on, modified_on;
+   String internal_pn,part_number, name, label, classification, access, origin, project, storage, av,cat, modified_by, comment,stat,description, soft_version, parametre,stock,created_on;
+Byte img,qr,datasheet;
 
     public String getAv() {
         return av;
@@ -22,7 +22,7 @@ public class Get_parts {
         this.cat = cat;
     }
 
-    public Get_parts(String internal_pn, String name, String label, String classification, String access, String origin, String project, String storage, Timestamp created_on, Timestamp modified_on, String modified_by, String comment, String stat, String description, String soft_version, String parametre, String stock, String cat, String av) {
+    public Get_parts(String internal_pn, String name, String label, String classification, String access, String origin, String project, String storage, String created_on, String modified_by, String comment, String stat, String description,  String cat, String av) {
         this.internal_pn = internal_pn;
         this.name = name;
         this.label = label;
@@ -32,17 +32,40 @@ public class Get_parts {
         this.project = project;
         this.storage = storage;
         this.created_on=created_on;
-        this.modified_on=modified_on;
         this.modified_by = modified_by;
         this.comment = comment;
         this.stat = stat;
         this.description = description;
-        this.soft_version = soft_version;
-        this.parametre = parametre;
-        this.stock = stock;
+
         this.cat=cat;
         this.av=av;
 
+
+
+    }
+
+    public Byte getImg() {
+        return img;
+    }
+
+    public void setImg(Byte img) {
+        this.img = img;
+    }
+
+    public Byte getQr() {
+        return qr;
+    }
+
+    public void setQr(Byte qr) {
+        this.qr = qr;
+    }
+
+    public Byte getDatasheet() {
+        return datasheet;
+    }
+
+    public void setDatasheet(Byte datasheet) {
+        this.datasheet = datasheet;
     }
 
     public String getInternal_pn() {
@@ -177,21 +200,16 @@ public class Get_parts {
         this.description = description;
     }
 
-    public Timestamp getCreated_on() {
+    public String getCreated_on() {
         return created_on;
     }
 
-    public void setCreated_on(Timestamp created_on) {
+    public void setCreated_on(String created_on) {
         this.created_on = created_on;
     }
 
-    public Timestamp getModified_on() {
-        return modified_on;
-    }
 
-    public void setModified_on(Timestamp modified_on) {
-        this.modified_on = modified_on;
-    }
+
 
     public void setStock(String stock) {
         this.stock = stock;

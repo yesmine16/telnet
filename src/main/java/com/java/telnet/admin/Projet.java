@@ -57,7 +57,7 @@ public class Projet implements Initializable {
     private FontAwesomeIconView eye;
 
     @FXML
-    private Pane pane;
+    private ScrollPane tab;
 
     @FXML
     private Label nom_projet;
@@ -70,6 +70,8 @@ public class Projet implements Initializable {
     @FXML
     private HBox titre;
     @FXML
+    FontAwesomeIconView slide;
+    @FXML
     private TableColumn<Bom, String> comm;
     @FXML
     private TableColumn<Bom, String> date_creation;
@@ -78,13 +80,12 @@ public class Projet implements Initializable {
     @FXML
     private TableColumn<Bom, String> design;
     @FXML
-    private TableColumn<Bom, String> num, resp, label, name,etat_bom;
+    private TableColumn<Bom, String> num, resp, label, name, etat_bom;
     @FXML
-    private TableColumn<Bom, Integer> in_stock, qty, to_buy;
+    private TableColumn<Bom, Integer> qty;
     @FXML
     private TableView<Bom> table2;
-    @FXML
-    private TextField quantite;
+
     @FXML
     private TextArea descr;
     @FXML
@@ -115,8 +116,6 @@ public class Projet implements Initializable {
         comm.setCellValueFactory(new PropertyValueFactory<Bom, String>("comment"));
         date_creation.setCellValueFactory(new PropertyValueFactory<Bom, String>("date"));
         qty.setCellValueFactory(new PropertyValueFactory<Bom, Integer>("qty"));
-        in_stock.setCellValueFactory(new PropertyValueFactory<Bom, Integer>("stock"));
-        to_buy.setCellValueFactory(new PropertyValueFactory<Bom, Integer>("to_buy"));
         name.setCellValueFactory(new PropertyValueFactory<Bom, String>("nom"));
         etat_bom.setCellValueFactory(new PropertyValueFactory<Bom, String>("etat"));
 
@@ -136,20 +135,18 @@ public class Projet implements Initializable {
                             titre.setVisible(true);
                             list2.clear();
                             nom_projet.setText(list.getNom());
-                            pr=list.getId();
+                            pr = list.getId();
                             DB db = new DB();
                             try {
                                 PreparedStatement ps = db.connect().prepareStatement("select * from bom where projet=?");
                                 ps.setString(1, list.getId());
                                 ResultSet rs = ps.executeQuery();
                                 PreparedStatement ps1 = db.connect().prepareStatement("select stat from ressources where internal_pn=?");
-
-
                                 while (rs.next()) {
                                     ps1.setString(1, rs.getString(2));
                                     ResultSet rs1 = ps1.executeQuery();
                                     if (rs1.next())
-                                        list2.add(new Bom(rs.getString(1), rs.getString(12), rs.getString(11), null, rs.getString(3), rs.getString(5), rs.getString(9), rs.getTimestamp(10).toString(), rs.getInt(4), rs.getInt(7), rs.getInt(8),rs1.getString(1)));
+                                        list2.add(new Bom(rs.getString(1), rs.getString(12), rs.getString(11), null, rs.getString(3), rs.getString(5), rs.getString(9), rs.getTimestamp(10).toString(), rs.getInt(4), rs.getInt(7), rs.getInt(8), rs1.getString(1)));
                                 }
                                 table2.setItems(list2);
                                 filter();
@@ -177,7 +174,16 @@ public class Projet implements Initializable {
                 System.out.println(e.toString());
             }
         });
+        slide.setOnMouseClicked(event -> {
+            if (tab.isVisible()) {
+                tab.setVisible(false);
+                tab.setManaged(false);
+            } else {
+                tab.setVisible(true);
+                tab.setManaged(true);
 
+            }
+        });
     }
 
     public void filter() {
@@ -214,6 +220,18 @@ public class Projet implements Initializable {
             table.setItems(list);
         }
     }
+    public void add_project() throws IOException {
 
+        FXMLLoader loader = new FXMLLoader();
+        try {
+            AnchorPane pane = loader.load(getClass().getResource("add_project.fxml").openStream());
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            pane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(new Scene(pane));
+            stage.show();
+        } catch (IOException e) {
+        }
+    }
 
 }

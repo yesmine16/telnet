@@ -31,7 +31,7 @@
                   <Insets bottom="50.0" left="50.0" right="50.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <AnchorPane prefHeight="123.0" prefWidth="175.0">
                      <children>
@@ -44,13 +44,18 @@
                               </DropShadow>
                            </effect>
                         </ImageView>
-                        <FontAwesomeIconView fx:id="add" fill="#1c263d" glyphName="PLUS" layoutX="152.0" layoutY="119.0" size="2.0em">
+                        <FontAwesomeIconView fx:id="add" fill="#1c263d" glyphName="PLUS" layoutX="152.0" layoutY="109.0" size="2.0em">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </FontAwesomeIconView>
                      </children>
                   </AnchorPane>
+                  <Button mnemonicParsing="false" onAction="#load" prefHeight="43.0" prefWidth="101.0" text="Datasheet">
+                     <HBox.margin>
+                        <Insets left="500.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
             <GridPane prefHeight="526.0" prefWidth="866.0">
@@ -121,8 +126,8 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <children>
+                        <Label text="Commentaire" />
                         <TextField fx:id="comment" />
-                        <Button mnemonicParsing="false" onAction="#load" prefHeight="43.0" prefWidth="101.0" text="Datasheet" />
                      </children>
                   </HBox>
                </children>

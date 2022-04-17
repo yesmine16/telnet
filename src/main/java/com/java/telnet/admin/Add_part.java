@@ -23,11 +23,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.text.Document;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.sql.CallableStatement;
@@ -61,7 +56,6 @@ public class Add_part implements Initializable {
     private TextArea descr;
     @FXML
     private HBox store;
-
     @FXML
     private TextField nom;
     @FXML
@@ -72,18 +66,7 @@ public class Add_part implements Initializable {
     MenuButton labelbtn = new MenuButton("Label");
 
 
-//    public void add_desc() {
-//        FXMLLoader loader = new FXMLLoader();
-//        try {
-//            Pane pane = loader.load(getClass().getResource("desc_part.fxml").openStream());
-//            Stage stage = new Stage();
-//            stage.initModality(Modality.APPLICATION_MODAL);
-//            stage.setScene(new Scene(pane));
-//            stage.show();
-//        } catch (IOException e) {
-//        }
-//
-//    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -110,7 +93,6 @@ public class Add_part implements Initializable {
         classification.getItems().addAll("Restreinte", "Usage interne");
         origine.getItems().addAll("Externe", "Interne");
         access.getItems().addAll("Team members");
-        System.out.println(Users.getList());
         cat.setOnAction(event -> {
             if (cat.getSelectionModel().isSelected(0)) label_box.setDisable(false);
             else label_box.setDisable(true);
@@ -239,18 +221,20 @@ public class Add_part implements Initializable {
             FileInputStream fin = new FileInputStream(file1);
             call.setBinaryStream(10, fin, (int) file1.length());
         } else {
-            BufferedImage bImage = ImageIO.read(new File("carte.jpg"));
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ImageIO.write(bImage, "png", bos);
-            byte[] data = bos.toByteArray();
-            call.setBytes(10, data);
+//            File image = new File(getClass().getResource("carte.jpg").toString());
+//
+//            InputStream in = new FileInputStream(image);
+//
+//            call.setBinaryStream(10, in, image.length());
         }
         call.setString(13, descr.getText());
         call.setBytes(11, getQRCodeImage(id.getText(), 250, 250));
-        call.setBytes(12, getByteArrayFromFile());
+        if(file2!=null)
+            call.setBytes(12, getByteArrayFromFile());
         call.execute();
         call.close();
-
+        Stage stage = (Stage) store.getScene().getWindow();
+        stage.close();
     }
 
 //    CallableStatement call2 = db.connect().prepareCall("call history(?,?,?)");

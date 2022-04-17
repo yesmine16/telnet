@@ -185,6 +185,13 @@ public class Add_bom implements Initializable {
                 call2.setString(5, LoginController.name);
                 call2.execute();
                 call2.close();
+                CallableStatement call = db.connect().prepareCall("call history(?,?,?)");
+                call.setString(1,internal_pn.getSelectionModel().getSelectedItem());
+                call.setString(2,LoginController.name);
+                call.setString(3,"Ajout un composant au liste des achat ");
+                call.execute();
+                call.close();
+
                 Stage stage = (Stage) submit.getScene().getWindow();
                 stage.close();
             }
@@ -196,8 +203,8 @@ public class Add_bom implements Initializable {
             call.setString(4, descr.getText());
             call.setString(5, Projet.pr);
 
-            PreparedStatement ps = db.connect().prepareStatement("select stock from ressources where internal_pn=?");
-            ps.setString(1, internal_pn.getSelectionModel().getSelectedItem());
+            PreparedStatement ps = db.connect().prepareStatement("select count(*) from ressources where name=?");
+            ps.setString(1, part_name.getSelectionModel().getSelectedItem());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 call.setInt(6, rs.getInt(1));

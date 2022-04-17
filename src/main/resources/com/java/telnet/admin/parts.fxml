@@ -170,21 +170,22 @@
                <center>
                   <ScrollPane prefHeight="835.0" prefWidth="1811.0" style="-fx-background-radius: 1.3em;" BorderPane.alignment="CENTER">
                      <content>
-                        <TableView fx:id="table" prefHeight="554.0" prefWidth="1784.0">
+                        <TableView fx:id="table" prefHeight="554.0" prefWidth="1465.0">
                            <columns>
-                              <TableColumn fx:id="internal_pn" minWidth="100.0" prefWidth="-1.0" text="numéro interne" />
-                              <TableColumn fx:id="nom" minWidth="100.0" prefWidth="75.0" text="nom" />
-                              <TableColumn fx:id="label" minWidth="100.0" prefWidth="-1.0" text="label" />
-                              <TableColumn fx:id="desc" minWidth="100.0" prefWidth="75.0" text="Description" />
-                              <TableColumn fx:id="cat" prefWidth="75.0" text="Catégorie" />
-                              <TableColumn fx:id="classification" minWidth="100.0" prefWidth="-1.0" text="classification" />
-                              <TableColumn fx:id="access" minWidth="100.0" prefWidth="-1.0" text="acces" />
-                              <TableColumn fx:id="origin" minWidth="100.0" prefWidth="-1.0" text="Origine" />
-                              <TableColumn fx:id="projet" minWidth="100.0" prefWidth="-1.0" text="Projet" />
-                              <TableColumn fx:id="storage" minWidth="100.0" prefWidth="-1.0" text="storage" />
-                              <TableColumn fx:id="date_creation" minWidth="100.0" prefWidth="-1.0" text="date ajout au stock" />
-                              <TableColumn fx:id="etat" minWidth="100.0" prefWidth="-1.0" text="etat" />
-                              <TableColumn fx:id="av" prefWidth="75.0" text="Disponibilité" />
+                              <TableColumn fx:id="internal_pn" minWidth="0.0" prefWidth="110.0" text="numéro interne" />
+                              <TableColumn fx:id="nom" minWidth="0.0" prefWidth="110.0" text="nom" />
+                              <TableColumn fx:id="label" minWidth="0.0" prefWidth="110.0" text="label" />
+                              <TableColumn fx:id="desc" minWidth="0.0" prefWidth="110.0" text="Description" />
+                              <TableColumn fx:id="cat" minWidth="0.0" prefWidth="110.0" text="Catégorie" />
+                              <TableColumn fx:id="classification" minWidth="0.0" prefWidth="110.0" text="classification" />
+                              <TableColumn fx:id="access" minWidth="0.0" prefWidth="110.0" text="acces" />
+                              <TableColumn fx:id="origin" minWidth="0.0" prefWidth="110.0" text="Origine" />
+                              <TableColumn fx:id="projet" minWidth="0.0" prefWidth="110.0" text="Projet" />
+                              <TableColumn fx:id="storage" minWidth="0.0" prefWidth="110.0" text="storage" />
+                              <TableColumn fx:id="date_creation" minWidth="0.0" prefWidth="134.39990234375" text="date ajout au stock" />
+                              <TableColumn fx:id="etat" minWidth="0.0" prefWidth="86.4000244140625" text="etat" />
+                              <TableColumn fx:id="av" minWidth="0.0" prefWidth="140.0001464843749" text="Disponibilité" />
+                              <TableColumn fx:id="comment" prefWidth="75.0" text="Commentaire" />
                            </columns>
                            <contextMenu>
                               <ContextMenu fx:id="menu">
@@ -193,9 +194,6 @@
                                  </items>
                               </ContextMenu>
                            </contextMenu>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
                         </TableView>
                      </content>
                   </ScrollPane>
@@ -203,13 +201,13 @@
             </BorderPane>
          </center>
       </BorderPane>
-      <ScrollPane fx:id="description" layoutX="1351.0" prefHeight="676.0" prefWidth="261.0" style="-fx-background-radius: 1.3em;" styleClass="parent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1800.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
+      <ScrollPane fx:id="description" layoutX="1625.0" prefHeight="955.0" prefWidth="425.0" style="-fx-background-radius: 1.3em;" styleClass="parent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1625.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
          <content>
-            <AnchorPane prefHeight="643.0" prefWidth="230.0">
+            <AnchorPane prefHeight="940.0" prefWidth="426.0">
                <children>
                   <Pane fx:id="desc_pane" prefHeight="640.0" prefWidth="260.0" style="-fx-background-radius: 1.3em; -fx-border-color: transparent; -fx-border-radius: 1.3em;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ImageView fx:id="img" fitHeight="113.0" fitWidth="160.0" layoutX="39.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img" fitHeight="113.0" fitWidth="160.0" layoutX="138.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <effect>
                               <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0">
                                  <color>
@@ -221,18 +219,28 @@
                               <Image url="@carte.jpg" />
                            </image>
                         </ImageView>
-                        <Line endX="110.0" endY="1.52587890625E-5" layoutX="85.0" layoutY="180.0" startX="-64.0" startY="1.52587890625E-5" stroke="#7c8184" />
-                        <Line endX="110.0" endY="9.1552734375E-5" layoutX="86.0" layoutY="348.0" startX="-65.0" startY="6.103515625E-5" stroke="#7c8184" />
-                        <Label layoutX="10.0" layoutY="360.0" prefHeight="26.0" prefWidth="120.0" text="Historique" textFill="#00a4e4">
+                        <Line endX="314.19989013671875" endY="1.52587890625E-5" layoutX="85.0" layoutY="180.0" startX="-64.0" startY="1.52587890625E-5" stroke="#7c8184" />
+                        <Line endX="303.59991455078125" endY="6.103515625E-5" layoutX="86.0" layoutY="348.0" startX="-65.0" startY="6.103515625E-5" stroke="#7c8184" />
+                        <Label alignment="CENTER" layoutX="153.0" layoutY="360.0" prefHeight="26.0" prefWidth="120.0" text="Historique" textFill="#00a4e4">
                            <font>
                               <Font name="Lucida Console" size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="name" layoutX="54.0" layoutY="146.0" prefHeight="26.0" prefWidth="120.0" text="name" textFill="#00a4e4">
+                        <Label fx:id="name" alignment="CENTER" contentDisplay="CENTER" layoutX="153.0" layoutY="146.0" prefHeight="26.0" prefWidth="120.0" text="name" textFill="#00a4e4">
                            <font>
                               <Font name="Lucida Console" size="15.0" />
                            </font>
                         </Label>
+                        <FontAwesomeIconView fx:id="qr" glyphName="QRCODE" layoutX="329.0" layoutY="167.0" size="2.0em" wrappingWidth="26.449999809265137">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </FontAwesomeIconView>
+                        <FontAwesomeIconView fx:id="pdf" glyphName="FILE" layoutX="366.0" layoutY="167.0" size="2.0em">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </FontAwesomeIconView>
                      </children>
                   </Pane>
                   <FontAwesomeIconView fx:id="eye" fill="#7c8184" glyphName="EYE_SLASH" size="5em" visible="false" wrappingWidth="60" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="280.0" />

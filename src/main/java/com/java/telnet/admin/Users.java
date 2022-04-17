@@ -66,13 +66,12 @@ public class Users extends Application implements Initializable {
 
 
     @FXML
-    private StackPane content;
+    private  StackPane content;
     @FXML
     private TextField recherche;
 
     ObservableList<Get_user> list = FXCollections.observableArrayList();
-    static List<Get_user> list2 = new ArrayList<Get_user>() {
-    };
+    static List<Get_user> list2 = new ArrayList<Get_user>();
 
 
     public ImageView img(ResultSet rs, String name) throws Exception {
@@ -141,7 +140,7 @@ public class Users extends Application implements Initializable {
         return hbox;
     }
 
-    public void load() {
+    public void load() throws SQLException {
         DB db = new DB();
         try {
             list.clear();
@@ -163,19 +162,24 @@ public class Users extends Application implements Initializable {
     }
 
     public void add() throws IOException {
-        Parent fxml = FXMLLoader.load(getClass().getResource("add_user.fxml"));
-        content.getChildren().removeAll();
-        content.getChildren().setAll(fxml);
 
+        FXMLLoader loader = new FXMLLoader();
+        try {
+            AnchorPane pane = loader.load(getClass().getResource("add_user.fxml").openStream());
+            Stage stage = new Stage();
+            stage.setHeight(800);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            pane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(new Scene(pane));
+            stage.show();
+        } catch (IOException e) {
+        }
     }
 
-    public static List<Get_user> getList() {
-        return list2;
-    }
+    static String[] s = new String[7];
+
 
     public void initialize(URL url, ResourceBundle rb) {
-
-
         mat_col.setCellValueFactory(new PropertyValueFactory<Get_user, String>("matricule"));
         photo_col.setCellValueFactory(new PropertyValueFactory<Get_user, ImageView>("photo"));
         nom_col.setCellValueFactory(new PropertyValueFactory<Get_user, String>("nom"));
@@ -184,18 +188,42 @@ public class Users extends Application implements Initializable {
         stat_col.setCellValueFactory(new PropertyValueFactory<Get_user, String>("user"));
         date_col.setCellValueFactory(new PropertyValueFactory<Get_user, String>("date"));
         action_col.setCellValueFactory(new PropertyValueFactory<Get_user, HBox>("action"));
-        load();
+        try {
+            load();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         filter();
+        list2.clear();
         table.setOnMouseClicked(eventHandler -> {
             for (Get_user list : table.getSelectionModel().getSelectedItems()) {
                 for (int i = 1; i <= 1; i++) {
                     list.getAction().getChildren().get(1).setOnMouseClicked(event -> {
                         try {
-                            list2.clear();
+
+                            DB db = new DB();
+                            PreparedStatement ps = db.connect().prepareStatement("select photo from login_info where matricule=?");
+                            ps.setString(1, list.getMatricule());
+                            ResultSet rs = ps.executeQuery();
+                            if (rs.next()) {
+                                ImageView imgView = img(rs, "photo");
+                                ajout(list2, list.getMatricule(), imgView, list.getNom(), list.getPhone(), list.getEmail(), list.getUser(),list.getId());
+                            }
+                            PreparedStatement pss = db.connect().prepareStatement("SELECT \"table\", users, parts, projects, storage, history, buy FROM privilege WHERE id = ?");
+                            pss.setInt(1, list.getId());
+                            ResultSet rss = pss.executeQuery();
+                            while (rss.next()) {
+
+                                for (int j = 1; j <= 7; j++) {
+                                    s[j-1] = rss.getArray(j).toString();
+                                }
+                            }
                             add();
-                            list2.add(new Get_user(list.getId(), list.getMatricule(), list.getPhoto(), null, list.getNom(), list.getUser(), null, list.getPhone(), list.getEmail(), null));
 
                         } catch (IOException ex) {
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        } catch (Exception p) {
                         }
                     });
 
@@ -285,6 +313,10 @@ public class Users extends Application implements Initializable {
     public void start(Stage stage) throws Exception {
     }
 
+    public static void ajout(List<Get_user> list, String mat, ImageView img, String nom, String phone, String email, String stat,Integer id) {
+        list.clear();
+        list.add(new Get_user(id, mat, img, null, nom, stat, null, phone, email, null));
 
+    }
 }
 

@@ -264,6 +264,10 @@
 
 .choice-box .menu-item > .label { -fx-text-fill: #1C263D; }
    .choice-box .menu-item:focused > .label { -fx-text-fill: #E6E7E4;}
+.toggle-button:selected{
+    -fx-background-color: #1C263D;
+    -fx-text-fill: #E6E7E4;
+}
 
 
 /*palette{*/
