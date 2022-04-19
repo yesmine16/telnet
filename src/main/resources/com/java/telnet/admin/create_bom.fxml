@@ -49,65 +49,53 @@
                         <Text fx:id="txt1" fill="#c71919" strokeType="OUTSIDE" strokeWidth="0.0" text="champ obligatoire !" visible="false" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
                         <Label prefHeight="18.0" prefWidth="74.0" text="Categorie" />
                         <ChoiceBox fx:id="cat" prefHeight="28.0" prefWidth="154.0" />
                         <Text fx:id="txt2" fill="#c71919" strokeType="OUTSIDE" strokeWidth="0.0" text="champ obligatoire !" visible="false" />
                      </children>
                   </HBox>
-                  <HBox fx:id="label" alignment="CENTER" disable="true" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <HBox fx:id="label" alignment="CENTER" disable="true" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
                         <Label text="Label" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                      <children>
                         <Label prefHeight="18.0" prefWidth="90.0" text="Designation" />
                         <TextField fx:id="design" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                  <HBox fx:id="qty" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
                         <Label prefHeight="18.0" prefWidth="68.0" text="Quantité" />
                         <TextField fx:id="quantite" prefHeight="26.0" prefWidth="150.0" />
                         <Text fx:id="txt3" fill="#c71919" strokeType="OUTSIDE" strokeWidth="0.0" text="champ obligatoire !" visible="false" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
                      <children>
                         <Label prefHeight="18.0" prefWidth="87.0" text="Description" />
                         <TextArea fx:id="descr" prefHeight="132.0" prefWidth="209.0" />
+                        <HBox fx:id="stat_box" alignment="CENTER" disable="true" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="47.0" text="Etat">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="stat" prefHeight="26.0" prefWidth="191.0" />
+                           </children>
+                        </HBox>
                      </children>
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
-                  </HBox>
-                  <HBox fx:id="stat_box" alignment="CENTER" disable="true" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
-                     <children>
-                        <Label prefHeight="26.0" prefWidth="47.0" text="Etat">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin></Label>
-                        <TextField fx:id="stat" prefHeight="26.0" prefWidth="191.0" />
-                     </children>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </HBox>
-                  <HBox fx:id="id" alignment="CENTER" disable="true" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-                     <children>
-                        <Label text="ID">
-                           <HBox.margin>
-                              <Insets left="50.0" />
-                           </HBox.margin>
-                        </Label>
-                        <ChoiceBox fx:id="internal_pn" prefWidth="150.0" />
-                     </children>
                   </HBox>
                </children>
             </GridPane>
-            <Button fx:id="submit" mnemonicParsing="false" onAction="#submit" prefHeight="39.0" prefWidth="137.0" style="-fx-background-color: #435B7B; -fx-background-radius: 2.0em;" text="Submit" textFill="WHITE">
+            <Button fx:id="submit" mnemonicParsing="false" prefHeight="39.0" prefWidth="137.0" style="-fx-background-color: #435B7B; -fx-background-radius: 2.0em;" text="Submit" textFill="WHITE">
                <VBox.margin>
                   <Insets top="50.0" />
                </VBox.margin>

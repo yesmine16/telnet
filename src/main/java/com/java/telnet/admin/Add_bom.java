@@ -1,5 +1,6 @@
 package com.java.telnet.admin;
 
+import com.google.zxing.WriterException;
 import com.java.telnet.DB;
 import com.java.telnet.LoginController;
 import com.java.telnet.admin.models.Get_project;
@@ -16,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.scene.control.cell.ChoiceBoxTreeCell;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -23,11 +25,14 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Add_bom implements Initializable {
@@ -38,11 +43,10 @@ public class Add_bom implements Initializable {
     @FXML
     private TextField design;
 
-    @FXML
-    private ChoiceBox<String> internal_pn;
+    private String internal_pn, name;
 
     @FXML
-    private HBox label, id, stat_box;
+    private HBox label, id, stat_box, qty;
 
     @FXML
     private ComboBox<String> part_name;
@@ -66,12 +70,55 @@ public class Add_bom implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        label.setDisable(true);
+        stat_box.setDisable(true);
         part_name.getEditor().textProperty().addListener((obs, oldText, newText) -> {
             part_name.setValue(newText);
+            quantite.clear();
+            quantite.setEditable(true);
+
         });
+        submit.setOnMouseClicked(event -> {
+            if (Projet.list4.isEmpty()) {
+                try {
+                    submit();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    update();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+        if (Projet.list4.isEmpty() == false) {
+            part_name.getEditor().setText(Projet.list4.get(0).getNom());
+            if (Projet.list4.get(0).getCat().equals("Matériel"))
+                cat.getSelectionModel().selectLast();
+            else if (Projet.list4.get(0).getCat().equals("Logiciel")) cat.getSelectionModel().select(2);
+            else cat.getSelectionModel().selectFirst();
+            stat.setText(Projet.list4.get(0).getEtat());
+            descr.setText(Projet.list4.get(0).getDesc());
+            design.setText(Projet.list4.get(0).getDesign());
+            label.setDisable(false);
+            mb.setText(Projet.list4.get(0).getLabel());
+            stat_box.setDisable(false);
+            stat.setText(Projet.list4.get(0).getEtat());
+            quantite.setText(Projet.list4.get(0).getQty().toString());
+
+        }
+
+
         txt1.setManaged(false);
         txt2.setManaged(false);
         txt3.setManaged(false);
+        quantite.setText("");
+        quantite.setEditable(true);
+
         final TreeView<String> tree = new TreeView<String>();
         TreeItem<String> root = new TreeItem<>("");
         root.setExpanded(true);
@@ -112,12 +159,12 @@ public class Add_bom implements Initializable {
 
         });
         cat.getItems().addAll("Matériel", "Logiciel", "Bureautique");
-        DB db = new DB();
         try {
-            PreparedStatement ps = db.connect().prepareStatement("select name from ressources where av='Disponible'");
+            DB db = new DB();
+            PreparedStatement ps = db.connect().prepareStatement("select name,internal_pn from ressources");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                part_name.getItems().add(rs.getString(1));
+                part_name.getItems().add(rs.getString(1) + "      " + rs.getString(2));
             }
             ps.close();
 
@@ -126,33 +173,33 @@ public class Add_bom implements Initializable {
         }
         part_name.setOnAction(e -> {
             if (part_name.getSelectionModel().getSelectedItem().isEmpty() == false) {
-                internal_pn.getItems().clear();
                 try {
+                    DB db = new DB();
+
                     PreparedStatement ps = db.connect().prepareStatement("select internal_pn,label,stat,category from ressources where name=?");
-                    ps.setString(1, part_name.getSelectionModel().getSelectedItem());
+                    ps.setString(1, part_name.getSelectionModel().getSelectedItem().toString().split("      ")[0]);
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
-                        internal_pn.getItems().add(rs.getString(1));
-                        id.setDisable(false);
+                        internal_pn = rs.getString(1);
                         stat_box.setDisable(false);
                         label.setDisable(false);
                         stat.setText(rs.getString(3));
                         mb.setText(rs.getString(2));
+                        quantite.setText("1");
+                        quantite.setEditable(false);
                         if (cat.getSelectionModel().equals("Matériel"))
                             cat.getSelectionModel().selectLast();
                         else if (cat.getSelectionModel().equals("Logiciel")) cat.getSelectionModel().select(2);
                         else cat.getSelectionModel().selectFirst();
                     }
-                    if (rs.next()) {
-
-
-                    }
-
 
                     ps.close();
 
                 } catch (Exception ex) {
                 }
+            } else {
+                quantite.clear();
+                quantite.setEditable(true);
             }
         });
 
@@ -163,74 +210,168 @@ public class Add_bom implements Initializable {
 
     }
 
+
+    Boolean v;
+
     public void submit() throws SQLException {
+        v = true;
+        txt1.setVisible(false);
+        txt2.setVisible(false);
+        txt3.setVisible(false);
+
         if (part_name.getValue().isEmpty()) {
             txt1.setVisible(true);
             txt1.setManaged(true);
-        } else if (cat.getSelectionModel().isEmpty()) {
+            v = false;
+        }
+        if (cat.getSelectionModel().isEmpty()) {
             txt2.setVisible(true);
             txt2.setManaged(true);
-        } else if (quantite.getText().isEmpty()) {
+            v = false;
+        }
+        if (quantite.getText().isEmpty()) {
             txt3.setVisible(true);
             txt3.setManaged(true);
-        } else {
+            v = false;
+        }
 
+        if (v) {
             DB db = new DB();
-            if (id.isDisabled()) {
-                CallableStatement call2 = db.connect().prepareCall("call achat(?,?,?,?,?)");
-                call2.setString(1, part_name.getValue());
-                call2.setInt(2, Integer.parseInt(quantite.getText()));
-                call2.setString(3, descr.getText());
-                call2.setString(4, Projet.pr);
-                call2.setString(5, LoginController.name);
-                call2.execute();
-                call2.close();
-                CallableStatement call = db.connect().prepareCall("call history(?,?,?)");
-                call.setString(1,internal_pn.getSelectionModel().getSelectedItem());
-                call.setString(2,LoginController.name);
-                call.setString(3,"Ajout un composant au liste des achat ");
-                call.execute();
-                call.close();
-
-                Stage stage = (Stage) submit.getScene().getWindow();
-                stage.close();
-            }
-            else{
-            CallableStatement call = db.connect().prepareCall("call add_bom(?,?,?,?,?,?,?,?,?,?)");
-            call.setString(1, internal_pn.getSelectionModel().getSelectedItem());
-            call.setString(2, design.getText());
-            call.setInt(3, Integer.parseInt(quantite.getText()));
-            call.setString(4, descr.getText());
-            call.setString(5, Projet.pr);
-
             PreparedStatement ps = db.connect().prepareStatement("select count(*) from ressources where name=?");
-            ps.setString(1, part_name.getSelectionModel().getSelectedItem());
+            ps.setString(1, part_name.getSelectionModel().getSelectedItem().toString().split("      ")[0]);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                call.setInt(6, rs.getInt(1));
-                call.setInt(7, Math.abs(rs.getInt(1) - Integer.parseInt(quantite.getText())));
+                if (rs.getInt(1) < 2) {
+                    CallableStatement call2 = db.connect().prepareCall("call achat(?,?,?,?,?)");
+                    call2.setString(1, part_name.getValue());
+                    call2.setInt(2, Integer.parseInt(quantite.getText()));
+                    call2.setString(3, descr.getText());
+                    call2.setString(4, Projet.pr);
+                    call2.setString(5, LoginController.name);
+                    call2.execute();
+                    call2.close();
+                    CallableStatement call = db.connect().prepareCall("call history(?,?,?)");
+                    call.setString(1, internal_pn);
+                    call.setString(2, LoginController.name);
+                    call.setString(3, "Ajout un composant au liste des achats ");
+                    call.execute();
+                    PreparedStatement call1 = db.connect().prepareStatement("INSERT INTO bom( \"part_id \", designators, qty, comment, projet, resp, label, name,cat) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,?);");
+                    call1.setString(1, internal_pn);
+                    call1.setString(2, design.getText());
+                    call1.setInt(3, Integer.parseInt(quantite.getText()));
+                    call1.setString(4, descr.getText());
+                    call1.setString(5, Projet.pr);
+
+
+                    call1.setString(6, LoginController.name);
+                    call1.setString(7, mb.getText());
+                    call1.setString(8, part_name.getSelectionModel().getSelectedItem());
+                    call1.setString(9, cat.getSelectionModel().getSelectedItem());
+                    call1.executeUpdate();
+                    CallableStatement call3 = db.connect().prepareCall("call history(?,?,?)");
+                    call3.setString(1, internal_pn);
+                    call3.setString(2, LoginController.name);
+                    call3.setString(3, "Ajout un composant au nomeclature du projet " + Projet.pr);
+                    call3.execute();
+                    call3.close();
+
+                    PreparedStatement ps1 = db.connect().prepareStatement("delete from ressources WHERE internal_pn=?");
+                    ps1.setString(1, internal_pn);
+                    ps1.executeUpdate();
+                    ps1.close();
+                    call.close();
+                    Stage stage = (Stage) submit.getScene().getWindow();
+                    stage.close();
+                } else {
+                    PreparedStatement call1 = db.connect().prepareStatement("INSERT INTO bom( \"part_id \", designators, qty, comment, projet, resp, label, name) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);");
+                    call1.setString(1, internal_pn);
+                    call1.setString(2, design.getText());
+                    call1.setInt(3, Integer.parseInt(quantite.getText()));
+                    call1.setString(4, descr.getText());
+                    call1.setString(5, Projet.pr);
+                    call1.setString(6, LoginController.name);
+                    call1.setString(7, mb.getText());
+                    call1.setString(8, part_name.getSelectionModel().getSelectedItem());
+                    call1.executeUpdate();
+                    CallableStatement call3 = db.connect().prepareCall("call history(?,?,?)");
+                    call3.setString(1, internal_pn);
+                    call3.setString(2, LoginController.name);
+                    call3.setString(3, "Ajout un composant au nomeclature du projet " + Projet.pr);
+                    call3.execute();
+                    call3.close();
+
+                    PreparedStatement ps1 = db.connect().prepareStatement("delete from ressources WHERE internal_pn=?");
+                    ps1.setString(1, internal_pn);
+                    ps1.executeUpdate();
+                    ps1.close();
+
+                    call1.close();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("L'utilisateur  a été mis à jour avec succes");
+                    Optional<ButtonType> result = alert.showAndWait();
+
+                    if (result.get() == ButtonType.OK) {
+                        Stage stage = (Stage) submit.getScene().getWindow();
+                        stage.close();
+                    }
+                }
             }
-            call.setString(8, LoginController.name);
-            call.setString(9, mb.getText());
-            call.setString(10, part_name.getSelectionModel().getSelectedItem());
-            call.execute();
-                CallableStatement call2 = db.connect().prepareCall("call history(?,?,?)");
-                call2.setString(1,internal_pn.getSelectionModel().getSelectedItem());
-                call2.setString(2,LoginController.name);
-                call2.setString(3,"Ajout un composant au nomeclature du projet "+Projet.pr);
-                call2.execute();
-                call2.close();
-
-            PreparedStatement ps1 = db.connect().prepareStatement("UPDATE ressources SET av='Réservé' WHERE internal_pn=?");
-            ps1.setString(1, internal_pn.getSelectionModel().getSelectedItem());
-            ps1.executeUpdate();
-            ps1.close();
-            Stage stage = (Stage) submit.getScene().getWindow();
-            stage.close();
-            call.close();}
-
         }
     }
 
+    public void update() throws SQLException {
+        v = true;
+        txt1.setVisible(false);
+        txt2.setVisible(false);
+        txt3.setVisible(false);
 
+        if (part_name.getValue().isEmpty()) {
+            txt1.setVisible(true);
+            txt1.setManaged(true);
+            v = false;
+        }
+        if (cat.getSelectionModel().isEmpty()) {
+            txt2.setVisible(true);
+            txt2.setManaged(true);
+            v = false;
+        }
+        if (quantite.getText().isEmpty()) {
+            txt3.setVisible(true);
+            txt3.setManaged(true);
+            v = false;
+        }
+
+        if (v) {
+            DB db = new DB();
+            PreparedStatement call1 = db.connect().prepareStatement("UPDATE bom SET \"part_id \"=?, designators=?, qty=?, comment=?, projet=?, resp=?,label=?, name=? WHERE id=?;");
+            call1.setString(1, Projet.list4.get(0).getNum());
+            call1.setString(2, design.getText());
+            call1.setInt(3, Integer.parseInt(quantite.getText()));
+            call1.setString(4, descr.getText());
+            call1.setString(5, Projet.pr);
+            call1.setString(6, LoginController.name);
+            call1.setString(7, mb.getText());
+            call1.setString(8, part_name.getSelectionModel().getSelectedItem());
+            call1.setInt(9, Projet.list4.get(0).getId());
+            call1.executeUpdate();
+            CallableStatement call3 = db.connect().prepareCall("call history(?,?,?)");
+            call3.setString(1, Projet.list4.get(0).getNum());
+            call3.setString(2, LoginController.name);
+            call3.setString(3, "Mise à jour d'un composant au nomeclature du projet " + Projet.pr);
+            call3.execute();
+            call3.close();
+            call1.close();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Le composant a été mis à jour avec succès");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+                Stage stage = (Stage) submit.getScene().getWindow();
+                stage.close();
+            }
+        }
+    }
 }
+
+
+

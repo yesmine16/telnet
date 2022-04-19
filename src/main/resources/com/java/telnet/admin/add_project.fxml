@@ -17,7 +17,7 @@
 
 <AnchorPane prefHeight="726.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.AddProject">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="725.0" prefWidth="866.0">
+      <VBox alignment="TOP_CENTER" layoutX="1.0" prefHeight="725.0" prefWidth="866.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -85,7 +85,7 @@
                   </HBox>
                </children>
             </GridPane>
-            <Button mnemonicParsing="false" onAction="#submit" prefHeight="39.0" prefWidth="137.0" style="-fx-background-color: #435B7B; -fx-background-radius: 2.0em;" text="Submit" textFill="WHITE">
+            <Button fx:id="submit" mnemonicParsing="false" onAction="#submit" prefHeight="39.0" prefWidth="137.0" style="-fx-background-color: #435B7B; -fx-background-radius: 2.0em;" text="Submit" textFill="WHITE">
                <VBox.margin>
                   <Insets top="50.0" />
                </VBox.margin>
@@ -95,6 +95,17 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+            </Button>
+            <Button fx:id="update" mnemonicParsing="false" onAction="#update" prefHeight="39.0" prefWidth="137.0" style="-fx-background-color: #435B7B; -fx-background-radius: 2.0em;" text="Submit" textFill="WHITE" visible="false">
+               <font>
+                  <Font name="Lucida Console" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
             </Button>
          </children>
       </VBox>

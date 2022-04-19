@@ -77,6 +77,22 @@
                                     <Insets />
                                  </HBox.margin>
                               </Label>
+                              <Label fx:id="update" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" size="1.3em" wrappingWidth="15.699994087219238" />
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
+                              <Label fx:id="delete" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="1.3em" text="" wrappingWidth="12.499981880187988" />
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
                            </children>
                         </HBox>
                         <Button layoutX="777.0" layoutY="15.0" mnemonicParsing="false" onAction="#add_project" prefHeight="34.0" prefWidth="133.0" style="-fx-background-color: #435B7B; -fx-background-radius: 2.0em;" text="Ajouter" textFill="WHITE">
@@ -102,7 +118,7 @@
                                        <top>
                                           <Pane prefHeight="49.0" prefWidth="722.0" BorderPane.alignment="CENTER">
                                              <children>
-                                                <HBox alignment="CENTER_LEFT" layoutX="509.0" layoutY="-1.0" prefHeight="46.0" prefWidth="206.0">
+                                                <HBox alignment="CENTER_LEFT" layoutX="704.0" layoutY="1.0" prefHeight="46.0" prefWidth="206.0">
                                                    <children>
                                                       <TextField fx:id="recherche" prefHeight="26.0" prefWidth="212.0" style="-fx-background-radius: 2.0em;" />
                                                       <FontAwesomeIconView fill="#7c8184" glyphName="SEARCH" size="1.3em" text="">
@@ -122,7 +138,7 @@
                                                             <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="1.3em" text="" wrappingWidth="14.099957466125488" />
                                                          </graphic>
                                                       </Label>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
+                                                      <Label fx:id="update2" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
                                                          <graphic>
                                                             <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" size="1.3em" wrappingWidth="15.699994087219238" />
                                                          </graphic>
@@ -130,7 +146,7 @@
                                                             <Cursor fx:constant="HAND" />
                                                          </cursor>
                                                       </Label>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
+                                                      <Label fx:id="delete2" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
                                                          <graphic>
                                                             <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="1.3em" text="" wrappingWidth="12.499981880187988" />
                                                          </graphic>
@@ -148,6 +164,7 @@
                                              <columns>
                                                 <TableColumn fx:id="num" minWidth="50.0" prefWidth="92.0" text="Numéro du composant" />
                                                 <TableColumn fx:id="name" minWidth="50.0" prefWidth="92.0" text="Nom du composant" />
+                                                <TableColumn fx:id="cat" prefWidth="75.0" text="Catégorie" />
                                                 <TableColumn fx:id="label" minWidth="50.0" prefWidth="92.0" text="label" />
                                                 <TableColumn fx:id="description" minWidth="50.0" prefWidth="92.0" text="Description" />
                                                 <TableColumn fx:id="design" minWidth="50.0" prefWidth="92.0" text="designators" />
@@ -155,12 +172,85 @@
                                                 <TableColumn fx:id="resp" minWidth="50.0" prefWidth="92.0" text="Ajouté par" />
                                                 <TableColumn fx:id="date_creation" minWidth="50.0" prefWidth="92.0" text="Date ajout" />
                                                 <TableColumn fx:id="etat_bom" minWidth="50.0" prefWidth="92.0" text="Etat " />
-                                                <TableColumn fx:id="comm" minWidth="50.0" prefWidth="92.0" text="comment" />
                                              </columns>
                                           </TableView>
                                        </center>
                                     </BorderPane>
                                  </content>
+                              </Tab>
+                              <Tab text="Production">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <BorderPane prefHeight="518.0" prefWidth="926.0" styleClass="parent">
+                                             <top>
+                                                <Pane prefHeight="49.0" prefWidth="722.0" BorderPane.alignment="CENTER">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" layoutX="706.0" layoutY="2.0" prefHeight="46.0" prefWidth="206.0">
+                                                         <children>
+                                                            <TextField fx:id="recherche1" prefHeight="26.0" prefWidth="212.0" style="-fx-background-radius: 2.0em;" />
+                                                            <FontAwesomeIconView fill="#7c8184" glyphName="SEARCH" size="1.3em" text="">
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
+                                                            </FontAwesomeIconView>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER" prefHeight="47.0" prefWidth="217.0" spacing="10.0">
+                                                         <children>
+                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
+                                                               <graphic>
+                                                                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="1.3em" text="" wrappingWidth="14.099957466125488" />
+                                                               </graphic>
+                                                            </Label>
+                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
+                                                               <graphic>
+                                                                  <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" size="1.3em" wrappingWidth="15.699994087219238" />
+                                                               </graphic>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
+                                                            </Label>
+                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
+                                                               <graphic>
+                                                                  <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="1.3em" text="" wrappingWidth="12.499981880187988" />
+                                                               </graphic>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </Pane>
+                                             </top>
+                                             <center>
+                                                <TableView fx:id="table3" prefHeight="469.0" prefWidth="855.0" BorderPane.alignment="CENTER">
+                                                   <columns>
+                                                      <TableColumn fx:id="id_prod" prefWidth="75.0" text="ID" />
+                                                      <TableColumn fx:id="projet_prod" prefWidth="75.0" text="Projet" />
+                                                      <TableColumn fx:id="start" prefWidth="75.0" text="Date début" />
+                                                      <TableColumn fx:id="update_date" prefWidth="75.0" text="Date de dernière mise à jour " />
+                                                      <TableColumn fx:id="qty_prod" prefWidth="75.0" text="Quantité" />
+                                                      <TableColumn fx:id="param" prefWidth="75.0" text="Paramètres" />
+                                                      <TableColumn fx:id="soft" prefWidth="75.0" text="Version software" />
+                                                      <TableColumn fx:id="test" prefWidth="75.0" text="Test performance" />
+                                                      <TableColumn fx:id="avan" prefWidth="75.0" text="Etat d'avancement" />
+                                                      <TableColumn fx:id="add_by" prefWidth="75.0" text="Ajouté par" />
+                                                      <TableColumn fx:id="action" prefWidth="75.0" text="Validation" />
+                                                   </columns>
+                                                   <columnResizePolicy>
+                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                   </columnResizePolicy>
+                                                </TableView>
+                                             </center>
+                                          </BorderPane>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
                               </Tab>
                            </tabs>
                         </TabPane>

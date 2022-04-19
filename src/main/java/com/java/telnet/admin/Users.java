@@ -63,7 +63,8 @@ public class Users extends Application implements Initializable {
 
     @FXML
     private TableView<Get_user> table;
-
+@FXML
+Button add;
 
     @FXML
     private  StackPane content;
@@ -180,6 +181,14 @@ public class Users extends Application implements Initializable {
 
 
     public void initialize(URL url, ResourceBundle rb) {
+        add.setOnMouseClicked(e->{
+            list2.clear();
+            try {
+                add();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
         mat_col.setCellValueFactory(new PropertyValueFactory<Get_user, String>("matricule"));
         photo_col.setCellValueFactory(new PropertyValueFactory<Get_user, ImageView>("photo"));
         nom_col.setCellValueFactory(new PropertyValueFactory<Get_user, String>("nom"));
@@ -282,6 +291,7 @@ public class Users extends Application implements Initializable {
                 }
             }
         });
+
     }
 
     public void filter() {

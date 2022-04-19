@@ -35,7 +35,7 @@
                               <TextField fx:id="recherche" prefHeight="26.0" prefWidth="212.0" style="-fx-background-radius: 2.0em;" />
                            </children>
                         </HBox>
-                        <Button layoutX="818.0" layoutY="53.0" mnemonicParsing="false" onAction="#add" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: #435B7B; -fx-background-radius: 2.0em;" text="Ajouter" textFill="WHITE">
+                        <Button fx:id="add" layoutX="818.0" layoutY="53.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: #435B7B; -fx-background-radius: 2.0em;" text="Ajouter" textFill="WHITE">
                            <font>
                               <Font name="Lucida Console" size="14.0" />
                            </font>

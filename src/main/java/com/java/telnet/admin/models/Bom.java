@@ -9,22 +9,46 @@ public class Bom {
         this.nom = nom;
     }
 
-    String num,label,desc,design,comment,resp,date,nom,etat;
-Integer qty,stock,to_buy;
+    public String getProjet() {
+        return projet;
+    }
 
-    public Bom(String num,String nom, String label, String desc, String design, String comment, String resp, String date, Integer qty, Integer stock, Integer to_buy,String etat) {
+    public void setProjet(String projet) {
+        this.projet = projet;
+    }
+
+    public String getCat() {
+        return cat;
+    }
+
+    public void setCat(String cat) {
+        this.cat = cat;
+    }
+
+    String num,label,desc,design,comment,resp,date,nom,etat,projet,cat;
+Integer qty,stock,to_buy,id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Bom(Integer id, String num, String nom, String label, String design, String comment, String resp, String date, Integer qty, String etat, String projet,String cat) {
+        this.id=id;
         this.num = num;
         this.nom=nom;
         this.label = label;
-        this.desc = desc;
         this.design = design;
         this.comment = comment;
         this.resp = resp;
         this.date = date;
         this.qty = qty;
-        this.stock = stock;
-        this.to_buy = to_buy;
         this.etat=etat;
+        this.projet=projet;
+        this.cat=cat;
     }
 
     public String getEtat() {

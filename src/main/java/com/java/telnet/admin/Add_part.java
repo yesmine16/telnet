@@ -62,14 +62,34 @@ public class Add_part implements Initializable {
     private FontAwesomeIconView add;
     @FXML
     private ChoiceBox<String> origine;
+    @FXML
+    Button submit, update;
     MenuButton stockbtn = new MenuButton("Storage");
     MenuButton labelbtn = new MenuButton("Label");
 
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        if (Parts.list2.isEmpty()) {
+            submit.setVisible(true);
+            update.setVisible(false);
+            update.setManaged(false);
+
+        } else {
+            update.setVisible(true);
+            submit.setVisible(false);
+            submit.setManaged(false);
+            try {
+                load_img();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+
         final TreeView<String> tree1 = new TreeView<String>();
         TreeItem<String> root1 = new TreeItem<>("");
         root1.setExpanded(true);
@@ -165,7 +185,7 @@ public class Add_part implements Initializable {
         });
     }
 
-    File file2=null;
+    File file2 = null;
     public File file1 = null;
 
     public void img() {
@@ -221,15 +241,13 @@ public class Add_part implements Initializable {
             FileInputStream fin = new FileInputStream(file1);
             call.setBinaryStream(10, fin, (int) file1.length());
         } else {
-//            File image = new File(getClass().getResource("carte.jpg").toString());
-//
-//            InputStream in = new FileInputStream(image);
-//
-//            call.setBinaryStream(10, in, image.length());
+            File f = new File("src/main/resources/com/java/telnet/admin/carte.jpg");
+            FileInputStream fin = new FileInputStream(f);
+            call.setBinaryStream(10, fin, (int) f.length());
         }
         call.setString(13, descr.getText());
         call.setBytes(11, getQRCodeImage(id.getText(), 250, 250));
-        if(file2!=null)
+        if (file2 != null)
             call.setBytes(12, getByteArrayFromFile());
         call.execute();
         call.close();
@@ -237,6 +255,34 @@ public class Add_part implements Initializable {
         stage.close();
     }
 
+    public void update() {
+
+    }
+
+    public void load_img() throws IOException, SQLException {
+        DB db = new DB();
+
+        PreparedStatement ps = db.connect().prepareStatement("select image from ressources where internal_pn=?");
+        ps.setString(1, Parts.list2.get(0).getInternal_pn());
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+
+            InputStream is = rs.getBinaryStream("photo");
+            OutputStream os = new FileOutputStream(new File("src/main/resources/com/java/telnet/admin/photo.jpg"));
+            byte[] content = new byte[1024];
+            int size = 0;
+            while ((size = is.read(content)) != -1) {
+                os.write(content, 0, size);
+            }
+            os.close();
+            is.close();
+
+
+        }
+        ps.close();
+
+
+    }
 //    CallableStatement call2 = db.connect().prepareCall("call history(?,?,?)");
 //                call2.setString(1,internal_pn.getSelectionModel().getSelectedItem());
 //                call2.setString(2,LoginController.name);

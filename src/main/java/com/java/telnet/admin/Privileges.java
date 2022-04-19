@@ -324,7 +324,7 @@ public class Privileges implements Initializable {
 
         users.getItems().addAll("Lecture", "Lecture et Ecriture");
         users.getSelectionModel().selectFirst();
-        tableau.getItems().addAll("Lecture", "Lecture et Ecriture");
+        tableau.getItems().addAll("Lecture");
         tableau.getSelectionModel().selectFirst();
 
         hist.getItems().addAll("Lecture", "Lecture et Ecriture");
@@ -341,22 +341,23 @@ public class Privileges implements Initializable {
 
         parts.getItems().addAll("Lecture", "Lecture et Ecriture");
         parts.getSelectionModel().selectFirst();
-        submit.setOnMouseClicked(event -> {
-            if (Users.list2.isEmpty()) {
-                try {
-                    insert();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (WriterException e) {
-                    e.printStackTrace();
-                }
-            } else {
+         submit.setOnMouseClicked(event -> {
+                if (Users.list2.isEmpty()) {
+                    try {
+                        insert();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (WriterException e) {
+                        e.printStackTrace();
+                    }
+                }else {
                 try {
                     update();
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -380,7 +381,6 @@ public class Privileges implements Initializable {
             stat.setText(Users.list2.get(0).getUser());
             avatar.setFill(new ImagePattern(Users.list2.get(0).getPhoto().getImage()));
             setup();
-
 
         } else {
             avatar.setFill(new ImagePattern(img));
@@ -522,7 +522,6 @@ public class Privileges implements Initializable {
             ps.close();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("L'utilisateur " + nom.getText() + " a été ajouté avec succes");
-            alert.show();
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == ButtonType.OK) {
@@ -649,7 +648,6 @@ public class Privileges implements Initializable {
             ps.close();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("L'utilisateur  a été mis à jour avec succes");
-            alert.show();
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == ButtonType.OK) {

@@ -70,7 +70,7 @@
                                     </HBox>
                                     <HBox fx:id="crud" alignment="CENTER_RIGHT" layoutX="584.0" layoutY="16.0" prefHeight="40.0" prefWidth="150.0" spacing="10.0">
                                        <children>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#add" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
+                                          <Label fx:id="add" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#add" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
                                              <graphic>
                                                 <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="1.3em" text="" wrappingWidth="14.0" />
                                              </graphic>
@@ -78,7 +78,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Label>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
+                                          <Label fx:id="update" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
                                              <graphic>
                                                 <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" size="1.3em" wrappingWidth="15.699994087219238" />
                                              </graphic>
@@ -86,7 +86,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Label>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
+                                          <Label fx:id="delete" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
                                              <graphic>
                                                 <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="1.3em" text="" wrappingWidth="12.45" />
                                              </graphic>
@@ -96,67 +96,11 @@
                                           </Label>
                                        </children>
                                     </HBox>
-                                    <HBox fx:id="filter" layoutX="71.0" layoutY="100.0" prefHeight="58.0" prefWidth="757.0" spacing="20.0">
-                                       <children>
-                                          <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0">
-                                             <children>
-                                                <Label prefHeight="18.0" prefWidth="66.0" text="Nom" textFill="#7c8184" />
-                                                <TextField prefHeight="26.0" prefWidth="123.0" />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0">
-                                             <children>
-                                                <Label prefHeight="18.0" prefWidth="107.0" text="footprint" textFill="#7c8184" />
-                                                <TextField />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0">
-                                             <children>
-                                                <Label prefHeight="18.0" prefWidth="64.0" text="lebel" textFill="#7c8184" />
-                                                <TextField />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0">
-                                             <children>
-                                                <Label prefHeight="18.0" prefWidth="78.0" text="Origine" textFill="#7c8184" />
-                                                <TextField />
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </HBox>
                                     <Label layoutX="14.0" layoutY="6.0" prefHeight="30.0" prefWidth="113.0" text="Inventaire" textFill="#1c263d">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
                                     </Label>
-                                    <HBox alignment="CENTER_RIGHT" layoutX="146.0" layoutY="6.0" prefHeight="47.0" prefWidth="162.0" spacing="10.0">
-                                       <children>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <graphic>
-                                                <FontAwesomeIconView fill="WHITE" glyphName="UPLOAD" size="1.3em" />
-                                             </graphic>
-                                          </Label>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <graphic>
-                                                <FontAwesomeIconView fill="WHITE" glyphName="DOWNLOAD" size="1.3em" />
-                                             </graphic>
-                                          </Label>
-                                          <Label fx:id="filter_btn" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <graphic>
-                                                <FontAwesomeIconView fill="WHITE" glyphName="FILTER" size="1.3em" />
-                                             </graphic>
-                                          </Label>
-                                       </children>
-                                    </HBox>
                                  </children>
                                  <padding>
                                     <Insets right="10.0" />

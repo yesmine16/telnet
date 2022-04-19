@@ -2,6 +2,7 @@ package com.java.telnet.admin;
 
 import com.java.telnet.DB;
 import com.java.telnet.admin.models.Get_parts;
+import com.java.telnet.admin.models.Get_user;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,17 +22,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
 
-import java.awt.*;
+
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.util.List;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Parts implements Initializable {
@@ -46,8 +46,6 @@ public class Parts implements Initializable {
     @FXML
     private TableColumn<Get_parts, String> comment;
 
-    @FXML
-    private HBox crud;
 
     @FXML
     private TableColumn<Get_parts, String> date_creation;
@@ -62,11 +60,9 @@ public class Parts implements Initializable {
     @FXML
     private TableColumn<Get_parts, String> etat;
 
-    @FXML
-    private HBox filter;
 
     @FXML
-    private Label filter_btn, name;
+    private Label name, update, delete, add;
 
 
     @FXML
@@ -78,14 +74,10 @@ public class Parts implements Initializable {
     @FXML
     private TableColumn<Get_parts, String> nom;
 
-    @FXML
-    private TableColumn<Get_parts, String> modif_by;
 
     @FXML
     private TableColumn<Get_parts, String> origin;
 
-    @FXML
-    private TableColumn<Get_parts, String> param;
 
     @FXML
     private TableColumn<Get_parts, String> part_numb;
@@ -95,8 +87,7 @@ public class Parts implements Initializable {
 
     @FXML
     private ScrollPane scroll;
-    @FXML
-    private Pane desc_pane;
+
 
     @FXML
     private ScrollPane description;
@@ -130,7 +121,7 @@ public class Parts implements Initializable {
     private AnchorPane child;
 
     ObservableList<Get_parts> list = FXCollections.observableArrayList();
-    ObservableList<Get_parts> list2 = FXCollections.observableArrayList();
+    static List<Get_parts> list2 = new ArrayList<Get_parts>();
 
 
     @FXML
@@ -163,33 +154,23 @@ public class Parts implements Initializable {
 
     }
 
+    public static void ajout(List<Get_parts> list, String internal_pn, String name, String label, String classification, String access, String origin, String project, String storage, String created_on, String modified_by, String comment, String stat, String description, String cat, String av) {
+        list.clear();
+        list.add(new Get_parts(internal_pn, name, label, classification, access, origin, project, storage, created_on, modified_by, comment, stat, description, cat, av));
+    }
+
     void menu() {
         MenuItem menuItem1 = new MenuItem("Modifier");
         MenuItem menuItem2 = new MenuItem("Supprimer");
         MenuItem menuItem3 = new MenuItem("Ajouter à liste des achats");
         menu.getItems().addAll(menuItem1, menuItem2, menuItem3);
 
-        filter_btn.setOnMouseClicked(event -> {
-            try {
-                if (filter.isVisible()) {
-                    filter.setVisible(false);
-                    scroll.setPrefHeight(80.0);
-                } else {
-                    filter.setVisible(true);
-                    scroll.setPrefHeight(240.0);
 
-                }
-
-            } catch (Exception ex) {
-
-            }
-        });
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         menu();
-        filter.setVisible(false);
         scroll.setPrefHeight(80.0);
         child.setPrefHeight(70.0);
         AnchorPane.setRightAnchor(content, 0.0);
@@ -230,9 +211,6 @@ public class Parts implements Initializable {
             eye.setVisible(false);
             for (Get_parts list : table.getSelectionModel().getSelectedItems()) {
                 for (int i = 1; i <= 1; i++) {
-
-
-                    list2.clear();
                     eye.setVisible(false);
                     description.setVisible(true);
                     open.setVisible(false);
@@ -269,7 +247,7 @@ public class Parts implements Initializable {
                             ResultSet rs = preparedStatement.executeQuery();
 
 
-                            FileOutputStream fos = new FileOutputStream(  list.getName() + " datasheet.pdf");
+                            FileOutputStream fos = new FileOutputStream(list.getName() + " datasheet.pdf");
                             rs.next();
                             byte[] fileBytes = rs.getBytes(1);
                             fos.write(fileBytes);
@@ -282,6 +260,37 @@ public class Parts implements Initializable {
 
 
                     });
+                    add.setOnMouseClicked(e -> {
+                        list2.clear();
+                        FXMLLoader loader = new FXMLLoader();
+                        try {
+                            AnchorPane pane = loader.load(getClass().getResource("add_part.fxml").openStream());
+                            pane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+                            Stage stage = new Stage();
+                            stage.initModality(Modality.APPLICATION_MODAL);
+                            stage.setScene(new Scene(pane));
+                            stage.show();
+
+
+                        } catch (IOException ex) {
+                        }
+                    });
+                    update.setOnMouseClicked(ev -> {
+                        ajout(list2, list.getInternal_pn(), list.getName(), list.getLabel(), list.getClassification(), list.getAccess(), list.getOrigin(), list.getProject(), list.getStorage(), list.getCreated_on(), list.getModified_by(), list.getComment(), list.getStat(), list.getDescription(), list.getCat(), list.getAv());
+                        FXMLLoader loader = new FXMLLoader();
+                        try {
+                            AnchorPane pane = loader.load(getClass().getResource("add_part.fxml").openStream());
+                            pane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+                            Stage stage = new Stage();
+                            stage.initModality(Modality.APPLICATION_MODAL);
+                            stage.setScene(new Scene(pane));
+                            stage.show();
+
+
+                        } catch (IOException e) {
+                        }
+                    });
+
 
                 }
 
