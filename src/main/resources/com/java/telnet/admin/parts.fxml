@@ -3,7 +3,6 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
@@ -11,186 +10,102 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="1000.0" prefWidth="2050.0" styleClass="parent" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Parts">
    <children>
-      <Pane prefHeight="46.0" prefWidth="1260.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <FontAwesomeIconView fx:id="close" fill="#7c90ad" glyphName="BARS" layoutX="2000.0" layoutY="29.0" selectionStart="1" size="1.5em" text="">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </FontAwesomeIconView>
-            <FontAwesomeIconView fx:id="open" fill="#435B7B" glyphName="BARS" layoutX="2000.0" layoutY="29.0" selectionStart="1" size="1.5em" text="">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </FontAwesomeIconView>
-         </children>
-      </Pane>
-      <BorderPane fx:id="content" prefHeight="955.0" prefWidth="1488.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="562.0" AnchorPane.topAnchor="45.0">
+      <Pane prefHeight="46.0" prefWidth="1260.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <BorderPane fx:id="content" prefHeight="955.0" prefWidth="1488.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
          <center>
-            <BorderPane prefHeight="955.0" prefWidth="1632.0" style="-fx-background-radius: 1.3em; -fx-border-color: transparent; -fx-border-radius: 1.3em;" styleClass="parent" BorderPane.alignment="CENTER">
-               <bottom>
-                  <Pane prefHeight="38.0" prefWidth="988.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <ChoiceBox layoutX="14.0" layoutY="13.0" prefWidth="150.0" />
-                     </children>
-                  </Pane>
-               </bottom>
-               <BorderPane.margin>
-                  <Insets left="10.0" right="10.0" />
-               </BorderPane.margin>
-               <top>
-                  <ScrollPane fx:id="scroll" prefHeight="80.0" prefWidth="1096.0" style="-fx-background-radius: 1.3em; -fx-border-color: transparent;" styleClass="parent" BorderPane.alignment="CENTER">
-                     <content>
-                        <AnchorPane fx:id="child" prefHeight="70.0" prefWidth="974.0">
-                           <children>
-                              <Pane prefHeight="224.0" prefWidth="1088.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <children>
-                                    <HBox alignment="CENTER_LEFT" layoutX="772.0" layoutY="18.0" prefHeight="36.0" prefWidth="188.0">
-                                       <children>
-                                          <TextField prefHeight="26.0" prefWidth="212.0" promptText="recherche" style="-fx-background-radius: 2.0em;" />
-                                          <FontAwesomeIconView fill="#7c8184" glyphName="SEARCH" size="1.3em" text="">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </FontAwesomeIconView>
-                                       </children>
-                                    </HBox>
-                                    <HBox fx:id="crud" alignment="CENTER_RIGHT" layoutX="584.0" layoutY="16.0" prefHeight="40.0" prefWidth="150.0" spacing="10.0">
-                                       <children>
-                                          <Label fx:id="add" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#add" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
-                                             <graphic>
-                                                <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="1.3em" text="" wrappingWidth="14.0" />
-                                             </graphic>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Label>
-                                          <Label fx:id="update" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
-                                             <graphic>
-                                                <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" size="1.3em" wrappingWidth="15.699994087219238" />
-                                             </graphic>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Label>
-                                          <Label fx:id="delete" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
-                                             <graphic>
-                                                <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="1.3em" text="" wrappingWidth="12.45" />
-                                             </graphic>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                    <Label layoutX="14.0" layoutY="6.0" prefHeight="30.0" prefWidth="113.0" text="Inventaire" textFill="#1c263d">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <padding>
-                                    <Insets right="10.0" />
-                                 </padding>
-                              </Pane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </ScrollPane>
-               </top>
-               <center>
-                  <ScrollPane prefHeight="835.0" prefWidth="1811.0" style="-fx-background-radius: 1.3em;" BorderPane.alignment="CENTER">
-                     <content>
-                        <TableView fx:id="table" prefHeight="554.0" prefWidth="1465.0">
-                           <columns>
-                              <TableColumn fx:id="internal_pn" minWidth="0.0" prefWidth="110.0" text="numéro interne" />
-                              <TableColumn fx:id="nom" minWidth="0.0" prefWidth="110.0" text="nom" />
-                              <TableColumn fx:id="label" minWidth="0.0" prefWidth="110.0" text="label" />
-                              <TableColumn fx:id="desc" minWidth="0.0" prefWidth="110.0" text="Description" />
-                              <TableColumn fx:id="cat" minWidth="0.0" prefWidth="110.0" text="Catégorie" />
-                              <TableColumn fx:id="classification" minWidth="0.0" prefWidth="110.0" text="classification" />
-                              <TableColumn fx:id="access" minWidth="0.0" prefWidth="110.0" text="acces" />
-                              <TableColumn fx:id="origin" minWidth="0.0" prefWidth="110.0" text="Origine" />
-                              <TableColumn fx:id="projet" minWidth="0.0" prefWidth="110.0" text="Projet" />
-                              <TableColumn fx:id="storage" minWidth="0.0" prefWidth="110.0" text="storage" />
-                              <TableColumn fx:id="date_creation" minWidth="0.0" prefWidth="134.39990234375" text="date ajout au stock" />
-                              <TableColumn fx:id="etat" minWidth="0.0" prefWidth="86.4000244140625" text="etat" />
-                              <TableColumn fx:id="av" minWidth="0.0" prefWidth="140.0001464843749" text="Disponibilité" />
-                              <TableColumn fx:id="comment" prefWidth="75.0" text="Commentaire" />
-                           </columns>
-                           <contextMenu>
-                              <ContextMenu fx:id="menu">
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="Unspecified Action" />
-                                 </items>
-                              </ContextMenu>
-                           </contextMenu>
-                        </TableView>
-                     </content>
-                  </ScrollPane>
-               </center>
-            </BorderPane>
+            <ScrollPane prefHeight="835.0" prefWidth="1811.0" style="-fx-background-radius: 1.3em;" BorderPane.alignment="CENTER">
+               <content>
+                  <TableView fx:id="table" prefHeight="569.0" prefWidth="2050.0">
+                     <columns>
+                        <TableColumn fx:id="img" prefWidth="75.0" text="Image" />
+                        <TableColumn fx:id="internal_pn" minWidth="0.0" prefWidth="110.0" text="Numéro interne" />
+                        <TableColumn fx:id="nom" minWidth="0.0" prefWidth="110.0" text="Nom" />
+                        <TableColumn fx:id="label" minWidth="0.0" prefWidth="110.0" text="Label" />
+                        <TableColumn fx:id="desc" minWidth="0.0" prefWidth="110.0" text="Description" />
+                        <TableColumn fx:id="classification" minWidth="0.0" prefWidth="110.0" text="classification" />
+                        <TableColumn fx:id="origin" minWidth="0.0" prefWidth="110.0" text="Origine" />
+                        <TableColumn fx:id="storage" minWidth="0.0" prefWidth="110.0" text="Storage" />
+                        <TableColumn fx:id="date_creation" minWidth="0.0" prefWidth="134.39990234375" text="Date ajout au stock" />
+                        <TableColumn fx:id="action" minWidth="0.0" prefWidth="140.0001464843749" text="Ressources" />
+                     </columns>
+                     <contextMenu>
+                        <ContextMenu fx:id="menu">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                           </items>
+                        </ContextMenu>
+                     </contextMenu>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </content>
+            </ScrollPane>
          </center>
-      </BorderPane>
-      <ScrollPane fx:id="description" layoutX="1625.0" prefHeight="955.0" prefWidth="425.0" style="-fx-background-radius: 1.3em;" styleClass="parent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1625.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
-         <content>
-            <AnchorPane prefHeight="940.0" prefWidth="426.0">
+         <top>
+            <AnchorPane fx:id="child" prefHeight="70.0" prefWidth="2044.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
-                  <Pane fx:id="desc_pane" prefHeight="640.0" prefWidth="260.0" style="-fx-background-radius: 1.3em; -fx-border-color: transparent; -fx-border-radius: 1.3em;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Pane prefHeight="224.0" prefWidth="1088.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ImageView fx:id="img" fitHeight="113.0" fitWidth="160.0" layoutX="138.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                           <effect>
-                              <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0">
-                                 <color>
-                                    <Color opacity="0.58" />
-                                 </color>
-                              </DropShadow>
-                           </effect>
-                           <image>
-                              <Image url="@carte.jpg" />
-                           </image>
-                        </ImageView>
-                        <Line endX="314.19989013671875" endY="1.52587890625E-5" layoutX="85.0" layoutY="180.0" startX="-64.0" startY="1.52587890625E-5" stroke="#7c8184" />
-                        <Line endX="303.59991455078125" endY="6.103515625E-5" layoutX="86.0" layoutY="348.0" startX="-65.0" startY="6.103515625E-5" stroke="#7c8184" />
-                        <Label alignment="CENTER" layoutX="153.0" layoutY="360.0" prefHeight="26.0" prefWidth="120.0" text="Historique" textFill="#00a4e4">
+                        <HBox alignment="CENTER_LEFT" layoutX="1752.0" layoutY="18.0" prefHeight="36.0" prefWidth="188.0">
+                           <children>
+                              <TextField prefHeight="26.0" prefWidth="212.0" promptText="recherche" style="-fx-background-radius: 2.0em;" />
+                              <FontAwesomeIconView fill="#7c8184" glyphName="SEARCH" size="1.3em" text="">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </FontAwesomeIconView>
+                           </children>
+                        </HBox>
+                        <HBox fx:id="crud" alignment="CENTER_RIGHT" layoutX="157.0" layoutY="16.0" prefHeight="40.0" prefWidth="150.0" spacing="10.0">
+                           <children>
+                              <Label fx:id="add" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#add" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="1.3em" text="" wrappingWidth="14.0" />
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
+                              <Label fx:id="update" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" size="1.3em" wrappingWidth="15.699994087219238" />
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
+                              <Label fx:id="delete" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;">
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="1.3em" text="" wrappingWidth="12.45" />
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Label layoutX="14.0" layoutY="6.0" prefHeight="30.0" prefWidth="113.0" text="Inventaire" textFill="#1c263d">
                            <font>
-                              <Font name="Lucida Console" size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="name" alignment="CENTER" contentDisplay="CENTER" layoutX="153.0" layoutY="146.0" prefHeight="26.0" prefWidth="120.0" text="name" textFill="#00a4e4">
-                           <font>
-                              <Font name="Lucida Console" size="15.0" />
-                           </font>
-                        </Label>
-                        <FontAwesomeIconView fx:id="qr" glyphName="QRCODE" layoutX="329.0" layoutY="167.0" size="2.0em" wrappingWidth="26.449999809265137">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </FontAwesomeIconView>
-                        <FontAwesomeIconView fx:id="pdf" glyphName="FILE" layoutX="366.0" layoutY="167.0" size="2.0em">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </FontAwesomeIconView>
                      </children>
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
                   </Pane>
-                  <FontAwesomeIconView fx:id="eye" fill="#7c8184" glyphName="EYE_SLASH" size="5em" visible="false" wrappingWidth="60" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="280.0" />
                </children>
             </AnchorPane>
-         </content>
-      </ScrollPane>
+         </top>
+      </BorderPane>
    </children>
 </AnchorPane>

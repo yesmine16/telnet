@@ -1,16 +1,15 @@
 package com.java.telnet.admin.models;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Get_project {
     String nom,id;
     String desc;
-    String etat;
-    String tarif;
     String date;
     String created_by;
     String team;
-    String comment;
 
     public String getDesc() {
         return desc;
@@ -20,13 +19,7 @@ public class Get_project {
         this.desc = disc;
     }
 
-    public String getTarif() {
-        return tarif;
-    }
 
-    public void setTarif(String tarif) {
-        this.tarif = tarif;
-    }
 
     public String getDate() {
         return date;
@@ -52,13 +45,7 @@ public class Get_project {
         this.team = team;
     }
 
-    public String getComment() {
-        return comment;
-    }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
 
     public String getNom() {
         return nom;
@@ -68,23 +55,15 @@ public class Get_project {
         this.nom = nom;
     }
 
-    public String getEtat() {
-        return etat;
-    }
 
-    public void setEtat(String etat) {
-        this.etat = etat;
-    }
 
-    public Get_project(String id,String nom,String desc,String tarif,String date,String created_by,String team,String comment) {
+    public Get_project(String id,String nom,String desc,String date,String created_by,String team) {
         this.id=id;
         this.nom = nom;
         this.desc=desc;
-        this.tarif=tarif;
         this.date=date;
         this.created_by=created_by;
         this.team=team;
-        this.comment=comment;
 
 
     }

@@ -269,6 +269,9 @@
     -fx-text-fill: #E6E7E4;
 }
 
+.test{
+    -fx-border-color: #E6E7E4;
+}
 
 /*palette{*/
 /*   #0D1B2B*!*/

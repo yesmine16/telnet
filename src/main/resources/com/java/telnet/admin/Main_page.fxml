@@ -18,14 +18,14 @@
 
 <AnchorPane fx:id="menu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="808.0" prefWidth="1280.0" styleClass="parent" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Dashboard">
    <children>
-      <ScrollPane fx:id="main_page" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+      <ScrollPane fx:id="main_page" layoutX="309.0" layoutY="10.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
          <content>
             <StackPane fx:id="content" styleClass="parent" />
          </content>
       </ScrollPane>
-      <ScrollPane fx:id="slider" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="736.0" prefWidth="321.0" styleClass="parent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+      <ScrollPane fx:id="slider" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="736.0" prefWidth="300.0" styleClass="parent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <content>
-            <AnchorPane minWidth="-Infinity" styleClass="side_bar1" stylesheets="@style.css">
+            <AnchorPane minWidth="-Infinity" prefHeight="732.0" prefWidth="294.0" styleClass="side_bar1" stylesheets="@style.css">
                <children>
                   <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="76.0" prefHeight="612.0" prefWidth="320.0" spacing="10.0" stylesheets="@style.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
                      <children>
@@ -114,8 +114,8 @@
                         </HBox>
                         <HBox fx:id="parts" alignment="CENTER" layoutX="10.0" layoutY="161.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
                            <children>
-                              <FontAwesomeIconView fill="#E6E7E4" glyphName="MICROCHIP" size="1.3em" styleClass="icon_btn" />
-                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Les composants" textFill="#E6E7E4">
+                              <FontAwesomeIconView fill="#E6E7E4" glyphName="ARCHIVE" size="1.3em" styleClass="icon_btn" text="" />
+                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="stockage" textFill="#E6E7E4">
                                  <font>
                                     <Font name="Lucida Console" size="14.0" />
                                  </font>
@@ -132,22 +132,6 @@
                            <children>
                               <FontAwesomeIconView fill="#E6E7E4" glyphName="HISTORY" size="1.3em" styleClass="icon_btn" />
                               <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Historique" textFill="#E6E7E4">
-                                 <font>
-                                    <Font name="Lucida Console" size="14.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </HBox>
-                        <HBox fx:id="stock" alignment="CENTER" layoutX="10.0" layoutY="332.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
-                           <children>
-                              <FontAwesomeIconView fill="#E6E7E4" glyphName="ARCHIVE" size="1.3em" styleClass="icon_btn" />
-                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="stockage" textFill="#E6E7E4">
                                  <font>
                                     <Font name="Lucida Console" size="14.0" />
                                  </font>
@@ -178,7 +162,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="118.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" AnchorPane.topAnchor="14.0">
+                  <ImageView fitHeight="63.0" fitWidth="135.0" layoutX="80.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" AnchorPane.topAnchor="14.0">
                      <image>
                         <Image url="@../logo.png" />
                      </image>

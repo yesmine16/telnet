@@ -1,111 +1,61 @@
 package com.java.telnet.admin;
 
 import com.java.telnet.DB;
+import com.java.telnet.LoginController;
 import com.java.telnet.admin.models.Get_parts;
-import com.java.telnet.admin.models.Get_user;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
 
-
 import java.io.*;
 import java.net.URL;
-import java.util.List;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Parts implements Initializable {
 
 
     @FXML
-    private TableColumn<Get_parts, String> access;
-
-    @FXML
     private TableColumn<Get_parts, String> classification;
 
     @FXML
-    private TableColumn<Get_parts, String> comment;
-
-
-    @FXML
     private TableColumn<Get_parts, String> date_creation;
-
     @FXML
-    private TableColumn<Get_parts, Date> date_modif;
-
+    private TableColumn<Get_parts, String> desc;
     @FXML
-    private TableColumn<Get_parts, String> desc, cat, av;
-    @FXML
-    private FontAwesomeIconView qr, pdf;
-    @FXML
-    private TableColumn<Get_parts, String> etat;
-
-
-    @FXML
-    private Label name, update, delete, add;
-
-
+    private Label update, delete, add;
     @FXML
     private TableColumn<Get_parts, String> internal_pn;
-
     @FXML
     private TableColumn<Get_parts, String> label;
-
     @FXML
     private TableColumn<Get_parts, String> nom;
-
-
     @FXML
     private TableColumn<Get_parts, String> origin;
 
-
     @FXML
-    private TableColumn<Get_parts, String> part_numb;
-
+    private TableColumn<Get_parts, HBox> action;
     @FXML
-    private TableColumn<Get_parts, String> projet;
-
-    @FXML
-    private ScrollPane scroll;
-
-
-    @FXML
-    private ScrollPane description;
-
-    @FXML
-    private TableColumn<Get_parts, String> soft;
-
-    @FXML
-    private FontAwesomeIconView close;
-    @FXML
-    private FontAwesomeIconView open;
-    @FXML
-    private FontAwesomeIconView eye;
-    @FXML
-    private ImageView img;
-    @FXML
-    private TableColumn<Get_parts, String> stock;
-
+    private TableColumn<Get_parts, ImageView> img;
     @FXML
     private TableColumn<Get_parts, String> storage;
 
@@ -114,11 +64,9 @@ public class Parts implements Initializable {
 
     @FXML
     private ContextMenu menu;
-    @FXML
-    private BorderPane content;
 
     @FXML
-    private AnchorPane child;
+    private HBox crud;
 
     ObservableList<Get_parts> list = FXCollections.observableArrayList();
     static List<Get_parts> list2 = new ArrayList<Get_parts>();
@@ -139,12 +87,15 @@ public class Parts implements Initializable {
     void load() {
         DB db = new DB();
         try {
+            list.clear();
             PreparedStatement ps = db.connect().prepareStatement("select * from ressources");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Get_parts(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(6), rs.getString(7), rs.getString(8), null, rs.getString(10), rs.getTimestamp(11).toString(), null, rs.getString(12), rs.getString(13), rs.getString(18), rs.getString(14), rs.getString(15)));
+                ImageView imgView = img(rs, "image");
+                ImageView imgView2 = img(rs, "qr");
+                HBox hbox = action();
+                list.add(new Get_parts(imgView, rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getTimestamp(7).toString(), rs.getString(10), hbox, imgView2));
                 table.setItems(list);
-
             }
             ps.close();
 
@@ -154,68 +105,58 @@ public class Parts implements Initializable {
 
     }
 
-    public static void ajout(List<Get_parts> list, String internal_pn, String name, String label, String classification, String access, String origin, String project, String storage, String created_on, String modified_by, String comment, String stat, String description, String cat, String av) {
+    public static void ajout(List<Get_parts> list, ImageView img, String internal_pn, String name, String label, String classification, String origin, String storage, String created_on, String description) {
         list.clear();
-        list.add(new Get_parts(internal_pn, name, label, classification, access, origin, project, storage, created_on, modified_by, comment, stat, description, cat, av));
+        list.add(new Get_parts(img, internal_pn, name, label, classification, origin, storage, created_on, description, null, null));
     }
 
-    void menu() {
-        MenuItem menuItem1 = new MenuItem("Modifier");
-        MenuItem menuItem2 = new MenuItem("Supprimer");
-        MenuItem menuItem3 = new MenuItem("Ajouter à liste des achats");
-        menu.getItems().addAll(menuItem1, menuItem2, menuItem3);
 
-
+    public HBox action() {
+        FontAwesomeIconView qr = new FontAwesomeIconView();
+        FontAwesomeIconView pdf = new FontAwesomeIconView();
+        HBox hbox = new HBox();
+        pdf.setGlyphName("FILE");
+        qr.setGlyphName("QRCODE");
+        pdf.setSize("1.5em");
+        qr.setSize("1.5em");
+        pdf.setCursor(Cursor.HAND);
+        qr.setCursor(Cursor.HAND);
+        pdf.setFill(Color.web("#435B7B"));
+        qr.setFill(Color.web("#435B7B"));
+        hbox.getChildren().add(qr);
+        hbox.getChildren().add(pdf);
+        hbox.setSpacing(20.0);
+        hbox.setAlignment(Pos.CENTER);
+        return hbox;
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        menu();
-        scroll.setPrefHeight(80.0);
-        child.setPrefHeight(70.0);
-        AnchorPane.setRightAnchor(content, 0.0);
-        description.setVisible(false);
-        open.setOnMouseClicked(event -> {
-            open.setVisible(false);
-            close.setVisible(true);
-            AnchorPane.setRightAnchor(content, 250.0);
-            description.setVisible(true);
-
-        });
-        close.setOnMouseClicked(event -> {
-            close.setVisible(false);
-            open.setVisible(true);
-            AnchorPane.setRightAnchor(content, 0.0);
-            description.setVisible(false);
-        });
+        crud.setVisible(false);
+        String[] s = LoginController.getS();
+        List ls = List.of(s[2].replaceAll("[{}]", "").split(","));
+        if (ls.get(1).equals("oui")) {
+            crud.setVisible(true);
+        }
 
 
         internal_pn.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("internal_pn"));
         nom.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("name"));
         label.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("label"));
         classification.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("classification"));
-        access.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("access"));
         origin.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("origin"));
-        projet.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("project"));
         storage.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("storage"));
-        comment.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("comment"));
-        etat.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("stat"));
         desc.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("description"));
-
-        av.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("av"));
-        cat.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("cat"));
+        action.setCellValueFactory(new PropertyValueFactory<Get_parts, HBox>("action"));
+        img.setCellValueFactory(new PropertyValueFactory<Get_parts, ImageView>("img"));
         date_creation.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("created_on"));
 
         load();
         table.setOnMouseClicked(eventHandler -> {
-            eye.setVisible(false);
             for (Get_parts list : table.getSelectionModel().getSelectedItems()) {
                 for (int i = 1; i <= 1; i++) {
-                    eye.setVisible(false);
-                    description.setVisible(true);
-                    open.setVisible(false);
-                    name.setText(list.getName());
-                    qr.setOnMouseClicked(e -> {
+                    list.getAction().getChildren().get(0).setOnMouseClicked(e -> {
                         DB db = new DB();
                         PopOver popup = new PopOver();
                         try {
@@ -227,16 +168,14 @@ public class Parts implements Initializable {
                                 imgView2.prefHeight(100.0);
                                 imgView2.prefWidth(100.0);
                                 popup.setContentNode(imgView2);
-                                popup.show(qr);
+                                popup.show(list.getAction().getChildren().get(0));
                                 popup.setAutoHide(true);
-
-
                             }
 
                         } catch (Exception exx) {
                         }
                     });
-                    pdf.setOnMouseClicked(e -> {
+                    list.getAction().getChildren().get(1).setOnMouseClicked(e -> {
                         String query = "select datasheet from ressources where internal_pn =?";
 
 
@@ -247,41 +186,44 @@ public class Parts implements Initializable {
                             ResultSet rs = preparedStatement.executeQuery();
 
 
-                            FileOutputStream fos = new FileOutputStream(list.getName() + " datasheet.pdf");
-                            rs.next();
-                            byte[] fileBytes = rs.getBytes(1);
-                            fos.write(fileBytes);
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setContentText("fichier enregistré avec succès");
-                            alert.show();
+                                    FileOutputStream fos = new FileOutputStream(list.getName() + " datasheet.pdf");
+                                    rs.next();
+                                    byte[] fileBytes = rs.getBytes(1);
+                                    if(fileBytes==null){
+
+                                            PopOver popup = new PopOver();
+                                            Label lb=new Label();
+                                            lb.setText("Aucun fichier trouvé");
+                                            lb.setTextFill(Color.BLACK);
+
+                                            popup.setContentNode(lb);
+                                            popup.show(list.getAction().getChildren().get(1));
+                                            popup.setAutoHide(true);
+                                    }
+                                    else{fos.write(fileBytes);
+
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setContentText("Fichier enregistré avec succès");
+                                    alert.show();}
+
+
+
 
                         } catch (Exception ex) {
                         }
 
 
                     });
-                    add.setOnMouseClicked(e -> {
-                        list2.clear();
-                        FXMLLoader loader = new FXMLLoader();
-                        try {
-                            AnchorPane pane = loader.load(getClass().getResource("add_part.fxml").openStream());
-                            pane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-                            Stage stage = new Stage();
-                            stage.initModality(Modality.APPLICATION_MODAL);
-                            stage.setScene(new Scene(pane));
-                            stage.show();
 
-
-                        } catch (IOException ex) {
-                        }
-                    });
                     update.setOnMouseClicked(ev -> {
-                        ajout(list2, list.getInternal_pn(), list.getName(), list.getLabel(), list.getClassification(), list.getAccess(), list.getOrigin(), list.getProject(), list.getStorage(), list.getCreated_on(), list.getModified_by(), list.getComment(), list.getStat(), list.getDescription(), list.getCat(), list.getAv());
+                        list2.clear();
+                        ajout(list2, list.getImg(), list.getInternal_pn(), list.getName(), list.getLabel(), list.getClassification(), list.getOrigin(), list.getStorage(), list.getCreated_on(), list.getDescription());
                         FXMLLoader loader = new FXMLLoader();
                         try {
-                            AnchorPane pane = loader.load(getClass().getResource("add_part.fxml").openStream());
+                            ScrollPane pane = loader.load(getClass().getResource("add_part.fxml").openStream());
                             pane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
                             Stage stage = new Stage();
+                            stage.setTitle("Nouveau composant");
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.setScene(new Scene(pane));
                             stage.show();
@@ -297,7 +239,21 @@ public class Parts implements Initializable {
 
             }
         });
+        add.setOnMouseClicked(e -> {
+            list2.clear();
+            FXMLLoader loader = new FXMLLoader();
+            try {
+                ScrollPane pane = loader.load(getClass().getResource("add_part.fxml").openStream());
+                pane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(new Scene(pane));
+                stage.show();
 
+
+            } catch (IOException ex) {
+            }
+        });
 
     }
 

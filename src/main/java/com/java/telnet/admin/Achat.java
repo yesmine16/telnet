@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -36,7 +37,7 @@ public class Achat implements Initializable {
     private TableColumn<Get_achat, String> desc;
 
     @FXML
-    private TableColumn<Get_achat, String> nom;
+    private TableColumn<Get_achat, String> nom,resp;
     @FXML
     private TableColumn<Get_achat, Label> action;
 
@@ -59,6 +60,8 @@ public class Achat implements Initializable {
         nom.setCellValueFactory(new PropertyValueFactory<Get_achat, String>("nom"));
         qty.setCellValueFactory(new PropertyValueFactory<Get_achat, Integer>("qty"));
         date.setCellValueFactory(new PropertyValueFactory<Get_achat, String>("date"));
+        resp.setCellValueFactory(new PropertyValueFactory<Get_achat, String>("resp"));
+
         desc.setCellValueFactory(new PropertyValueFactory<Get_achat, String>("desc"));
         action.setCellValueFactory(new PropertyValueFactory<Get_achat, Label>("action"));
 
@@ -79,9 +82,10 @@ public class Achat implements Initializable {
                         list.getAction().setOnMouseClicked(event -> {
                             FXMLLoader loader = new FXMLLoader();
                             try {
-                                AnchorPane pane = loader.load(getClass().getResource("add_part.fxml").openStream());
+                                ScrollPane pane = loader.load(getClass().getResource("add_part.fxml").openStream());
                                 pane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
                                 Stage stage = new Stage();
+                                stage.setTitle("Nouveau composant");
                                 stage.initModality(Modality.APPLICATION_MODAL);
                                 stage.setScene(new Scene(pane));
                                 stage.show();

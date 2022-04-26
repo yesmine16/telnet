@@ -74,12 +74,12 @@ public class LoginController extends Application implements Initializable {
             PreparedStatement ps = db.connect().prepareStatement("SELECT \"user\",nom FROM login_info WHERE id = ?");
             ps.setInt(1, login.getInt(1));
             ResultSet rs = ps.executeQuery();
-            PreparedStatement pss = db.connect().prepareStatement("SELECT \"table\", users, parts, projects, storage, history, buy FROM privilege WHERE id = ?");
+            PreparedStatement pss = db.connect().prepareStatement("SELECT \"table\", users, parts, projects, history, buy FROM privilege WHERE id = ?");
             pss.setInt(1, login.getInt(1));
             ResultSet rss = pss.executeQuery();
             while (rss.next()) {
 
-                for (int i = 1; i <= 7; i++) {
+                for (int i = 1; i <= 6; i++) {
                     s[i - 1] = rss.getArray(i).toString();
                 }
             }

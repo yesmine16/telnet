@@ -1,6 +1,7 @@
 package com.java.telnet.admin;
 
 import com.java.telnet.DB;
+import com.java.telnet.LoginController;
 import com.java.telnet.admin.models.Get_user;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
@@ -152,7 +153,7 @@ Button add;
                 ImageView imgView2 = img(rs, "qr");
 
                 HBox hbox = action();
-                list.add(new Get_user(rs.getInt(1), rs.getString(2), imgView, rs.getTimestamp(5).toString(), rs.getString(6), rs.getString(3), hbox, rs.getString(7), rs.getString(8), imgView2));
+                list.add(new Get_user(rs.getInt(1), rs.getString(2), imgView, rs.getTimestamp(5).toString(), rs.getString(6), rs.getString(3), hbox, rs.getString(8), rs.getString(7), imgView2));
             }
             table.setItems(list);
             ps.close();
@@ -181,6 +182,16 @@ Button add;
 
 
     public void initialize(URL url, ResourceBundle rb) {
+        add.setVisible(false);
+       action_col.setVisible(false);
+
+        String[] priv = LoginController.getS();
+        List ls = List.of(priv[1].replaceAll("[{}]", "").split(","));
+        if (ls.get(1).equals("oui"))
+        {
+            add.setVisible(true);
+            action_col.setVisible(true);
+        }
         add.setOnMouseClicked(e->{
             list2.clear();
             try {
@@ -197,6 +208,7 @@ Button add;
         stat_col.setCellValueFactory(new PropertyValueFactory<Get_user, String>("user"));
         date_col.setCellValueFactory(new PropertyValueFactory<Get_user, String>("date"));
         action_col.setCellValueFactory(new PropertyValueFactory<Get_user, HBox>("action"));
+
         try {
             load();
         } catch (SQLException e) {
@@ -218,12 +230,12 @@ Button add;
                                 ImageView imgView = img(rs, "photo");
                                 ajout(list2, list.getMatricule(), imgView, list.getNom(), list.getPhone(), list.getEmail(), list.getUser(),list.getId());
                             }
-                            PreparedStatement pss = db.connect().prepareStatement("SELECT \"table\", users, parts, projects, storage, history, buy FROM privilege WHERE id = ?");
+                            PreparedStatement pss = db.connect().prepareStatement("SELECT \"table\", users, parts, projects, history, buy FROM privilege WHERE id = ?");
                             pss.setInt(1, list.getId());
                             ResultSet rss = pss.executeQuery();
                             while (rss.next()) {
 
-                                for (int j = 1; j <= 7; j++) {
+                                for (int j = 1; j <= 6; j++) {
                                     s[j-1] = rss.getArray(j).toString();
                                 }
                             }

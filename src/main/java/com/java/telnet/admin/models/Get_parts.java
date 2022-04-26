@@ -1,62 +1,52 @@
 package com.java.telnet.admin.models;
 
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+
 import java.sql.Timestamp;
 
 public class Get_parts {
-   String internal_pn,part_number, name, label, classification, access, origin, project, storage, av,cat, modified_by, comment,stat,description, soft_version, parametre,stock,created_on;
-Byte img,qr,datasheet;
+   String internal_pn, name, label, classification, origin,  storage,description,created_on;
+Byte datasheet;
+ImageView img,qr;
+HBox action;
 
-    public String getAv() {
-        return av;
+    public HBox getAction() {
+        return action;
     }
 
-    public void setAv(String av) {
-        this.av = av;
+    public void setAction(HBox action) {
+        this.action = action;
     }
 
-    public String getCat() {
-        return cat;
-    }
 
-    public void setCat(String cat) {
-        this.cat = cat;
-    }
-
-    public Get_parts(String internal_pn, String name, String label, String classification, String access, String origin, String project, String storage, String created_on, String modified_by, String comment, String stat, String description,  String cat, String av) {
+    public Get_parts(ImageView img, String internal_pn, String name, String label, String classification, String origin,  String storage, String created_on,  String description, HBox action,ImageView qr) {
+        this.img=img;
         this.internal_pn = internal_pn;
         this.name = name;
         this.label = label;
         this.classification = classification;
-        this.access = access;
         this.origin = origin;
-        this.project = project;
         this.storage = storage;
         this.created_on=created_on;
-        this.modified_by = modified_by;
-        this.comment = comment;
-        this.stat = stat;
         this.description = description;
-
-        this.cat=cat;
-        this.av=av;
-
-
-
+        this.action = action;
+        this.qr=qr;
     }
 
-    public Byte getImg() {
+    public ImageView getImg() {
         return img;
     }
 
-    public void setImg(Byte img) {
+    public void setImg(ImageView img) {
         this.img = img;
     }
 
-    public Byte getQr() {
+    public ImageView getQr() {
         return qr;
     }
 
-    public void setQr(Byte qr) {
+    public void setQr(ImageView qr) {
         this.qr = qr;
     }
 
@@ -76,13 +66,7 @@ Byte img,qr,datasheet;
         this.internal_pn = internal_pn;
     }
 
-    public String getPart_number() {
-        return part_number;
-    }
 
-    public void setPart_number(String part_number) {
-        this.part_number = part_number;
-    }
 
     public String getName() {
         return name;
@@ -108,13 +92,7 @@ Byte img,qr,datasheet;
         this.classification = classification;
     }
 
-    public String getAccess() {
-        return access;
-    }
 
-    public void setAccess(String access) {
-        this.access = access;
-    }
 
     public String getOrigin() {
         return origin;
@@ -124,13 +102,6 @@ Byte img,qr,datasheet;
         this.origin = origin;
     }
 
-    public String getProject() {
-        return project;
-    }
-
-    public void setProject_id(String project) {
-        this.project = project;
-    }
 
     public String getStorage() {
         return storage;
@@ -140,29 +111,11 @@ Byte img,qr,datasheet;
         this.storage = storage;
     }
 
-    public String getModified_by() {
-        return modified_by;
-    }
 
-    public void setModified_by(String modified_by) {
-        this.modified_by = modified_by;
-    }
 
-    public String getComment() {
-        return comment;
-    }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
 
-    public String getStat() {
-        return stat;
-    }
 
-    public void setStat(String stat) {
-        this.stat = stat;
-    }
 
     public String getDescription() {
         return description;
@@ -172,29 +125,6 @@ Byte img,qr,datasheet;
         this.description = description;
     }
 
-    public String getSoft_version() {
-        return soft_version;
-    }
-
-    public void setSoft_version(String soft_version) {
-        this.soft_version = soft_version;
-    }
-
-    public String getParametre() {
-        return parametre;
-    }
-
-    public void setParametre(String parametre) {
-        this.parametre = parametre;
-    }
-
-    public String getStock() {
-        return stock;
-    }
-
-    public void setProject(String project) {
-        this.project = project;
-    }
 
     public void setDescription(String description) {
         this.description = description;
@@ -211,8 +141,6 @@ Byte img,qr,datasheet;
 
 
 
-    public void setStock(String stock) {
-        this.stock = stock;
-    }}
+    }
 
 

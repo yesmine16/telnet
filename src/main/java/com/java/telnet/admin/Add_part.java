@@ -16,9 +16,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -34,43 +36,39 @@ import java.util.ResourceBundle;
 import static com.java.telnet.admin.Qr.getQRCodeImage;
 
 public class Add_part implements Initializable {
-    @FXML
-    private ChoiceBox<String> access;
+
 
     @FXML
-    private HBox label_box;
-    @FXML
-    private ChoiceBox<String> cat;
+    private AnchorPane label_box;
+
 
     @FXML
     private ChoiceBox<String> classification;
     @FXML
     private Label txt;
     @FXML
-    private TextField id, comment;
+    private TextField id;
 
     @FXML
     private ImageView img;
 
     @FXML
     private TextArea descr;
+
     @FXML
-    private HBox store;
-    @FXML
-    private TextField nom;
+    private TextField nom, store;
     @FXML
     private FontAwesomeIconView add;
     @FXML
     private ChoiceBox<String> origine;
     @FXML
     Button submit, update;
-    MenuButton stockbtn = new MenuButton("Storage");
     MenuButton labelbtn = new MenuButton("Label");
 
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    public void initialize(URL url, ResourceBundle resourceBundle) {id.setEditable(true);
+        labelbtn.setLayoutX(480.0);labelbtn.setLayoutY(30.0);
         if (Parts.list2.isEmpty()) {
             submit.setVisible(true);
             update.setVisible(false);
@@ -80,6 +78,20 @@ public class Add_part implements Initializable {
             update.setVisible(true);
             submit.setVisible(false);
             submit.setManaged(false);
+            id.setText(Parts.list2.get(0).getInternal_pn());id.setEditable(false);
+            nom.setText(Parts.list2.get(0).getName());
+            labelbtn.setText(Parts.list2.get(0).getLabel());
+            store.setText(Parts.list2.get(0).getStorage());
+            descr.setText(Parts.list2.get(0).getDescription());
+            if (Parts.list2.get(0).getClassification().equals("Restreinte"))
+                classification.getSelectionModel().selectFirst();
+            else classification.getSelectionModel().selectLast();
+            if (Parts.list2.get(0).getOrigin().equals("Externe"))
+                origine.getSelectionModel().selectFirst();
+            else origine.getSelectionModel().selectLast();
+
+
+
             try {
                 load_img();
             } catch (IOException e) {
@@ -88,35 +100,10 @@ public class Add_part implements Initializable {
                 e.printStackTrace();
             }
         }
-
-
-        final TreeView<String> tree1 = new TreeView<String>();
-        TreeItem<String> root1 = new TreeItem<>("");
-        root1.setExpanded(true);
-        TreeItem<String> st1 = new TreeItem<>("Stockage Principale");
-        st1.getChildren().addAll(new TreeItem<String>("rang A"), new TreeItem<String>("Rang B"), new TreeItem<String>("Rang C"));
-        root1.getChildren().addAll(st1);
-        tree1.setRoot(root1);
-        tree1.setShowRoot(false);
-        CustomMenuItem customMenuItem2 = new CustomMenuItem(tree1);
-        customMenuItem2.setHideOnClick(false);
-        stockbtn.getItems().add(customMenuItem2);
-        store.getChildren().add(stockbtn);
-        customMenuItem2.setOnAction(e -> {
-            if (tree1.getSelectionModel().getSelectedItem().isLeaf()) {
-                stockbtn.setText(tree1.getSelectionModel().getSelectedItem().getValue());
-                stockbtn.hide();
-            } else ;
-
-        });
-        cat.getItems().addAll("Matériel", "Logiciel", "Bureautique");
+        img.setImage(new Image(getClass().getResource("carte.jpg").toString()));
         classification.getItems().addAll("Restreinte", "Usage interne");
         origine.getItems().addAll("Externe", "Interne");
-        access.getItems().addAll("Team members");
-        cat.setOnAction(event -> {
-            if (cat.getSelectionModel().isSelected(0)) label_box.setDisable(false);
-            else label_box.setDisable(true);
-        });
+
         img.setImage(new Image(getClass().getResource("carte.jpg").toString()));
 
         final TreeView<String> tree = new TreeView<String>();
@@ -142,14 +129,16 @@ public class Add_part implements Initializable {
         TreeItem<String> list11 = new TreeItem<>("Transistor");
         list11.getChildren().addAll(new TreeItem<String>("BJT"), new TreeItem<String>("JFET"), new TreeItem<String>("MOS"));
         TreeItem<String> list12 = new TreeItem<>("Sensor");
+        TreeItem<String> list13 = new TreeItem<>("Autre");
         list12.getChildren().addAll(new TreeItem<String>("Accelerometer"), new TreeItem<String>("Current"), new TreeItem<String>("Gyroscope"), new TreeItem<String>("Humidity"), new TreeItem<String>("Light"), new TreeItem<String>("Magnetometer"), new TreeItem<String>("Pressure"), new TreeItem<String>("Temperature"));
-        root.getChildren().addAll(list00, list0, list1, list22, list3, list4, list5, list7, list8, list9, list11, list12);
+        root.getChildren().addAll(list00, list0, list1, list22, list3, list4, list5, list7, list8, list9, list11, list12, list13);
         tree.setRoot(root);
         tree.setShowRoot(false);
         CustomMenuItem customMenuItem = new CustomMenuItem(tree);
         customMenuItem.setHideOnClick(false);
         labelbtn.getItems().add(customMenuItem);
         label_box.getChildren().add(labelbtn);
+
         customMenuItem.setOnAction(e -> {
             if (tree.getSelectionModel().getSelectedItem().isLeaf()) {
                 labelbtn.setText(tree.getSelectionModel().getSelectedItem().getValue());
@@ -176,7 +165,6 @@ public class Add_part implements Initializable {
                     } else {
                         txt.setVisible(false);
                         txt.setManaged(false);
-                        Boolean verif = true;
                     }
                 } catch (Exception e) {
                 }
@@ -225,34 +213,46 @@ public class Add_part implements Initializable {
 
     }
 
+    Boolean v = true;
+
     public void submit() throws SQLException, IOException, WriterException {
-        DB db = new DB();
-        CallableStatement call = db.connect().prepareCall("call add_part(?,?,?,?,?,?,?,?,?,?,?,?,?)");
-        call.setString(1, id.getText());
-        call.setString(2, nom.getText());
-        call.setString(3, labelbtn.getText());
-        call.setString(4, classification.getSelectionModel().getSelectedItem());
-        call.setString(5, access.getSelectionModel().getSelectedItem());
-        call.setString(6, origine.getSelectionModel().getSelectedItem());
-        call.setString(7, stockbtn.getText());
-        call.setString(8, comment.getText());
-        call.setString(9, cat.getSelectionModel().getSelectedItem());
-        if (file1 != null) {
-            FileInputStream fin = new FileInputStream(file1);
-            call.setBinaryStream(10, fin, (int) file1.length());
-        } else {
-            File f = new File("src/main/resources/com/java/telnet/admin/carte.jpg");
-            FileInputStream fin = new FileInputStream(f);
-            call.setBinaryStream(10, fin, (int) f.length());
+
+        if (id.getText().isEmpty()) {
+            v = false;
         }
-        call.setString(13, descr.getText());
-        call.setBytes(11, getQRCodeImage(id.getText(), 250, 250));
-        if (file2 != null)
-            call.setBytes(12, getByteArrayFromFile());
-        call.execute();
-        call.close();
-        Stage stage = (Stage) store.getScene().getWindow();
-        stage.close();
+        if (nom.getText().isEmpty()) {
+            v = false;
+        }
+        if (labelbtn.getText().isEmpty()) {
+            v = false;
+        }
+
+        if (v) {
+            DB db = new DB();
+            CallableStatement call = db.connect().prepareCall("INSERT INTO public.ressources(internal_pn, name, label, classification, origin, storage, qr, image, \"desc\", datasheet)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            call.setString(1, id.getText());
+            call.setString(2, nom.getText());
+            call.setString(3, labelbtn.getText());
+            call.setString(4, classification.getSelectionModel().getSelectedItem());
+            call.setString(5, origine.getSelectionModel().getSelectedItem());
+            call.setString(6, store.getText());
+            if (file1 != null) {
+                FileInputStream fin = new FileInputStream(file1);
+                call.setBinaryStream(8, fin, (int) file1.length());
+            } else {
+                File f = new File("src/main/resources/com/java/telnet/admin/carte.jpg");
+                FileInputStream fin = new FileInputStream(f);
+                call.setBinaryStream(8, fin, (int) f.length());
+            }
+            call.setString(9, descr.getText());
+            call.setBytes(7, getQRCodeImage(id.getText(), 250, 250));
+            if (file2 != null) call.setBytes(10, getByteArrayFromFile());
+            else call.setBytes(10, null);
+            call.execute();
+            call.close();
+            Stage stage = (Stage) store.getScene().getWindow();
+            stage.close();
+        }
     }
 
     public void update() {
@@ -261,13 +261,12 @@ public class Add_part implements Initializable {
 
     public void load_img() throws IOException, SQLException {
         DB db = new DB();
-
         PreparedStatement ps = db.connect().prepareStatement("select image from ressources where internal_pn=?");
         ps.setString(1, Parts.list2.get(0).getInternal_pn());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
 
-            InputStream is = rs.getBinaryStream("photo");
+            InputStream is = rs.getBinaryStream(1);
             OutputStream os = new FileOutputStream(new File("src/main/resources/com/java/telnet/admin/photo.jpg"));
             byte[] content = new byte[1024];
             int size = 0;

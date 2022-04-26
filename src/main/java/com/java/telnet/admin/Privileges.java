@@ -7,6 +7,8 @@ import com.java.telnet.Login;
 import com.java.telnet.LoginController;
 import com.java.telnet.admin.models.Get_user;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
@@ -62,8 +65,7 @@ public class Privileges implements Initializable {
     @FXML
     private ToggleGroup grp5;
 
-    @FXML
-    private ToggleGroup grp6;
+
 
     @FXML
     private ToggleGroup grp7;
@@ -79,8 +81,6 @@ public class Privileges implements Initializable {
     private ChoiceBox<String> projet;
 
 
-    @FXML
-    private ChoiceBox<String> store;
 
     @FXML
     private ChoiceBox<String> tableau;
@@ -134,10 +134,7 @@ public class Privileges implements Initializable {
             projet.setVisible(true);
         else
             projet.setVisible(false);
-        if (grp6.getToggles().get(0).isSelected())
-            store.setVisible(true);
-        else
-            store.setVisible(false);
+
         if (grp7.getToggles().get(0).isSelected())
             buy.setVisible(true);
         else
@@ -145,7 +142,7 @@ public class Privileges implements Initializable {
     }
 
     public void setup() {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 6; i++) {
             List ls = List.of(s[i].replaceAll("[{}]", "").split(","));
             if (ls.get(0).equals("oui") && i == 0) {
                 grp.getToggles().get(0).setSelected(true);
@@ -183,34 +180,26 @@ public class Privileges implements Initializable {
                 else parts.getSelectionModel().selectFirst();
 
             } else if (ls.get(0).equals("non") && i == 2) grp3.getToggles().get(1).setSelected(true);
-            if (ls.get(0).equals("oui") && i == 4) {
-                grp6.getToggles().get(0).setSelected(true);
-                store.setVisible(true);
-                if (ls.get(1).equals("oui") && i == 4)
-                    store.getSelectionModel().selectLast();
-                else store.getSelectionModel().selectFirst();
-
-            } else if (ls.get(0).equals("non") && i == 4) grp6.getToggles().get(1).setSelected(true);
-
-            if (ls.get(0).equals("oui") && i == 6) {
-
-                grp7.getToggles().get(0).setSelected(true);
-                buy.setVisible(true);
-                if (ls.get(1).equals("oui") && i == 6)
-                    buy.getSelectionModel().selectLast();
-                else buy.getSelectionModel().selectFirst();
-
-            } else if (ls.get(0).equals("non") && i == 6) grp7.getToggles().get(1).setSelected(true);
 
             if (ls.get(0).equals("oui") && i == 5) {
 
+                grp7.getToggles().get(0).setSelected(true);
+                buy.setVisible(true);
+                if (ls.get(1).equals("oui") && i == 5)
+                    buy.getSelectionModel().selectLast();
+                else buy.getSelectionModel().selectFirst();
+
+            } else if (ls.get(0).equals("non") && i == 5) grp7.getToggles().get(1).setSelected(true);
+
+            if (ls.get(0).equals("oui") && i == 4) {
+
                 grp4.getToggles().get(0).setSelected(true);
                 hist.setVisible(true);
-                if (ls.get(1).equals("oui") && i == 5)
+                if (ls.get(1).equals("oui") && i == 4)
                     hist.getSelectionModel().selectLast();
                 else hist.getSelectionModel().selectFirst();
 
-            } else if (ls.get(0).equals("non") && i == 5) grp4.getToggles().get(1).setSelected(true);
+            } else if (ls.get(0).equals("non") && i == 4) grp4.getToggles().get(1).setSelected(true);
         }
     }
 
@@ -221,13 +210,11 @@ public class Privileges implements Initializable {
             grp3.getToggles().get(0).setSelected(true);
             grp4.getToggles().get(0).setSelected(true);
             grp5.getToggles().get(0).setSelected(true);
-            grp6.getToggles().get(0).setSelected(true);
             grp7.getToggles().get(0).setSelected(true);
             users.setVisible(true);
             tableau.setVisible(true);
             hist.setVisible(true);
             buy.setVisible(true);
-            store.setVisible(true);
             projet.setVisible(true);
             parts.setVisible(true);
         } else {
@@ -236,13 +223,11 @@ public class Privileges implements Initializable {
             grp3.getToggles().get(0).setSelected(false);
             grp4.getToggles().get(0).setSelected(false);
             grp5.getToggles().get(0).setSelected(false);
-            grp6.getToggles().get(0).setSelected(false);
             grp7.getToggles().get(0).setSelected(false);
             users.setVisible(false);
             tableau.setVisible(false);
             hist.setVisible(false);
             buy.setVisible(false);
-            store.setVisible(false);
             projet.setVisible(false);
             parts.setVisible(false);
         }
@@ -333,28 +318,27 @@ public class Privileges implements Initializable {
         buy.getItems().addAll("Lecture", "Lecture et Ecriture");
         buy.getSelectionModel().selectFirst();
 
-        store.getItems().addAll("Lecture", "Lecture et Ecriture");
-        store.getSelectionModel().selectFirst();
+
 
         projet.getItems().addAll("Lecture", "Lecture et Ecriture");
         projet.getSelectionModel().selectFirst();
 
         parts.getItems().addAll("Lecture", "Lecture et Ecriture");
         parts.getSelectionModel().selectFirst();
-         submit.setOnMouseClicked(event -> {
-                if (Users.list2.isEmpty()) {
-                    try {
-                        insert();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (WriterException e) {
-                        e.printStackTrace();
-                    }
-                }else {
+        submit.setOnMouseClicked(event -> {
+            if (Users.list2.isEmpty()) {
+                try {
+                    insert();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (WriterException e) {
+                    e.printStackTrace();
+                }
+            } else {
                 try {
                     update();
 
@@ -420,7 +404,7 @@ public class Privileges implements Initializable {
             txt5.setManaged(true);
             v = false;
         }
-        if (grp.getSelectedToggle() == null || grp2.getSelectedToggle() == null || grp3.getSelectedToggle() == null || grp4.getSelectedToggle() == null || grp5.getSelectedToggle() == null || grp6.getSelectedToggle() == null || grp7.getSelectedToggle() == null) {
+        if (grp.getSelectedToggle() == null || grp2.getSelectedToggle() == null || grp3.getSelectedToggle() == null || grp4.getSelectedToggle() == null || grp5.getSelectedToggle() == null ||  grp7.getSelectedToggle() == null) {
             txt6.setVisible(true);
             v = false;
         }
@@ -506,11 +490,7 @@ public class Privileges implements Initializable {
                     insert.setArray(5, db.connect().createArrayOf("varchar", new Object[]{"oui", "non"}));
                 } else insert.setArray(5, db.connect().createArrayOf("varchar", new Object[]{"oui", "oui"}));
             } else insert.setArray(5, db.connect().createArrayOf("varchar", new Object[]{"non", "non"}));
-            if (grp6.getToggles().get(0).isSelected()) {
-                if (store.getSelectionModel().isSelected(0)) {
-                    insert.setArray(6, db.connect().createArrayOf("varchar", new Object[]{"oui", "non"}));
-                } else insert.setArray(6, db.connect().createArrayOf("varchar", new Object[]{"oui", "oui"}));
-            } else insert.setArray(6, db.connect().createArrayOf("varchar", new Object[]{"non", "non"}));
+
             if (grp7.getToggles().get(0).isSelected()) {
                 if (buy.getSelectionModel().isSelected(0)) {
                     insert.setArray(7, db.connect().createArrayOf("varchar", new Object[]{"oui", "non"}));
@@ -551,7 +531,7 @@ public class Privileges implements Initializable {
             txt5.setManaged(true);
             v = false;
         }
-        if (grp.getSelectedToggle() == null || grp2.getSelectedToggle() == null || grp3.getSelectedToggle() == null || grp4.getSelectedToggle() == null || grp5.getSelectedToggle() == null || grp6.getSelectedToggle() == null || grp7.getSelectedToggle() == null) {
+        if (grp.getSelectedToggle() == null || grp2.getSelectedToggle() == null || grp3.getSelectedToggle() == null || grp4.getSelectedToggle() == null || grp5.getSelectedToggle() == null ||  grp7.getSelectedToggle() == null) {
             txt6.setVisible(true);
             v = false;
         }
@@ -590,7 +570,7 @@ public class Privileges implements Initializable {
         if (v) {
             DB db = new DB();
             PreparedStatement ps = db.connect().prepareStatement("UPDATE login_info SET  matricule=?, \"user\"=?, photo=?, nom=?, email=?, phone=? WHERE matricule=? ");
-            PreparedStatement insert = db.connect().prepareStatement("UPDATE privilege SET \"table\"=?, users=?, parts=?, projects=?, storage=?, history=?, buy=? WHERE id=?;");
+            PreparedStatement insert = db.connect().prepareStatement("UPDATE privilege SET \"table\"=?, users=?, parts=?, projects=?, history=?, buy=? WHERE id=?;");
             ps.setString(4, nom.getText());
             ps.setString(1, mat.getText());
             ps.setString(2, stat.getText());
@@ -606,7 +586,7 @@ public class Privileges implements Initializable {
                 ps.setBinaryStream(3, fin, (int) f.length());
             }
             ps.setString(7, Users.list2.get(0).getMatricule());
-            insert.setInt(8, Users.list2.get(0).getId());
+            insert.setInt(7, Users.list2.get(0).getId());
             if (grp.getToggles().get(0).isSelected()) {
                 if (tableau.getSelectionModel().isSelected(0)) {
                     insert.setArray(1, db.connect().createArrayOf("varchar", new Object[]{"oui", "non"}));
@@ -624,35 +604,63 @@ public class Privileges implements Initializable {
             } else insert.setArray(3, db.connect().createArrayOf("varchar", new Object[]{"non", "non"}));
             if (grp4.getToggles().get(0).isSelected()) {
                 if (hist.getSelectionModel().isSelected(0)) {
-                    insert.setArray(4, db.connect().createArrayOf("varchar", new Object[]{"oui", "non"}));
-                } else insert.setArray(4, db.connect().createArrayOf("varchar", new Object[]{"oui", "oui"}));
-            } else insert.setArray(4, db.connect().createArrayOf("varchar", new Object[]{"non", "non"}));
-            if (grp5.getToggles().get(0).isSelected()) {
-                if (projet.getSelectionModel().isSelected(0)) {
                     insert.setArray(5, db.connect().createArrayOf("varchar", new Object[]{"oui", "non"}));
                 } else insert.setArray(5, db.connect().createArrayOf("varchar", new Object[]{"oui", "oui"}));
             } else insert.setArray(5, db.connect().createArrayOf("varchar", new Object[]{"non", "non"}));
-            if (grp6.getToggles().get(0).isSelected()) {
-                if (store.getSelectionModel().isSelected(0)) {
+            if (grp5.getToggles().get(0).isSelected()) {
+                if (projet.getSelectionModel().isSelected(0)) {
+                    insert.setArray(4, db.connect().createArrayOf("varchar", new Object[]{"oui", "non"}));
+                } else insert.setArray(4, db.connect().createArrayOf("varchar", new Object[]{"oui", "oui"}));
+            } else insert.setArray(4, db.connect().createArrayOf("varchar", new Object[]{"non", "non"}));
+
+            if (grp7.getToggles().get(0).isSelected()) {
+                if (buy.getSelectionModel().isSelected(0)) {
                     insert.setArray(6, db.connect().createArrayOf("varchar", new Object[]{"oui", "non"}));
                 } else insert.setArray(6, db.connect().createArrayOf("varchar", new Object[]{"oui", "oui"}));
             } else insert.setArray(6, db.connect().createArrayOf("varchar", new Object[]{"non", "non"}));
-            if (grp7.getToggles().get(0).isSelected()) {
-                if (buy.getSelectionModel().isSelected(0)) {
-                    insert.setArray(7, db.connect().createArrayOf("varchar", new Object[]{"oui", "non"}));
-                } else insert.setArray(7, db.connect().createArrayOf("varchar", new Object[]{"oui", "oui"}));
-            } else insert.setArray(7, db.connect().createArrayOf("varchar", new Object[]{"non", "non"}));
             ps.executeUpdate();
             insert.executeUpdate();
-            insert.close();
             ps.close();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("L'utilisateur  a été mis à jour avec succes");
-            Optional<ButtonType> result = alert.showAndWait();
 
-            if (result.get() == ButtonType.OK) {
-                Stage stage = (Stage) submit.getScene().getWindow();
-                stage.close();
+            if (insert.executeUpdate() > 0) {
+                if (LoginController.id == Users.list2.get(0).getId()) {
+
+                    try {
+                        Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                        DialogPane dialogPane = alert1.getDialogPane();
+                        dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+                        alert1.setContentText("vous devez vous reconnecter");
+                        Optional<ButtonType> result1 = alert1.showAndWait();
+
+                        if (result1.isPresent() && result1.get() == ButtonType.OK) {
+                            FXMLLoader fxmlLoader = new FXMLLoader(Login.class.getResource("login.fxml"));
+                            Scene scene = new Scene(fxmlLoader.load());
+                            Stage stage = new Stage();
+                            stage.setScene(scene);
+                            stage.show();
+                            Stage stage1 = (Stage) submit.getScene().getWindow();
+                            stage1.close();
+                            LoginController.id = null;
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    insert.close();
+
+
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("L'utilisateur  a été mis à jour avec succes");
+                    Optional<ButtonType> result = alert.showAndWait();
+
+                    if (result.get() == ButtonType.OK) {
+                        Stage stage = (Stage) submit.getScene().getWindow();
+                        stage.close();
+                    }
+                    insert.close();
+
+                }
             }
         }
     }

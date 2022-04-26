@@ -1,31 +1,22 @@
 package com.java.telnet.admin;
 
-import com.google.zxing.WriterException;
 import com.java.telnet.DB;
 import com.java.telnet.LoginController;
-import com.java.telnet.admin.models.Get_project;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
-import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxTreeCell;
-import javafx.scene.control.cell.ChoiceBoxTreeCell;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.tree.DefaultTreeModel;
-import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.CallableStatement;
@@ -38,46 +29,41 @@ import java.util.ResourceBundle;
 public class Add_bom implements Initializable {
     @FXML
     private Button submit;
+
     @FXML
-    private ChoiceBox<String> cat;
+    private Hyperlink link;
     @FXML
     private TextField design;
 
-    private String internal_pn, name;
+    private String internal_pn;
 
     @FXML
-    private HBox label, id, stat_box, qty;
+    private HBox label;
 
     @FXML
-    private ComboBox<String> part_name;
+    private ChoiceBox<String> part_name;
     MenuButton mb = new MenuButton("Label");
+
     @FXML
     private TextArea descr;
     @FXML
     private TextField quantite;
 
-    @FXML
-    private TextField stat;
+
     @FXML
     private Text txt1;
 
     @FXML
-    private Text txt2;
+    private Text ref;
 
     @FXML
     private Text txt3;
-
+    @FXML
+    private FontAwesomeIconView plus, moins;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        label.setDisable(true);
-        stat_box.setDisable(true);
-        part_name.getEditor().textProperty().addListener((obs, oldText, newText) -> {
-            part_name.setValue(newText);
-            quantite.clear();
-            quantite.setEditable(true);
 
-        });
         submit.setOnMouseClicked(event -> {
             if (Projet.list4.isEmpty()) {
                 try {
@@ -96,29 +82,17 @@ public class Add_bom implements Initializable {
 
         });
         if (Projet.list4.isEmpty() == false) {
-            part_name.getEditor().setText(Projet.list4.get(0).getNom());
-            if (Projet.list4.get(0).getCat().equals("Matériel"))
-                cat.getSelectionModel().selectLast();
-            else if (Projet.list4.get(0).getCat().equals("Logiciel")) cat.getSelectionModel().select(2);
-            else cat.getSelectionModel().selectFirst();
-            stat.setText(Projet.list4.get(0).getEtat());
+
             descr.setText(Projet.list4.get(0).getDesc());
             design.setText(Projet.list4.get(0).getDesign());
-            label.setDisable(false);
             mb.setText(Projet.list4.get(0).getLabel());
-            stat_box.setDisable(false);
-            stat.setText(Projet.list4.get(0).getEtat());
             quantite.setText(Projet.list4.get(0).getQty().toString());
 
         }
 
 
         txt1.setManaged(false);
-        txt2.setManaged(false);
         txt3.setManaged(false);
-        quantite.setText("");
-        quantite.setEditable(true);
-
         final TreeView<String> tree = new TreeView<String>();
         TreeItem<String> root = new TreeItem<>("");
         root.setExpanded(true);
@@ -144,7 +118,8 @@ public class Add_bom implements Initializable {
         TreeItem<String> list12 = new TreeItem<>("Sensor");
 
         list12.getChildren().addAll(new TreeItem<String>("Accelerometer"), new TreeItem<String>("Current"), new TreeItem<String>("Gyroscope"), new TreeItem<String>("Humidity"), new TreeItem<String>("Light"), new TreeItem<String>("Magnetometer"), new TreeItem<String>("Pressure"), new TreeItem<String>("Temperature"));
-        root.getChildren().addAll(list, list0, list1, list2, list3, list4, list5, list7, list8, list9, list11, list12);
+        TreeItem<String> list13= new TreeItem<>("Autre");
+        root.getChildren().addAll(list, list0, list1, list2, list3, list4, list5, list7, list8, list9, list11, list12,list13);
         tree.setRoot(root);
         tree.setShowRoot(false);
         CustomMenuItem customMenuItem = new CustomMenuItem(tree);
@@ -158,39 +133,60 @@ public class Add_bom implements Initializable {
             } else ;
 
         });
-        cat.getItems().addAll("Matériel", "Logiciel", "Bureautique");
+
         try {
             DB db = new DB();
             PreparedStatement ps = db.connect().prepareStatement("select name,internal_pn from ressources");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                part_name.getItems().add(rs.getString(1) + "      " + rs.getString(2));
+                part_name.getItems().add(rs.getString(1));
             }
             ps.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
         part_name.setOnAction(e -> {
             if (part_name.getSelectionModel().getSelectedItem().isEmpty() == false) {
                 try {
                     DB db = new DB();
 
-                    PreparedStatement ps = db.connect().prepareStatement("select internal_pn,label,stat,category from ressources where name=?");
-                    ps.setString(1, part_name.getSelectionModel().getSelectedItem().toString().split("      ")[0]);
+                    PreparedStatement ps = db.connect().prepareStatement("select internal_pn,label from ressources where name=?");
+                    ps.setString(1, part_name.getSelectionModel().getSelectedItem());
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
                         internal_pn = rs.getString(1);
-                        stat_box.setDisable(false);
-                        label.setDisable(false);
-                        stat.setText(rs.getString(3));
                         mb.setText(rs.getString(2));
                         quantite.setText("1");
-                        quantite.setEditable(false);
-                        if (cat.getSelectionModel().equals("Matériel"))
-                            cat.getSelectionModel().selectLast();
-                        else if (cat.getSelectionModel().equals("Logiciel")) cat.getSelectionModel().select(2);
-                        else cat.getSelectionModel().selectFirst();
+
+                    }
+
+                    ps.close();
+
+                } catch (Exception ex) {
+                }
+            }
+        });
+        ref.setVisible(false);
+        plus.setOnMouseClicked(ev -> {
+            ref.setVisible(false);
+
+            if (part_name.getSelectionModel().getSelectedItem() != null) {
+
+                try {
+                    DB db = new DB();
+                    PreparedStatement ps = db.connect().prepareStatement("select count(*) from ressources where name=?");
+                    ps.setString(1, part_name.getSelectionModel().getSelectedItem());
+                    ResultSet rs = ps.executeQuery();
+                    if (rs.next()) {
+                        if (Integer.parseInt(quantite.getText()) < rs.getInt(1)) {
+                            quantite.setText(String.valueOf(Integer.parseInt(quantite.getText()) + 1));
+                        } else {
+                            ref.setText("Nombre insufissant");
+                            ref.setVisible(true);
+                        }
                     }
 
                     ps.close();
@@ -198,16 +194,59 @@ public class Add_bom implements Initializable {
                 } catch (Exception ex) {
                 }
             } else {
-                quantite.clear();
-                quantite.setEditable(true);
+                ref.setText("Vous devez choisir un composant d'abord");
+                ref.setVisible(true);
             }
+
         });
 
-        cat.setOnAction(event -> {
-            if (cat.getSelectionModel().isSelected(0)) label.setDisable(false);
-            else label.setDisable(true);
+        moins.setOnMouseClicked(ev -> {
+            ref.setVisible(false);
+            if (part_name.getSelectionModel().getSelectedItem() != null) {
+
+
+                try {
+                    DB db = new DB();
+                    PreparedStatement ps = db.connect().prepareStatement("select count(*) from ressources where name=?");
+                    ps.setString(1, part_name.getSelectionModel().getSelectedItem());
+                    ResultSet rs = ps.executeQuery();
+                    if (rs.next()) {
+                        if (Integer.parseInt(quantite.getText()) != 0) {
+                            quantite.setText(String.valueOf(Integer.parseInt(quantite.getText()) - 1));
+                        }
+                        if (Integer.parseInt(quantite.getText()) < rs.getInt(1)) {
+                            ref.setVisible(false);
+                        }
+                    }
+
+                    ps.close();
+
+                } catch (Exception ex) {
+                }
+
+            } else {
+                ref.setText("Vous devez choisir un composant d'abord");
+                ref.setVisible(true);
+            }
+
         });
 
+        link.setOnMouseClicked(ev -> {
+
+            FXMLLoader loader = new FXMLLoader();
+            try {
+                AnchorPane pane = loader.load(getClass().getResource("new_bom.fxml").openStream());
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Nouveau projet");
+                pane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+                stage.setScene(new Scene(pane));
+                stage.show();
+            } catch (IOException e) {
+            }
+            Stage st= (Stage) submit.getScene().getWindow();
+            st.close();
+        });
     }
 
 
@@ -216,7 +255,6 @@ public class Add_bom implements Initializable {
     public void submit() throws SQLException {
         v = true;
         txt1.setVisible(false);
-        txt2.setVisible(false);
         txt3.setVisible(false);
 
         if (part_name.getValue().isEmpty()) {
@@ -224,21 +262,21 @@ public class Add_bom implements Initializable {
             txt1.setManaged(true);
             v = false;
         }
-        if (cat.getSelectionModel().isEmpty()) {
-            txt2.setVisible(true);
-            txt2.setManaged(true);
-            v = false;
-        }
-        if (quantite.getText().isEmpty()) {
+
+        if (quantite.getText().equals("0")) {
             txt3.setVisible(true);
             txt3.setManaged(true);
+            v = false;
+        }
+        if (ref.isVisible()) {
+
             v = false;
         }
 
         if (v) {
             DB db = new DB();
             PreparedStatement ps = db.connect().prepareStatement("select count(*) from ressources where name=?");
-            ps.setString(1, part_name.getSelectionModel().getSelectedItem().toString().split("      ")[0]);
+            ps.setString(1, part_name.getSelectionModel().getSelectedItem());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 if (rs.getInt(1) < 2) {
@@ -246,8 +284,8 @@ public class Add_bom implements Initializable {
                     call2.setString(1, part_name.getValue());
                     call2.setInt(2, Integer.parseInt(quantite.getText()));
                     call2.setString(3, descr.getText());
-                    call2.setString(4, Projet.pr);
-                    call2.setString(5, LoginController.name);
+                    call2.setString(4,  LoginController.name);
+                    call2.setString(5,Projet.pr);
                     call2.execute();
                     call2.close();
                     CallableStatement call = db.connect().prepareCall("call history(?,?,?)");
@@ -266,12 +304,12 @@ public class Add_bom implements Initializable {
                     call1.setString(6, LoginController.name);
                     call1.setString(7, mb.getText());
                     call1.setString(8, part_name.getSelectionModel().getSelectedItem());
-                    call1.setString(9, cat.getSelectionModel().getSelectedItem());
+                    call1.setString(9, null);
                     call1.executeUpdate();
                     CallableStatement call3 = db.connect().prepareCall("call history(?,?,?)");
                     call3.setString(1, internal_pn);
                     call3.setString(2, LoginController.name);
-                    call3.setString(3, "Ajout un composant au nomeclature du projet " + Projet.pr);
+                    call3.setString(3, "Ajouté au projet " + Projet.pr);
                     call3.execute();
                     call3.close();
 
@@ -296,7 +334,7 @@ public class Add_bom implements Initializable {
                     CallableStatement call3 = db.connect().prepareCall("call history(?,?,?)");
                     call3.setString(1, internal_pn);
                     call3.setString(2, LoginController.name);
-                    call3.setString(3, "Ajout un composant au nomeclature du projet " + Projet.pr);
+                    call3.setString(3, "Ajouté au projet " + Projet.pr);
                     call3.execute();
                     call3.close();
 
@@ -322,7 +360,6 @@ public class Add_bom implements Initializable {
     public void update() throws SQLException {
         v = true;
         txt1.setVisible(false);
-        txt2.setVisible(false);
         txt3.setVisible(false);
 
         if (part_name.getValue().isEmpty()) {
@@ -330,11 +367,7 @@ public class Add_bom implements Initializable {
             txt1.setManaged(true);
             v = false;
         }
-        if (cat.getSelectionModel().isEmpty()) {
-            txt2.setVisible(true);
-            txt2.setManaged(true);
-            v = false;
-        }
+
         if (quantite.getText().isEmpty()) {
             txt3.setVisible(true);
             txt3.setManaged(true);

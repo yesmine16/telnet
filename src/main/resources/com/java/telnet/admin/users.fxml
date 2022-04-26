@@ -4,7 +4,6 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -22,39 +21,6 @@
       <AnchorPane fx:id="main" prefHeight="612.0" prefWidth="1018.0" style="-fx-background-color: #f5f5f7;">
          <children>
             <BorderPane layoutX="1.0" layoutY="1.0" prefHeight="654.0" prefWidth="1038.0" style="-fx-background-color: #f5f5f7;">
-               <top>
-                  <Pane prefHeight="105.0" prefWidth="1026.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" layoutX="31.0" layoutY="46.0" prefHeight="52.0" prefWidth="244.0">
-                           <children>
-                              <FontAwesomeIconView fill="#7c8184" glyphName="SEARCH" size="1.3em" text="">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </FontAwesomeIconView>
-                              <TextField fx:id="recherche" prefHeight="26.0" prefWidth="212.0" style="-fx-background-radius: 2.0em;" />
-                           </children>
-                        </HBox>
-                        <Button fx:id="add" layoutX="818.0" layoutY="53.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: #435B7B; -fx-background-radius: 2.0em;" text="Ajouter" textFill="WHITE">
-                           <font>
-                              <Font name="Lucida Console" size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Pane prefHeight="59.0" prefWidth="932.0">
-                           <children>
-                              <Label layoutX="29.0" layoutY="6.0" prefHeight="48.0" prefWidth="119.0" text="Utilisateurs " textFill="#0d1b2b">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </Pane>
-                     </children>
-                  </Pane>
-               </top>
                <center>
                   <TableView fx:id="table" prefHeight="499.0" prefWidth="1037.0" BorderPane.alignment="CENTER">
                      <columns>
@@ -79,9 +45,35 @@
                      </columnResizePolicy>
                   </TableView>
                </center>
-               <bottom>
-                  <Pagination maxPageIndicatorCount="3" pageCount="10" prefHeight="54.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-               </bottom>
+               <top>
+                  <Pane prefHeight="59.0" prefWidth="932.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="29.0" layoutY="6.0" prefHeight="48.0" prefWidth="119.0" text="Utilisateurs " textFill="#0d1b2b">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="add" layoutX="162.0" layoutY="11.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: #435B7B; -fx-background-radius: 2.0em;" text="Ajouter" textFill="WHITE">
+                           <font>
+                              <Font name="Lucida Console" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <HBox alignment="CENTER_LEFT" layoutX="780.0" layoutY="4.0" prefHeight="52.0" prefWidth="244.0">
+                           <children>
+                              <TextField fx:id="recherche" prefHeight="26.0" prefWidth="212.0" style="-fx-background-radius: 2.0em;" />
+                              <FontAwesomeIconView fill="#7c8184" glyphName="SEARCH" size="1.3em" text="">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </FontAwesomeIconView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </Pane>
+               </top>
             </BorderPane>
          </children>
       </AnchorPane>

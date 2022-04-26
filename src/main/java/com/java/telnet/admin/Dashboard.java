@@ -72,8 +72,7 @@ public class Dashboard implements Initializable {
     @FXML
     private ScrollPane slider;
 
-    @FXML
-    private HBox stock;
+
 
     @FXML
     private HBox users;
@@ -122,7 +121,6 @@ public class Dashboard implements Initializable {
         project.setManaged(false);
         history.setManaged(false);
         achat.setManaged(false);
-        stock.setManaged(false);
         users.setManaged(false);
         name.setText(LoginController.name);
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -141,10 +139,10 @@ public class Dashboard implements Initializable {
             slide.setToX(0);
             slide.play();
             slide.setNode(main_page);
-            AnchorPane.setLeftAnchor(main_page, 320.0);
+            AnchorPane.setLeftAnchor(main_page, 294.0);
             slide.play();
 
-            slider.setTranslateX(-320);
+            slider.setTranslateX(-294);
 
             slide.setOnFinished((ActionEvent e) -> {
                 Menu.setVisible(false);
@@ -171,18 +169,24 @@ public class Dashboard implements Initializable {
                 MenuClose.setVisible(false);
             });
         });
+        try {
+            Parent fxml = FXMLLoader.load(getClass().getResource("main.fxml"));
+            content.getChildren().removeAll();
+            content.getChildren().setAll(fxml);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         String[] s = LoginController.getS();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 6; i++) {
             List ls = List.of(s[i].replaceAll("[{}]", "").split(","));
             if (ls.get(0).equals("oui") && i == 0) {
                 dashboard.setVisible(true);
                 dashboard.setManaged(true);
-                try {
-                    content.getChildren().setAll((Node) FXMLLoader.load(getClass().getResource("dashboard.fxml")));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
                 dashboard.setOnMouseClicked(event -> {
+                    dashboard.setStyle("");
                     try {
                         Parent fxml = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
                         content.getChildren().removeAll();
@@ -236,21 +240,8 @@ public class Dashboard implements Initializable {
                     }
                 });
             }
-            if (ls.get(0).equals("oui") && i == 4) {
-                stock.setVisible(true);
-                stock.setManaged(true);
-                stock.setOnMouseClicked(event -> {
-                    try {
-                        Parent fxml = FXMLLoader.load(getClass().getResource("stock.fxml"));
-                        content.getChildren().removeAll();
-                        content.getChildren().setAll(fxml);
 
-                    } catch (IOException ex) {
-
-                    }
-                });
-            }
-            if (ls.get(0).equals("oui") && i == 6) {
+            if (ls.get(0).equals("oui") && i == 5) {
                 achat.setVisible(true);
                 achat.setManaged(true);
 
@@ -265,7 +256,7 @@ public class Dashboard implements Initializable {
                     }
                 });
             }
-            if (ls.get(0).equals("oui") && i == 5) {
+            if (ls.get(0).equals("oui") && i == 4) {
                 history.setVisible(true);
                 history.setManaged(true);
                 history.setOnMouseClicked(event -> {

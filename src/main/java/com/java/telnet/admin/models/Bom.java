@@ -17,15 +17,9 @@ public class Bom {
         this.projet = projet;
     }
 
-    public String getCat() {
-        return cat;
-    }
 
-    public void setCat(String cat) {
-        this.cat = cat;
-    }
 
-    String num,label,desc,design,comment,resp,date,nom,etat,projet,cat;
+    String num,label,desc,design,comment,resp,date,nom,projet;
 Integer qty,stock,to_buy,id;
 
     public Integer getId() {
@@ -36,7 +30,7 @@ Integer qty,stock,to_buy,id;
         this.id = id;
     }
 
-    public Bom(Integer id, String num, String nom, String label, String design, String comment, String resp, String date, Integer qty, String etat, String projet,String cat) {
+    public Bom(Integer id, String num, String nom, String label, String design, String comment, String resp, String date, Integer qty, String projet) {
         this.id=id;
         this.num = num;
         this.nom=nom;
@@ -46,18 +40,9 @@ Integer qty,stock,to_buy,id;
         this.resp = resp;
         this.date = date;
         this.qty = qty;
-        this.etat=etat;
         this.projet=projet;
-        this.cat=cat;
     }
 
-    public String getEtat() {
-        return etat;
-    }
-
-    public void setEtat(String etat) {
-        this.etat = etat;
-    }
 
     public String getNum() {
         return num;
@@ -137,5 +122,13 @@ Integer qty,stock,to_buy,id;
 
     public void setTo_buy(Integer to_buy) {
         this.to_buy = to_buy;
+    }
+
+    public Bom(String date,String resp, String nom, String projet, Integer qty) {
+        this.date=date;
+        this.resp = resp;
+        this.nom = nom;
+        this.projet = projet;
+        this.qty = qty;
     }
 }
