@@ -1,11 +1,9 @@
 package com.java.telnet.admin.models;
 
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 public class Get_project {
-    String nom,id;
+    Integer id;
+    String nom;
     String desc;
     String date;
     String created_by;
@@ -57,7 +55,7 @@ public class Get_project {
 
 
 
-    public Get_project(String id,String nom,String desc,String date,String created_by,String team) {
+    public Get_project(Integer id,String nom,String desc,String date,String created_by,String team) {
         this.id=id;
         this.nom = nom;
         this.desc=desc;
@@ -68,11 +66,11 @@ public class Get_project {
 
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }

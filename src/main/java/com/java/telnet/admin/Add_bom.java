@@ -8,18 +8,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,7 +33,7 @@ public class Add_bom implements Initializable {
     private String internal_pn;
 
     @FXML
-    private HBox label;
+    private AnchorPane label;
 
     @FXML
     private ChoiceBox<String> part_name;
@@ -56,14 +51,15 @@ public class Add_bom implements Initializable {
     @FXML
     private Text ref;
 
-    @FXML
-    private Text txt3;
+
     @FXML
     private FontAwesomeIconView plus, moins;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        mb.setLayoutX(480.0);
+        mb.setLayoutY(30.0);
+        txt1.setVisible(false);
         submit.setOnMouseClicked(event -> {
             if (Projet.list4.isEmpty()) {
                 try {
@@ -79,7 +75,6 @@ public class Add_bom implements Initializable {
                     e.printStackTrace();
                 }
             }
-
         });
         if (Projet.list4.isEmpty() == false) {
 
@@ -91,8 +86,6 @@ public class Add_bom implements Initializable {
         }
 
 
-        txt1.setManaged(false);
-        txt3.setManaged(false);
         final TreeView<String> tree = new TreeView<String>();
         TreeItem<String> root = new TreeItem<>("");
         root.setExpanded(true);
@@ -218,7 +211,6 @@ public class Add_bom implements Initializable {
                             ref.setVisible(false);
                         }
                     }
-
                     ps.close();
 
                 } catch (Exception ex) {
@@ -255,7 +247,7 @@ public class Add_bom implements Initializable {
     public void submit() throws SQLException {
         v = true;
         txt1.setVisible(false);
-        txt3.setVisible(false);
+        ref.setVisible(false);
 
         if (part_name.getValue().isEmpty()) {
             txt1.setVisible(true);
@@ -264,14 +256,11 @@ public class Add_bom implements Initializable {
         }
 
         if (quantite.getText().equals("0")) {
-            txt3.setVisible(true);
-            txt3.setManaged(true);
+            ref.setVisible(true);
+            ref.setText("champ obligatoire !");
             v = false;
         }
-        if (ref.isVisible()) {
 
-            v = false;
-        }
 
         if (v) {
             DB db = new DB();
@@ -280,37 +269,34 @@ public class Add_bom implements Initializable {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 if (rs.getInt(1) < 2) {
-                    CallableStatement call2 = db.connect().prepareCall("call achat(?,?,?,?,?)");
+                    PreparedStatement call2 = db.connect().prepareStatement("INSERT INTO public.\"purchase_list \"( part_name, qty_needed, \"description \", resp, projet)VALUES (?, ?, ?, ?, ?);");
                     call2.setString(1, part_name.getValue());
                     call2.setInt(2, Integer.parseInt(quantite.getText()));
                     call2.setString(3, descr.getText());
-                    call2.setString(4,  LoginController.name);
-                    call2.setString(5,Projet.pr);
-                    call2.execute();
+                    call2.setString(4, LoginController.name);
+                    call2.setInt(5, Projet.pr);
+                    call2.executeQuery();
                     call2.close();
-                    CallableStatement call = db.connect().prepareCall("call history(?,?,?)");
-                    call.setString(1, internal_pn);
-                    call.setString(2, LoginController.name);
-                    call.setString(3, "Ajout un composant au liste des achats ");
-                    call.execute();
-                    PreparedStatement call1 = db.connect().prepareStatement("INSERT INTO bom( \"part_id \", designators, qty, comment, projet, resp, label, name,cat) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,?);");
+                    PreparedStatement call = db.connect().prepareStatement("INSERT INTO public.history(resp, event) VALUES ( ?, ?);");
+                    call.setString(1, LoginController.name);
+                    call.setString(2, "Ajout un composant au liste des achats ");
+                    call.executeQuery();
+                    PreparedStatement call1 = db.connect().prepareStatement("INSERT INTO bom( \"part_id \", designators, qty, comment, projet, resp, label, name) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);");
                     call1.setString(1, internal_pn);
                     call1.setString(2, design.getText());
                     call1.setInt(3, Integer.parseInt(quantite.getText()));
                     call1.setString(4, descr.getText());
-                    call1.setString(5, Projet.pr);
+                    call1.setInt(5, Projet.pr);
 
 
                     call1.setString(6, LoginController.name);
                     call1.setString(7, mb.getText());
                     call1.setString(8, part_name.getSelectionModel().getSelectedItem());
-                    call1.setString(9, null);
                     call1.executeUpdate();
-                    CallableStatement call3 = db.connect().prepareCall("call history(?,?,?)");
-                    call3.setString(1, internal_pn);
-                    call3.setString(2, LoginController.name);
-                    call3.setString(3, "Ajouté au projet " + Projet.pr);
-                    call3.execute();
+                    PreparedStatement call3 = db.connect().prepareStatement("INSERT INTO public.history(resp, event) VALUES ( ?, ?);");
+                    call3.setString(1, LoginController.name);
+                    call3.setString(2, "Ajouté au projet " + Projet.pr);
+                    call3.executeQuery();
                     call3.close();
 
                     PreparedStatement ps1 = db.connect().prepareStatement("delete from ressources WHERE internal_pn=?");
@@ -326,16 +312,15 @@ public class Add_bom implements Initializable {
                     call1.setString(2, design.getText());
                     call1.setInt(3, Integer.parseInt(quantite.getText()));
                     call1.setString(4, descr.getText());
-                    call1.setString(5, Projet.pr);
+                    call1.setInt(5, Projet.pr);
                     call1.setString(6, LoginController.name);
                     call1.setString(7, mb.getText());
                     call1.setString(8, part_name.getSelectionModel().getSelectedItem());
                     call1.executeUpdate();
-                    CallableStatement call3 = db.connect().prepareCall("call history(?,?,?)");
-                    call3.setString(1, internal_pn);
-                    call3.setString(2, LoginController.name);
-                    call3.setString(3, "Ajouté au projet " + Projet.pr);
-                    call3.execute();
+                    PreparedStatement call3 = db.connect().prepareStatement("INSERT INTO public.history(resp, event) VALUES ( ?, ?);");
+                    call3.setString(1, LoginController.name);
+                    call3.setString(2, "Ajouté au projet " + Projet.pr);
+                    call3.executeQuery();
                     call3.close();
 
                     PreparedStatement ps1 = db.connect().prepareStatement("delete from ressources WHERE internal_pn=?");
@@ -345,7 +330,7 @@ public class Add_bom implements Initializable {
 
                     call1.close();
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("L'utilisateur  a été mis à jour avec succes");
+                    alert.setContentText("Opération réussite !");
                     Optional<ButtonType> result = alert.showAndWait();
 
                     if (result.get() == ButtonType.OK) {
@@ -360,17 +345,15 @@ public class Add_bom implements Initializable {
     public void update() throws SQLException {
         v = true;
         txt1.setVisible(false);
-        txt3.setVisible(false);
-
+        ref.setVisible(false);
         if (part_name.getValue().isEmpty()) {
             txt1.setVisible(true);
-            txt1.setManaged(true);
             v = false;
         }
 
         if (quantite.getText().isEmpty()) {
-            txt3.setVisible(true);
-            txt3.setManaged(true);
+            ref.setVisible(true);
+            ref.setText("champ obligatoire !");
             v = false;
         }
 
@@ -381,17 +364,16 @@ public class Add_bom implements Initializable {
             call1.setString(2, design.getText());
             call1.setInt(3, Integer.parseInt(quantite.getText()));
             call1.setString(4, descr.getText());
-            call1.setString(5, Projet.pr);
+            call1.setInt(5, Projet.pr);
             call1.setString(6, LoginController.name);
             call1.setString(7, mb.getText());
             call1.setString(8, part_name.getSelectionModel().getSelectedItem());
             call1.setInt(9, Projet.list4.get(0).getId());
             call1.executeUpdate();
-            CallableStatement call3 = db.connect().prepareCall("call history(?,?,?)");
-            call3.setString(1, Projet.list4.get(0).getNum());
-            call3.setString(2, LoginController.name);
-            call3.setString(3, "Mise à jour d'un composant au nomeclature du projet " + Projet.pr);
-            call3.execute();
+            PreparedStatement call3 = db.connect().prepareStatement("INSERT INTO public.history(resp, event) VALUES ( ?, ?);");
+            call3.setString(1, LoginController.name);
+            call3.setString(2, "Mise à jour d'un composant au nomeclature du projet " + Projet.pr);
+            call3.executeQuery();
             call3.close();
             call1.close();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

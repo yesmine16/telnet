@@ -5,7 +5,7 @@ import com.java.telnet.LoginController;
 import com.java.telnet.admin.models.Get_user;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,38 +15,38 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.image.ImageView;
 import org.controlsfx.control.PopOver;
 
 import java.io.*;
 import java.net.URL;
-import java.sql.*;
+import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.IntStream;
 
-public class Users extends Application implements Initializable {
+public class Users implements Initializable {
     @FXML
     private TableColumn<Get_user, HBox> action_col;
 
     @FXML
     private TableColumn<Get_user, String> date_col;
 
-
-    @FXML
-    private AnchorPane main;
 
     @FXML
     private TableColumn<Get_user, String> mat_col;
@@ -61,14 +61,13 @@ public class Users extends Application implements Initializable {
     private TableColumn<Get_user, String> stat_col;
     @FXML
     private TableColumn<Get_user, String> email_col, phone_col;
-
+@FXML
+private FontAwesomeIconView redo;
     @FXML
     private TableView<Get_user> table;
-@FXML
-Button add;
-
     @FXML
-    private  StackPane content;
+    Button add;
+
     @FXML
     private TextField recherche;
 
@@ -94,25 +93,6 @@ Button add;
         imgView.setImage(imagex);
         return imgView;
     }
-
-    public void popover() {
-        table.setOnMouseClicked(eventHandler -> {
-            for (Get_user list : table.getSelectionModel().getSelectedItems()) {
-                for (int i = 1; i <= 1; i++) {
-                    PopOver popup = new PopOver();
-                    HBox hbox = new HBox();
-                    hbox.prefHeight(100.0);
-                    hbox.prefWidth(100.0);
-                    hbox.getChildren().add(list.getPhoto());
-                    TextField txt = new TextField(list.getNom());
-                    hbox.getChildren().add(txt);
-                    popup.setContentNode(hbox);
-                    popup.show(table);
-                }
-            }
-        });
-    }
-
 
     public HBox action() {
         FontAwesomeIconView edit, delete, qr;
@@ -194,10 +174,23 @@ Button add;
         }
         add.setOnMouseClicked(e->{
             list2.clear();
+            FXMLLoader loader = new FXMLLoader();
             try {
-                add();
+                AnchorPane pane = loader.load(getClass().getResource("add_user.fxml").openStream());
+                Stage stage = new Stage();
+                stage.setHeight(800);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                pane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+                stage.setScene(new Scene(pane));
+                stage.show();
+                stage.setOnCloseRequest(ev->{
+                    try {
+                        load();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                });
             } catch (IOException ex) {
-                ex.printStackTrace();
             }
         });
         mat_col.setCellValueFactory(new PropertyValueFactory<Get_user, String>("matricule"));
@@ -208,7 +201,13 @@ Button add;
         stat_col.setCellValueFactory(new PropertyValueFactory<Get_user, String>("user"));
         date_col.setCellValueFactory(new PropertyValueFactory<Get_user, String>("date"));
         action_col.setCellValueFactory(new PropertyValueFactory<Get_user, HBox>("action"));
-
+redo.setOnMouseClicked(ev->{
+    try {
+        load();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+});
         try {
             load();
         } catch (SQLException e) {
@@ -269,8 +268,6 @@ Button add;
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
-
-
                         }
 
                     });
@@ -278,7 +275,8 @@ Button add;
                         DB db = new DB();
                         PopOver popup = new PopOver();
                         try {
-                            PreparedStatement ps = db.connect().prepareStatement("select qr from login_info");
+                            PreparedStatement ps = db.connect().prepareStatement("select qr from login_info where id=?");
+                            ps.setInt(1,list.getId());
                             ResultSet rs = ps.executeQuery();
                             while (rs.next()) {
                                 ImageView imgView2 = img(rs, "qr");
@@ -287,8 +285,6 @@ Button add;
                                 popup.setContentNode(imgView2);
                                 popup.show(list.getAction().getChildren().get(0));
                                 popup.setAutoHide(true);
-
-
                             }
 
 
@@ -303,6 +299,7 @@ Button add;
                 }
             }
         });
+
 
     }
 
@@ -331,9 +328,7 @@ Button add;
         table.setItems(sortedData);
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-    }
+
 
     public static void ajout(List<Get_user> list, String mat, ImageView img, String nom, String phone, String email, String stat,Integer id) {
         list.clear();

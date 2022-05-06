@@ -4,33 +4,25 @@ package com.java.telnet.admin;
 import com.google.zxing.WriterException;
 import com.java.telnet.DB;
 import com.java.telnet.LoginController;
-import com.java.telnet.admin.models.Get_achat;
-import com.java.telnet.admin.models.Get_parts;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.controlsfx.control.PopOver;
 
 import java.io.*;
 import java.net.URL;
-import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static com.java.telnet.admin.Qr.getQRCodeImage;
@@ -54,7 +46,8 @@ public class Add_part implements Initializable {
 
     @FXML
     private TextArea descr;
-
+    @FXML
+    private Text path;
     @FXML
     private TextField nom, store;
     @FXML
@@ -67,18 +60,41 @@ public class Add_part implements Initializable {
 
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {id.setEditable(true);
-        labelbtn.setLayoutX(480.0);labelbtn.setLayoutY(30.0);
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        id.setEditable(true);
+        labelbtn.setLayoutX(480.0);
+        labelbtn.setLayoutY(30.0);
         if (Parts.list2.isEmpty()) {
             submit.setVisible(true);
             update.setVisible(false);
             update.setManaged(false);
+            id.focusedProperty().addListener((observableValue, old, newval) -> {
+                if (old) {
+                    DB db = new DB();
+                    try {
+                        PreparedStatement ps = db.connect().prepareStatement("select * from ressources where internal_pn=?");
+                        ps.setString(1, id.getText());
+                        ResultSet rs = ps.executeQuery();
+                        if (rs.next()) {
+                            txt.setVisible(true);
+                            txt.setManaged(true);
+                        } else {
+                            txt.setVisible(false);
+                            txt.setManaged(false);
+                        }
+                    } catch (Exception e) {
+                    }
+                }
+
+            });
 
         } else {
             update.setVisible(true);
             submit.setVisible(false);
             submit.setManaged(false);
-            id.setText(Parts.list2.get(0).getInternal_pn());id.setEditable(false);
+            id.setText(Parts.list2.get(0).getInternal_pn());
+            id.setEditable(false);
+            id.setFocusTraversable(false);
             nom.setText(Parts.list2.get(0).getName());
             labelbtn.setText(Parts.list2.get(0).getLabel());
             store.setText(Parts.list2.get(0).getStorage());
@@ -86,9 +102,9 @@ public class Add_part implements Initializable {
             if (Parts.list2.get(0).getClassification().equals("Restreinte"))
                 classification.getSelectionModel().selectFirst();
             else classification.getSelectionModel().selectLast();
-            if (Parts.list2.get(0).getOrigin().equals("Externe"))
-                origine.getSelectionModel().selectFirst();
+            if (Parts.list2.get(0).getOrigin().equals("Externe")) origine.getSelectionModel().selectFirst();
             else origine.getSelectionModel().selectLast();
+            path.setVisible(false);
 
 
 
@@ -103,7 +119,6 @@ public class Add_part implements Initializable {
         img.setImage(new Image(getClass().getResource("carte.jpg").toString()));
         classification.getItems().addAll("Restreinte", "Usage interne");
         origine.getItems().addAll("Externe", "Interne");
-
         img.setImage(new Image(getClass().getResource("carte.jpg").toString()));
 
         final TreeView<String> tree = new TreeView<String>();
@@ -152,25 +167,7 @@ public class Add_part implements Initializable {
             img();
         });
 
-        id.focusedProperty().addListener((observableValue, old, newval) -> {
-            if (old) {
-                DB db = new DB();
-                try {
-                    PreparedStatement ps = db.connect().prepareStatement("select * from ressources where internal_pn=?");
-                    ps.setString(1, id.getText());
-                    ResultSet rs = ps.executeQuery();
-                    if (rs.next()) {
-                        txt.setVisible(true);
-                        txt.setManaged(true);
-                    } else {
-                        txt.setVisible(false);
-                        txt.setManaged(false);
-                    }
-                } catch (Exception e) {
-                }
-            }
 
-        });
     }
 
     File file2 = null;
@@ -187,6 +184,7 @@ public class Add_part implements Initializable {
             file1 = new File(file.toURI().getPath());
         }
     }
+
 
     private byte[] getByteArrayFromFile() throws IOException {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -207,7 +205,11 @@ public class Add_part implements Initializable {
         fc.setTitle("Open PDF file...");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
         File f = fc.showOpenDialog(null);
-        file2 = new File(f.toURI().getPath());
+        if (f != null) {
+            file2 = new File(f.toURI().getPath());
+            path.setVisible(true);
+            path.setText(f.getPath());
+        }
 
         return file2;
 
@@ -229,7 +231,7 @@ public class Add_part implements Initializable {
 
         if (v) {
             DB db = new DB();
-            CallableStatement call = db.connect().prepareCall("INSERT INTO public.ressources(internal_pn, name, label, classification, origin, storage, qr, image, \"desc\", datasheet)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            PreparedStatement call = db.connect().prepareStatement("INSERT INTO public.ressources(internal_pn, name, label, classification, origin, storage, qr, image, \"desc\", datasheet)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             call.setString(1, id.getText());
             call.setString(2, nom.getText());
             call.setString(3, labelbtn.getText());
@@ -248,15 +250,72 @@ public class Add_part implements Initializable {
             call.setBytes(7, getQRCodeImage(id.getText(), 250, 250));
             if (file2 != null) call.setBytes(10, getByteArrayFromFile());
             else call.setBytes(10, null);
-            call.execute();
+            call.executeUpdate();
+            PreparedStatement call3 = db.connect().prepareStatement("INSERT INTO public.history(resp, event) VALUES ( ?, ?);");
+            call3.setString(1, LoginController.name);
+            call3.setString(2, "Ajout la composante " + nom.getText() + " au stock");
+            call3.executeUpdate();
+            call3.close();
             call.close();
-            Stage stage = (Stage) store.getScene().getWindow();
-            stage.close();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Opération réussite !");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+                Stage stage = (Stage) store.getScene().getWindow();
+                stage.close();
+            }
         }
     }
 
-    public void update() {
+    public void update() throws SQLException, IOException, WriterException {
+        if (id.getText().isEmpty()) {
+            v = false;
+        }
+        if (nom.getText().isEmpty()) {
+            v = false;
+        }
+        if (labelbtn.getText().isEmpty()) {
+            v = false;
+        }
 
+        if (v) {
+            DB db = new DB();
+            PreparedStatement call = db.connect().prepareStatement("UPDATE public.ressources SET name=?, label=?, classification=?, origin=?, storage=?, image=?, \"desc\"=?, datasheet=? WHERE internal_pn=?;");
+            call.setString(9, id.getText());
+            call.setString(1, nom.getText());
+            call.setString(2, labelbtn.getText());
+            call.setString(3, classification.getSelectionModel().getSelectedItem());
+            call.setString(4, origine.getSelectionModel().getSelectedItem());
+            call.setString(5, store.getText());
+            if (file1 != null) {
+                FileInputStream fin = new FileInputStream(file1);
+                call.setBinaryStream(6, fin, (int) file1.length());
+            } else {
+                File f = new File("src/main/resources/com/java/telnet/admin/carte.jpg");
+                FileInputStream fin = new FileInputStream(f);
+                call.setBinaryStream(6, fin, (int) f.length());
+            }
+            call.setString(7, descr.getText());
+            if (file2 != null) call.setBytes(8, getByteArrayFromFile());
+            else call.setBytes(8, Parts.list2.get(0).getDatasheet());
+            call.executeUpdate();
+            PreparedStatement call3 = db.connect().prepareStatement("INSERT INTO public.history(resp, event) VALUES ( ?, ?);");
+            call3.setString(1, LoginController.name);
+            call3.setString(2, "Modifier la composante " + nom.getText());
+            call3.executeUpdate();
+            call3.close();
+            call.close();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Opération réussite !");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+                Stage stage = (Stage) store.getScene().getWindow();
+                stage.close();
+            }
+
+        }
     }
 
     public void load_img() throws IOException, SQLException {
@@ -282,10 +341,5 @@ public class Add_part implements Initializable {
 
 
     }
-//    CallableStatement call2 = db.connect().prepareCall("call history(?,?,?)");
-//                call2.setString(1,internal_pn.getSelectionModel().getSelectedItem());
-//                call2.setString(2,LoginController.name);
-//                call2.setString(3,"Ajout un composant au nomeclature du projet "+Projet.pr);
-//                call2.execute();
-//                call2.close();
+
 }

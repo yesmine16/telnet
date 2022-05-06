@@ -20,7 +20,10 @@
                     <children>
                         <AnchorPane prefHeight="100.0" prefWidth="646.0">
                             <children>
-                                <Label layoutX="150.0" layoutY="50.0" text="Projet " />
+                                <Label layoutX="150.0" layoutY="50.0" styleClass="label_txt" text="Projet ">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
                                 <TextField fx:id="nom" layoutX="300.0" layoutY="50.0" />
                                 <Text fx:id="txt2" fill="#c71919" layoutX="320.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="champ obligatoire !" visible="false" />
                             </children>
@@ -31,7 +34,10 @@
                     <children>
                         <AnchorPane fx:id="resp" prefHeight="100.0" prefWidth="630.0">
                             <children>
-                                <Label layoutX="150.0" layoutY="50.0" text="Responsables" />
+                                <Label layoutX="150.0" layoutY="50.0" styleClass="label_txt" text="Responsables">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
                                 <Text fx:id="txt4" fill="#c71919" layoutX="320.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="champ obligatoire !" visible="false" />
                             </children>
                         </AnchorPane>
@@ -42,7 +48,10 @@
                         <AnchorPane prefHeight="112.0" prefWidth="600.0">
                             <children>
                                 <TextArea fx:id="descr" layoutX="300.0" layoutY="20.0" prefHeight="86.0" prefWidth="208.0" />
-                                <Label layoutX="150.0" layoutY="50.0" prefHeight="18.0" prefWidth="87.0" text="Description" />
+                                <Label layoutX="150.0" layoutY="50.0" prefHeight="22.0" prefWidth="106.0" styleClass="label_txt" text="Description">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
                             </children>
                         </AnchorPane>
                     </children>

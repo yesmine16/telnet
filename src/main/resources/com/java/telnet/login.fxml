@@ -59,8 +59,8 @@
             <AnchorPane prefHeight="256.0" prefWidth="474.0">
                <children>
                   <TextField fx:id="matricule" layoutX="14.0" layoutY="35.0" prefHeight="40.0" prefWidth="400.0" promptText="Matricule" styleClass="tf_box" stylesheets="@login.css" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="44.0" />
-                  <FontAwesomeIconView fill="#e6e7e4" glyphName="USER" layoutX="400.0" layoutY="72.0" size="20" />
-                  <FontAwesomeIconView fill="#e6e7e4" glyphName="LOCK" layoutX="400.0" layoutY="166.0" size="20" />
+                  <FontAwesomeIconView fill="#e6e7e4" glyphName="USER" layoutX="413.0" layoutY="72.0" size="20" />
+                  <FontAwesomeIconView fill="#e6e7e4" glyphName="LOCK" layoutX="417.0" layoutY="166.0" size="20" wrappingWidth="19.257105827331543" />
                   <PasswordField fx:id="password" layoutX="14.0" layoutY="129.0" prefHeight="40.0" prefWidth="420.0" promptText="Mot de passe" styleClass="tf_box" />
                   <Text fx:id="actiontarget" fill="#f40000" layoutX="14.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false">
                      <font>

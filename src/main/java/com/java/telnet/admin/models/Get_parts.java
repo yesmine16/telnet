@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 public class Get_parts {
    String internal_pn, name, label, classification, origin,  storage,description,created_on;
-Byte datasheet;
+byte[] datasheet;
 ImageView img,qr;
 HBox action;
 
@@ -20,7 +20,7 @@ HBox action;
     }
 
 
-    public Get_parts(ImageView img, String internal_pn, String name, String label, String classification, String origin,  String storage, String created_on,  String description, HBox action,ImageView qr) {
+    public Get_parts(ImageView img, String internal_pn, String name, String label, String classification, String origin,  String storage, String created_on,  String description, HBox action,ImageView qr,byte[] datasheet) {
         this.img=img;
         this.internal_pn = internal_pn;
         this.name = name;
@@ -32,6 +32,7 @@ HBox action;
         this.description = description;
         this.action = action;
         this.qr=qr;
+        this.datasheet=datasheet;
     }
 
     public ImageView getImg() {
@@ -50,11 +51,11 @@ HBox action;
         this.qr = qr;
     }
 
-    public Byte getDatasheet() {
+    public byte[] getDatasheet() {
         return datasheet;
     }
 
-    public void setDatasheet(Byte datasheet) {
+    public void setDatasheet(byte[] datasheet) {
         this.datasheet = datasheet;
     }
 

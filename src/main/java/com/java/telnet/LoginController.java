@@ -5,30 +5,21 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Side;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.stage.*;
+import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginController extends Application implements Initializable {
@@ -105,6 +96,7 @@ public class LoginController extends Application implements Initializable {
                         Scene scene = new Scene(fxmlLoader.load());
                         Stage stage = new Stage();
                         stage.setScene(scene);
+                        stage.setMaximized(true);
                         stage.show();
                         Node node = (Node) event.getSource();
                         Stage thisStage = (Stage) node.getScene().getWindow();

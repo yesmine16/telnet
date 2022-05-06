@@ -19,6 +19,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -52,6 +54,9 @@ public class Achat implements Initializable {
         Label label = new Label();
         label.setText("Valider");
         label.setCursor(Cursor.HAND);
+        label.setTextFill(Color.web("#7C90AD"));
+        label.setFont(Font.font("system", FontWeight.BOLD, 15));
+
         return label;
     }
 
@@ -61,7 +66,6 @@ public class Achat implements Initializable {
         qty.setCellValueFactory(new PropertyValueFactory<Get_achat, Integer>("qty"));
         date.setCellValueFactory(new PropertyValueFactory<Get_achat, String>("date"));
         resp.setCellValueFactory(new PropertyValueFactory<Get_achat, String>("resp"));
-
         desc.setCellValueFactory(new PropertyValueFactory<Get_achat, String>("desc"));
         action.setCellValueFactory(new PropertyValueFactory<Get_achat, Label>("action"));
 
@@ -73,7 +77,7 @@ public class Achat implements Initializable {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Label l = action();
-                list.add(new Get_achat(rs.getString(2), rs.getInt(3), rs.getTimestamp(5).toString(), rs.getString(4), rs.getString(6),rs.getString(7), l));
+                list.add(new Get_achat(rs.getString(2), rs.getInt(3), rs.getTimestamp(5).toString(), rs.getString(4), rs.getString(6),rs.getInt(7), l));
                 table.setItems(list);
             }
             table.setOnMouseClicked(eventHandler -> {
@@ -106,5 +110,21 @@ public class Achat implements Initializable {
         }
 
 
+    }
+    public void add(){
+        FXMLLoader loader = new FXMLLoader();
+        try {
+            AnchorPane pane = loader.load(getClass().getResource("buy.fxml").openStream());
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Ajouter une nouvel achat");
+            pane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
+            stage.setScene(new Scene(pane));
+            stage.show();
+
+
+        } catch (IOException e) {
+        }
     }
 }

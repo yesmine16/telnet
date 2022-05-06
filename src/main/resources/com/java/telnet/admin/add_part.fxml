@@ -15,10 +15,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="782.0" prefWidth="831.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Add_part">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="961.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Add_part">
    <content>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="782.0" prefWidth="818.0">
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="893.0" prefWidth="935.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
                <children>
@@ -46,7 +48,10 @@
                <children>
                   <AnchorPane prefHeight="84.0" prefWidth="1139.0">
                      <children>
-                        <Label layoutX="250.0" layoutY="30.0" prefHeight="18.0" prefWidth="82.0" text="ID interne" />
+                        <Label layoutX="250.0" layoutY="30.0" prefHeight="22.0" prefWidth="102.0" styleClass="label_txt" text="ID interne">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
                         <TextField fx:id="id" layoutX="480.0" layoutY="30.0" />
                         <Label fx:id="txt" layoutX="480.0" layoutY="60.0" text="Le numero est deja utilisé" textFill="#ac2c2c" visible="false" />
                      </children>
@@ -55,9 +60,12 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <AnchorPane prefHeight="78.0" prefWidth="834.0">
+                  <AnchorPane prefHeight="83.0" prefWidth="880.0">
                      <children>
-                        <Label layoutX="250.0" layoutY="29.0" text="Libellé" />
+                        <Label layoutX="250.0" layoutY="30.0" styleClass="label_txt" text="Libellé">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
                         <TextField fx:id="nom" layoutX="480.0" layoutY="30.0" />
                      </children>
                   </AnchorPane>
@@ -65,18 +73,24 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <AnchorPane fx:id="label_box" prefHeight="78.0" prefWidth="843.0">
+                  <AnchorPane fx:id="label_box" prefHeight="83.0" prefWidth="878.0">
                      <children>
-                        <Label layoutX="250.0" layoutY="30.0" text="Label" />
+                        <Label layoutX="250.0" layoutY="30.0" styleClass="label_txt" text="Label">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
                      </children>
                   </AnchorPane>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <AnchorPane prefHeight="78.0" prefWidth="846.0">
+                  <AnchorPane prefHeight="83.0" prefWidth="902.0">
                      <children>
-                        <Label layoutX="250.0" layoutY="30.0" prefHeight="18.0" prefWidth="87.0" text="Emplacement" />
+                        <Label layoutX="250.0" layoutY="30.0" prefHeight="22.0" prefWidth="122.0" styleClass="label_txt" text="Emplacement">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
                         <TextField fx:id="store" layoutX="480.0" layoutY="30.0" />
                      </children>
                   </AnchorPane>
@@ -84,9 +98,12 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <AnchorPane prefHeight="78.0" prefWidth="817.0">
+                  <AnchorPane prefHeight="83.0" prefWidth="889.0">
                      <children>
-                        <Label layoutX="250.0" layoutY="30.0" text="Classification" />
+                        <Label layoutX="250.0" layoutY="30.0" styleClass="label_txt" text="Classification">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
                         <ChoiceBox fx:id="classification" layoutX="480.0" layoutY="30.0" prefWidth="150.0" />
                      </children>
                   </AnchorPane>
@@ -97,17 +114,23 @@
                   <AnchorPane prefHeight="78.0" prefWidth="867.0">
                      <children>
                         <ChoiceBox fx:id="origine" layoutX="480.0" layoutY="30.0" prefWidth="150.0" />
-                        <Label layoutX="250.0" layoutY="30.0" text="Origine" />
+                        <Label layoutX="250.0" layoutY="30.0" styleClass="label_txt" text="Origine">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
                      </children>
                   </AnchorPane>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="97.0" prefWidth="866.0">
+            <HBox alignment="CENTER" prefHeight="76.0" prefWidth="874.0">
                <children>
-                  <AnchorPane prefHeight="90.0" prefWidth="833.0">
+                  <AnchorPane prefHeight="100.0" prefWidth="874.0">
                      <children>
                         <TextArea fx:id="descr" layoutX="468.0" layoutY="-3.0" prefHeight="84.0" prefWidth="196.0" />
-                        <Label layoutX="250.0" layoutY="30.0" text="Description" />
+                        <Label layoutX="250.0" layoutY="30.0" prefHeight="22.0" prefWidth="134.0" styleClass="label_txt" text="Description">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
                      </children>
                      <HBox.margin>
                         <Insets bottom="10.0" />
@@ -117,20 +140,24 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <AnchorPane prefHeight="77.0" prefWidth="839.0">
+                  <AnchorPane prefHeight="84.0" prefWidth="886.0">
                      <children>
-                        <Button layoutX="474.0" layoutY="17.0" mnemonicParsing="false" onAction="#load" prefHeight="43.0" prefWidth="101.0" style="-fx-background-radius: 1.0em;" text="Datasheet" />
-                        <Label layoutX="250.0" layoutY="30.0" text="Ajouter un fichier :" />
+                        <Button layoutX="474.0" layoutY="17.0" mnemonicParsing="false" onAction="#load" prefHeight="43.0" prefWidth="101.0" text="Datasheet" />
+                        <Label layoutX="250.0" layoutY="30.0" prefHeight="22.0" prefWidth="150.0" styleClass="label_txt" text="Ajouter un fichier :">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
+                        <Text fx:id="path" fill="#7c90ad" layoutX="474.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="path" />
                      </children>
                   </AnchorPane>
                </children>
             </HBox>
-            <Button fx:id="update" mnemonicParsing="false" onAction="#update" prefHeight="38.0" prefWidth="130.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;" text="Modifier" textFill="WHITE" visible="false">
+            <Button fx:id="update" mnemonicParsing="false" onAction="#update" prefHeight="50.0" prefWidth="140.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;" text="Modifier" textFill="WHITE" visible="false">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="submit" mnemonicParsing="false" onAction="#submit" prefHeight="38.0" prefWidth="130.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;" text="Ajouter" textFill="WHITE">
+            <Button fx:id="submit" mnemonicParsing="false" onAction="#submit" prefHeight="50.0" prefWidth="140.0" style="-fx-background-radius: 1.3em; -fx-background-color: #435B7B;" text="Ajouter" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

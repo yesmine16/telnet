@@ -57,7 +57,7 @@ public class AddProject implements Initializable {
         if (v) {
             DB db = new DB();
             PreparedStatement ps = db.connect().prepareStatement("UPDATE projet SET  name=?, \"desc\"=?, resp=?, team=? WHERE id=?;");
-            ps.setString(5, Projet.list3.get(0).getId());
+            ps.setInt(5, Projet.list3.get(0).getId());
             ps.setString(1, nom.getText());
             ps.setString(2, descr.getText());
             ps.setString(3, LoginController.name);

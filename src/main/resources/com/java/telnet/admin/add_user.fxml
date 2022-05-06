@@ -76,6 +76,9 @@
                                              <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </padding>
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
                                           </Label>
                                           <TextField fx:id="mat">
                                              <HBox.margin>
@@ -97,6 +100,9 @@
                                              <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </padding>
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
                                           </Label>
                                           <TextField fx:id="nom">
                                              <HBox.margin>
@@ -115,6 +121,9 @@
                                              <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </padding>
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
                                           </Label>
                                           <TextField fx:id="stat">
                                              <HBox.margin>
@@ -133,6 +142,9 @@
                                              <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </padding>
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
                                           </Label>
                                           <TextField fx:id="mail">
                                              <HBox.margin>
@@ -151,6 +163,9 @@
                                              <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </padding>
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
                                           </Label>
                                           <TextField fx:id="phone">
                                              <HBox.margin>
@@ -184,7 +199,7 @@
                                                 <Font name="Lucida Console" size="12.0" />
                                              </font>
                                           </Label>
-                                          <ToggleButton fx:id="tb1" mnemonicParsing="false" onAction="#toggle" prefHeight="33.0" prefWidth="70.0" style="-fx-background-radius: 1.3em;" text="Oui">
+                                          <ToggleButton fx:id="tb1" mnemonicParsing="false" onAction="#toggle" prefWidth="70.0" style="-fx-background-radius: 1.3em;" text="Oui">
                                              <HBox.margin>
                                                 <Insets />
                                              </HBox.margin>

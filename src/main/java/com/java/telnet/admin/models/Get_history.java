@@ -4,8 +4,7 @@ public class Get_history {
     String part_id,resp,date,event;
     Integer id;
 
-    public Get_history(String part_id, String resp, String date, String event, Integer id) {
-        this.part_id = part_id;
+    public Get_history(String resp, String date, String event, Integer id) {
         this.resp = resp;
         this.date = date;
         this.event = event;

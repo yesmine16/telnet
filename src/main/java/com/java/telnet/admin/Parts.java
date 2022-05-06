@@ -27,8 +27,10 @@ import java.io.*;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Parts implements Initializable {
@@ -42,7 +44,7 @@ public class Parts implements Initializable {
     @FXML
     private TableColumn<Get_parts, String> desc;
     @FXML
-    private Label update, delete, add;
+    private Label update, delete, add, redo;
     @FXML
     private TableColumn<Get_parts, String> internal_pn;
     @FXML
@@ -65,6 +67,9 @@ public class Parts implements Initializable {
     @FXML
     private ContextMenu menu;
 
+    MenuItem menuItem1 = new MenuItem("Modifier");
+    MenuItem menuItem2 = new MenuItem("Supprimer");
+    MenuItem menuItem3 = new MenuItem("Actualiser");
     @FXML
     private HBox crud;
 
@@ -78,6 +83,7 @@ public class Parts implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(Main_page.class.getResource("add_part.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = new Stage();
+            stage.setTitle("Ajouter un composant");
             stage.setScene(scene);
             stage.show();
         } catch (IOException ex) {
@@ -94,7 +100,7 @@ public class Parts implements Initializable {
                 ImageView imgView = img(rs, "image");
                 ImageView imgView2 = img(rs, "qr");
                 HBox hbox = action();
-                list.add(new Get_parts(imgView, rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getTimestamp(7).toString(), rs.getString(10), hbox, imgView2));
+                list.add(new Get_parts(imgView, rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getTimestamp(7).toString(), rs.getString(10), hbox, imgView2, rs.getBytes(11)));
                 table.setItems(list);
             }
             ps.close();
@@ -105,9 +111,9 @@ public class Parts implements Initializable {
 
     }
 
-    public static void ajout(List<Get_parts> list, ImageView img, String internal_pn, String name, String label, String classification, String origin, String storage, String created_on, String description) {
+    public static void ajout(List<Get_parts> list, ImageView img, String internal_pn, String name, String label, String classification, String origin, String storage, String created_on, String description, byte[] data) {
         list.clear();
-        list.add(new Get_parts(img, internal_pn, name, label, classification, origin, storage, created_on, description, null, null));
+        list.add(new Get_parts(img, internal_pn, name, label, classification, origin, storage, created_on, description, null, null, data));
     }
 
 
@@ -130,16 +136,25 @@ public class Parts implements Initializable {
         return hbox;
     }
 
+    private static final int ROWS_PER_PAGE = 4;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         crud.setVisible(false);
+        menu.getItems().clear();
         String[] s = LoginController.getS();
+        menu.getItems().add(menuItem3);
         List ls = List.of(s[2].replaceAll("[{}]", "").split(","));
         if (ls.get(1).equals("oui")) {
             crud.setVisible(true);
+            menu.getItems().add(menuItem1);
+            menu.getItems().add(menuItem2);
+
         }
 
+        menuItem3.setOnAction(ev -> {
+            load();
+        });
 
         internal_pn.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("internal_pn"));
         nom.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("name"));
@@ -151,7 +166,6 @@ public class Parts implements Initializable {
         action.setCellValueFactory(new PropertyValueFactory<Get_parts, HBox>("action"));
         img.setCellValueFactory(new PropertyValueFactory<Get_parts, ImageView>("img"));
         date_creation.setCellValueFactory(new PropertyValueFactory<Get_parts, String>("created_on"));
-
         load();
         table.setOnMouseClicked(eventHandler -> {
             for (Get_parts list : table.getSelectionModel().getSelectedItems()) {
@@ -217,7 +231,66 @@ public class Parts implements Initializable {
 
                     update.setOnMouseClicked(ev -> {
                         list2.clear();
-                        ajout(list2, list.getImg(), list.getInternal_pn(), list.getName(), list.getLabel(), list.getClassification(), list.getOrigin(), list.getStorage(), list.getCreated_on(), list.getDescription());
+                        ajout(list2, list.getImg(), list.getInternal_pn(), list.getName(), list.getLabel(), list.getClassification(), list.getOrigin(), list.getStorage(), list.getCreated_on(), list.getDescription(), list.getDatasheet());
+                        FXMLLoader loader = new FXMLLoader();
+                        try {
+                            ScrollPane pane = loader.load(getClass().getResource("add_part.fxml").openStream());
+                            pane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+                            Stage stage = new Stage();
+                            stage.setTitle("Nouveau composant");
+                            stage.initModality(Modality.APPLICATION_MODAL);
+                            stage.setScene(new Scene(pane));
+                            stage.show();
+
+
+                        } catch (IOException e) {
+                        }
+
+                    });
+                    delete.setOnMouseClicked(ev -> {
+                        try {
+                            DB db = new DB();
+                            PreparedStatement delete = db.connect().prepareStatement("DELETE FROM public.ressources WHERE internal_pn=?;");
+                            delete.setString(1, list.getInternal_pn());
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            DialogPane dialogPane = alert.getDialogPane();
+                            dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+                            alert.setTitle("confirmer votre choix");
+                            alert.setContentText("Vous etes sur de supprimer " + list.getName() + " ?");
+                            Optional<ButtonType> result = alert.showAndWait();
+
+                            if (result.isPresent() && result.get() == ButtonType.OK) {
+                                delete.execute();
+                                load();
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    menuItem2.setOnAction(ev -> {
+                        try {
+                            DB db = new DB();
+                            PreparedStatement delete = db.connect().prepareStatement("DELETE FROM public.ressources WHERE internal_pn=?;");
+                            delete.setString(1, list.getInternal_pn());
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            DialogPane dialogPane = alert.getDialogPane();
+                            dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+                            alert.setTitle("confirmer votre choix");
+                            alert.setContentText("Vous etes sur de supprimer " + list.getName() + " ?");
+                            Optional<ButtonType> result = alert.showAndWait();
+
+                            if (result.isPresent() && result.get() == ButtonType.OK) {
+                                delete.execute();
+                                load();
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+                    menuItem1.setOnAction(ev -> {
+                        list2.clear();
+                        ajout(list2, list.getImg(), list.getInternal_pn(), list.getName(), list.getLabel(), list.getClassification(), list.getOrigin(), list.getStorage(), list.getCreated_on(), list.getDescription(), list.getDatasheet());
                         FXMLLoader loader = new FXMLLoader();
                         try {
                             ScrollPane pane = loader.load(getClass().getResource("add_part.fxml").openStream());
@@ -232,8 +305,6 @@ public class Parts implements Initializable {
                         } catch (IOException e) {
                         }
                     });
-
-
                 }
 
 
@@ -253,6 +324,10 @@ public class Parts implements Initializable {
 
             } catch (IOException ex) {
             }
+        });
+
+        redo.setOnMouseClicked(ev -> {
+            load();
         });
 
     }

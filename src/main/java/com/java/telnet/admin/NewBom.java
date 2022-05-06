@@ -37,7 +37,7 @@ public class NewBom implements Initializable {
 
 
     @FXML
-    private HBox label;
+    private AnchorPane label;
 
     @FXML
     private TextField part_name;
@@ -47,13 +47,8 @@ public class NewBom implements Initializable {
     private TextArea descr;
     @FXML
     private TextField quantite;
-
-
     @FXML
     private Text txt1;
-
-
-
     @FXML
     private Text txt3;
     @FXML
@@ -72,7 +67,8 @@ public class NewBom implements Initializable {
 
 
         });
-
+        mb.setLayoutX(400.0);
+        mb.setLayoutY(30.0);
         txt1.setManaged(false);
         txt3.setManaged(false);
         final TreeView<String> tree = new TreeView<String>();
@@ -115,12 +111,9 @@ public class NewBom implements Initializable {
             } else ;
 
         });
-
-
         plus.setOnMouseClicked(ev -> {
 
             quantite.setText(String.valueOf(Integer.parseInt(quantite.getText()) + 1));
-
 
         });
 
@@ -130,7 +123,6 @@ public class NewBom implements Initializable {
             }
         });
     }
-
 
     Boolean v;
 
@@ -158,7 +150,7 @@ public class NewBom implements Initializable {
             call2.setString(1, part_name.getText());
             call2.setInt(2, Integer.parseInt(quantite.getText()));
             call2.setString(3, descr.getText());
-            call2.setString(4, Projet.pr);
+            call2.setInt(4, Projet.pr);
             call2.setString(5, LoginController.name);
             call2.execute();
             call2.close();
@@ -171,7 +163,7 @@ public class NewBom implements Initializable {
             call1.setString(2, design.getText());
             call1.setInt(3, Integer.parseInt(quantite.getText()));
             call1.setString(4, descr.getText());
-            call1.setString(5, Projet.pr);
+            call1.setInt(5, Projet.pr);
 
 
             call1.setString(6, LoginController.name);

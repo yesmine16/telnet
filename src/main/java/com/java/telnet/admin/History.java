@@ -38,7 +38,6 @@ public class History implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        TableColumn<Get_history, String> part = new TableColumn<Get_history, String>("Composant id");
         TableColumn<Get_history, String> resp = new TableColumn<Get_history, String>("Crée par");
         TableColumn<Get_history, String> event = new TableColumn<Get_history, String>("Événement");
         TableColumn<Get_history, String> date = new TableColumn<Get_history, String>("Date création");
@@ -46,18 +45,17 @@ public class History implements Initializable {
         TableColumn<Bom, String> date1 = new TableColumn<Bom, String>("Date ajout");
 
         TableColumn<Bom, String> added_by = new TableColumn<Bom, String>("Ajouté par");
-        TableColumn<Bom, String> projet = new TableColumn<Bom, String>("Projet");
+        TableColumn<Bom, Integer> projet = new TableColumn<Bom, Integer>("Projet");
         TableColumn<Bom, String> comp = new TableColumn<Bom, String>("Composant utilisé");
         TableColumn<Bom, Integer> qty = new TableColumn<Bom, Integer>("Quantité");
 
 
-        table.getColumns().addAll(date,id, part, resp, event);
+        table.getColumns().addAll(date,id,resp, event);
         table2.getColumns().addAll(date1,comp, projet, qty, added_by);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table2.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         id.setCellValueFactory(new PropertyValueFactory<Get_history, Integer>("id"));
-        part.setCellValueFactory(new PropertyValueFactory<Get_history, String>("part_id"));
         resp.setCellValueFactory(new PropertyValueFactory<Get_history, String>("resp"));
         event.setCellValueFactory(new PropertyValueFactory<Get_history, String>("event"));
         date.setCellValueFactory(new PropertyValueFactory<Get_history, String>("date"));
@@ -65,14 +63,14 @@ public class History implements Initializable {
 
         added_by.setCellValueFactory(new PropertyValueFactory<Bom, String>("resp"));
         qty.setCellValueFactory(new PropertyValueFactory<Bom, Integer>("qty"));
-        projet.setCellValueFactory(new PropertyValueFactory<Bom, String>("projet"));
+        projet.setCellValueFactory(new PropertyValueFactory<Bom, Integer>("projet"));
         comp.setCellValueFactory(new PropertyValueFactory<Bom, String>("nom"));
         DB db = new DB();
         try {
             PreparedStatement ps = db.connect().prepareStatement("select * from history");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Get_history(null, rs.getString(3), rs.getTimestamp(2).toString(), rs.getString(4), rs.getInt(1)));
+                list.add(new Get_history(rs.getString(3), rs.getTimestamp(2).toString(), rs.getString(4), rs.getInt(1)));
                 table.setItems(list);
             }
 
@@ -85,7 +83,7 @@ public class History implements Initializable {
             PreparedStatement ps = db.connect().prepareStatement("select * from bom");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                list2.add(new Bom(rs.getTimestamp(8).toString(),rs.getString(7), rs.getString(10), rs.getString(6), rs.getInt(4)));
+                list2.add(new Bom(rs.getTimestamp(7).toString(),rs.getString(6), rs.getString(9), rs.getInt(10), rs.getInt(4)));
                 table2.setItems(list2);
 
             }

@@ -9,7 +9,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
@@ -18,171 +17,18 @@
 
 <AnchorPane fx:id="menu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="808.0" prefWidth="1280.0" styleClass="parent" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.telnet.admin.Dashboard">
    <children>
-      <ScrollPane fx:id="main_page" layoutX="309.0" layoutY="10.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+      <ScrollPane fx:id="main_page" layoutX="309.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <content>
-            <StackPane fx:id="content" styleClass="parent" />
-         </content>
-      </ScrollPane>
-      <ScrollPane fx:id="slider" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="736.0" prefWidth="300.0" styleClass="parent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
-         <content>
-            <AnchorPane minWidth="-Infinity" prefHeight="732.0" prefWidth="294.0" styleClass="side_bar1" stylesheets="@style.css">
+            <AnchorPane>
                <children>
-                  <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="76.0" prefHeight="612.0" prefWidth="320.0" spacing="10.0" stylesheets="@style.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
-                     <children>
-                        <Circle fx:id="avatar" fill="TRANSPARENT" radius="65.0" stroke="#00a4e4" strokeType="INSIDE">
-                           <VBox.margin>
-                              <Insets top="30.0" />
-                           </VBox.margin>
-                        </Circle>
-                        <Label fx:id="name" text="Admin" textFill="#f5f5f7" underline="true">
-                           <font>
-                              <Font name="Lucida Console" size="15.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                        </Label>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                           <children>
-                              <FontAwesomeIconView fx:id="param" fill="#E6E7E4" glyphName="GEAR" size="1.5em" styleClass="icon_btn">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </FontAwesomeIconView>
-                              <FontAwesomeIconView fill="#E6E7E4" glyphName="SIGN_OUT" onMouseClicked="#logout" size="1.5em" styleClass="icon_btn">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </FontAwesomeIconView>
-                           </children>
-                        </HBox>
-                        <Line endX="100.0" startX="-100.0" stroke="#bdc0c1" />
-                        <HBox fx:id="dashboard" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
-                           <children>
-                              <FontAwesomeIconView fill="#E6E7E4" glyphName="DASHBOARD" selectionFill="#FFFFFF" size="1.3em" styleClass="icon_btn" text="" wrappingWidth="16.499986171722412">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </FontAwesomeIconView>
-                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Tableau de bord" textFill="#E6E7E4">
-                                 <font>
-                                    <Font name="Lucida Console" size="14.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </HBox>
-                        <HBox fx:id="users" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
-                           <children>
-                              <FontAwesomeIconView fill="#E6E7E4" glyphName="USERS" size="1.3em" styleClass="icon_btn" text="" />
-                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Utilisateurs" textFill="#E6E7E4">
-                                 <font>
-                                    <Font name="Lucida Console" size="14.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </HBox>
-                        <HBox fx:id="project" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
-                           <children>
-                              <FontAwesomeIconView fill="#E6E7E4" glyphName="LIST" size="1.3em" styleClass="icon_btn" />
-                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Projets" textFill="#E6E7E4">
-                                 <font>
-                                    <Font name="Lucida Console" size="14.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </HBox>
-                        <HBox fx:id="parts" alignment="CENTER" layoutX="10.0" layoutY="161.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
-                           <children>
-                              <FontAwesomeIconView fill="#E6E7E4" glyphName="ARCHIVE" size="1.3em" styleClass="icon_btn" text="" />
-                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="stockage" textFill="#E6E7E4">
-                                 <font>
-                                    <Font name="Lucida Console" size="14.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </HBox>
-                        <HBox fx:id="history" alignment="CENTER" layoutX="10.0" layoutY="111.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
-                           <children>
-                              <FontAwesomeIconView fill="#E6E7E4" glyphName="HISTORY" size="1.3em" styleClass="icon_btn" />
-                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Historique" textFill="#E6E7E4">
-                                 <font>
-                                    <Font name="Lucida Console" size="14.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </HBox>
-                        <HBox fx:id="achat" alignment="CENTER" layoutX="10.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
-                           <children>
-                              <FontAwesomeIconView fill="#E6E7E4" glyphName="SHOPPING_CART" size="1.3em" styleClass="icon_btn" />
-                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Achat" textFill="#E6E7E4">
-                                 <font>
-                                    <Font name="Lucida Console" size="14.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <ImageView fitHeight="63.0" fitWidth="135.0" layoutX="80.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" AnchorPane.topAnchor="14.0">
-                     <image>
-                        <Image url="@../logo.png" />
-                     </image>
-                  </ImageView>
+                  <StackPane fx:id="content" styleClass="parent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
          </content>
       </ScrollPane>
-      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="70.0" prefWidth="1271.0" style="-fx-background-color: WHITE;" styleClass="scroll" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="67.0" prefWidth="1280.0" style="-fx-background-color: WHITE;" styleClass="scroll" AnchorPane.bottomAnchor="770.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Pane layoutX="102.0" layoutY="20.0" prefHeight="25.0" prefWidth="200.0" styleClass="parent" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <HBox alignment="TOP_RIGHT" layoutX="239.0" layoutY="1.0" prefHeight="26.0" prefWidth="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0" />
-               </children>
-            </HBox>
-            <Label fx:id="Menu" alignment="CENTER" layoutX="10.0" layoutY="25.0" prefHeight="41.0" prefWidth="108.0" style="-fx-cursor: hand;" text="MENU" textFill="#435b7b" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="25.0">
+            <Label fx:id="Menu" alignment="CENTER" layoutX="10.0" layoutY="13.0" prefHeight="22.0" prefWidth="108.0" style="-fx-cursor: hand;" text="MENU" textFill="#435b7b" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="13.0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -190,7 +36,7 @@
                   <FontAwesomeIconView fill="#435b7b" glyphName="BARS" />
                </graphic>
             </Label>
-            <Label fx:id="MenuClose" alignment="CENTER" layoutX="10.0" layoutY="25.0" prefHeight="41.0" prefWidth="108.0" style="-fx-cursor: hand;" stylesheets="@style.css" text="MENU" textFill="#7c90ad" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="25.0">
+            <Label fx:id="MenuClose" alignment="CENTER" layoutX="10.0" layoutY="13.0" prefHeight="22.0" prefWidth="108.0" style="-fx-cursor: hand;" stylesheets="@style.css" text="MENU" textFill="#7c90ad" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="13.0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -203,6 +49,155 @@
                   <Font name="Lucida Console" size="15.0" />
                </font>
             </Label>
+            <Label fx:id="time" layoutX="616.0" layoutY="13.0" text="time" textFill="#7c90ad">
+               <font>
+                  <Font name="Lucida Console" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="slider" layoutY="54.0" minWidth="-Infinity" prefHeight="749.0" prefWidth="294.0" styleClass="side_bar1" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0">
+         <children>
+            <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="76.0" prefHeight="612.0" prefWidth="320.0" spacing="10.0" stylesheets="@style.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+               <children>
+                  <Circle fx:id="avatar" fill="TRANSPARENT" radius="65.0" stroke="#00a4e4" strokeType="INSIDE">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Circle>
+                  <Label fx:id="name" text="Admin" textFill="#f5f5f7" underline="true">
+                     <font>
+                        <Font name="Lucida Console" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <FontAwesomeIconView fx:id="param" fill="#E6E7E4" glyphName="GEAR" size="1.5em" styleClass="icon_btn">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </FontAwesomeIconView>
+                        <FontAwesomeIconView fill="#E6E7E4" glyphName="SIGN_OUT" onMouseClicked="#logout" size="1.5em" styleClass="icon_btn">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </FontAwesomeIconView>
+                     </children>
+                  </HBox>
+                  <Line endX="100.0" startX="-100.0" stroke="#bdc0c1" />
+                  <HBox fx:id="dashboard" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
+                     <children>
+                        <FontAwesomeIconView fill="#E6E7E4" glyphName="DASHBOARD" selectionFill="#FFFFFF" size="1.3em" styleClass="icon_btn" text="" wrappingWidth="16.499986171722412">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </FontAwesomeIconView>
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Tableau de bord" textFill="#E6E7E4">
+                           <font>
+                              <Font name="Lucida Console" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+                  <HBox fx:id="users" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
+                     <children>
+                        <FontAwesomeIconView fill="#E6E7E4" glyphName="USERS" size="1.3em" styleClass="icon_btn" text="" />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Utilisateurs" textFill="#E6E7E4">
+                           <font>
+                              <Font name="Lucida Console" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+                  <HBox fx:id="project" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
+                     <children>
+                        <FontAwesomeIconView fill="#E6E7E4" glyphName="LIST" size="1.3em" styleClass="icon_btn" />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Projets" textFill="#E6E7E4">
+                           <font>
+                              <Font name="Lucida Console" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+                  <HBox fx:id="parts" alignment="CENTER" layoutX="10.0" layoutY="161.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
+                     <children>
+                        <FontAwesomeIconView fill="#E6E7E4" glyphName="ARCHIVE" size="1.3em" styleClass="icon_btn" text="" />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="stockage" textFill="#E6E7E4">
+                           <font>
+                              <Font name="Lucida Console" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+                  <HBox fx:id="history" alignment="CENTER" layoutX="10.0" layoutY="111.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
+                     <children>
+                        <FontAwesomeIconView fill="#E6E7E4" glyphName="HISTORY" size="1.3em" styleClass="icon_btn" />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Historique" textFill="#E6E7E4">
+                           <font>
+                              <Font name="Lucida Console" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+                  <HBox fx:id="achat" alignment="CENTER" layoutX="10.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="225.0" styleClass="btn" visible="false">
+                     <children>
+                        <FontAwesomeIconView fill="#E6E7E4" glyphName="SHOPPING_CART" size="1.3em" styleClass="icon_btn" />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="146.0" styleClass="text_btn" text="Achat" textFill="#E6E7E4">
+                           <font>
+                              <Font name="Lucida Console" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+               </children>
+            </VBox>
+            <ImageView fitHeight="63.0" fitWidth="135.0" layoutX="80.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" AnchorPane.topAnchor="14.0">
+               <image>
+                  <Image url="@../logo.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

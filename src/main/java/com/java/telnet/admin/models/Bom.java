@@ -9,17 +9,17 @@ public class Bom {
         this.nom = nom;
     }
 
-    public String getProjet() {
+    public Integer getProjet() {
         return projet;
     }
 
-    public void setProjet(String projet) {
+    public void setProjet(Integer projet) {
         this.projet = projet;
     }
 
 
-
-    String num,label,desc,design,comment,resp,date,nom,projet;
+Integer projet;
+    String num,label,desc,design,comment,resp,date,nom;
 Integer qty,stock,to_buy,id;
 
     public Integer getId() {
@@ -30,7 +30,7 @@ Integer qty,stock,to_buy,id;
         this.id = id;
     }
 
-    public Bom(Integer id, String num, String nom, String label, String design, String comment, String resp, String date, Integer qty, String projet) {
+    public Bom(Integer id, String num, String nom, String label, String design, String comment, String resp, String date, Integer qty, Integer projet) {
         this.id=id;
         this.num = num;
         this.nom=nom;
@@ -124,7 +124,7 @@ Integer qty,stock,to_buy,id;
         this.to_buy = to_buy;
     }
 
-    public Bom(String date,String resp, String nom, String projet, Integer qty) {
+    public Bom(String date,String resp, String nom, Integer projet, Integer qty) {
         this.date=date;
         this.resp = resp;
         this.nom = nom;

@@ -5,38 +5,18 @@ import com.java.telnet.DB;
 
 import com.java.telnet.Login;
 import com.java.telnet.LoginController;
-import com.java.telnet.admin.models.Get_user;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.controlsfx.validation.Severity;
-import org.controlsfx.validation.ValidationSupport;
-import org.controlsfx.validation.Validator;
-import org.controlsfx.validation.decoration.StyleClassValidationDecoration;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.RenderedImage;
-import java.awt.image.WritableRaster;
 import java.io.*;
 import java.net.URL;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -255,8 +235,6 @@ public class Privileges implements Initializable {
                 txt4.setVisible(false);
                 txt4.setManaged(false);
                 txt4.setText("Email est obligatoire");
-
-
             }
 
         });
@@ -272,8 +250,6 @@ public class Privileges implements Initializable {
                 txt5.setVisible(false);
                 txt5.setManaged(false);
                 txt5.setText("Numéro téléphone est obligatoire");
-
-
             }
 
         });
@@ -312,13 +288,11 @@ public class Privileges implements Initializable {
         tableau.getItems().addAll("Lecture");
         tableau.getSelectionModel().selectFirst();
 
-        hist.getItems().addAll("Lecture", "Lecture et Ecriture");
+        hist.getItems().addAll("Lecture");
         hist.getSelectionModel().selectFirst();
 
         buy.getItems().addAll("Lecture", "Lecture et Ecriture");
         buy.getSelectionModel().selectFirst();
-
-
 
         projet.getItems().addAll("Lecture", "Lecture et Ecriture");
         projet.getSelectionModel().selectFirst();
@@ -449,7 +423,7 @@ public class Privileges implements Initializable {
         if (v) {
             DB db = new DB();
             PreparedStatement ps = db.connect().prepareStatement("INSERT INTO login_info (matricule, \"user\", photo, nom, email, phone,qr) VALUES ( ?,?,?,?,?,?,?);");
-            PreparedStatement insert = db.connect().prepareStatement("INSERT into privilege(\"table\", users, parts, projects, storage, history, buy)VALUES (?,?,?,?,?,?,?);");
+            PreparedStatement insert = db.connect().prepareStatement("INSERT into privilege(\"table\", users, parts, projects, history, buy)VALUES (?,?,?,?,?,?);");
             ps.setString(4, nom.getText());
             ps.setString(1, mat.getText());
             ps.setString(2, stat.getText());
@@ -493,9 +467,9 @@ public class Privileges implements Initializable {
 
             if (grp7.getToggles().get(0).isSelected()) {
                 if (buy.getSelectionModel().isSelected(0)) {
-                    insert.setArray(7, db.connect().createArrayOf("varchar", new Object[]{"oui", "non"}));
-                } else insert.setArray(7, db.connect().createArrayOf("varchar", new Object[]{"oui", "oui"}));
-            } else insert.setArray(7, db.connect().createArrayOf("varchar", new Object[]{"non", "non"}));
+                    insert.setArray(6, db.connect().createArrayOf("varchar", new Object[]{"oui", "non"}));
+                } else insert.setArray(6, db.connect().createArrayOf("varchar", new Object[]{"oui", "oui"}));
+            } else insert.setArray(6, db.connect().createArrayOf("varchar", new Object[]{"non", "non"}));
             ps.executeUpdate();
             insert.executeUpdate();
             insert.close();
@@ -623,33 +597,7 @@ public class Privileges implements Initializable {
             ps.close();
 
             if (insert.executeUpdate() > 0) {
-                if (LoginController.id == Users.list2.get(0).getId()) {
 
-                    try {
-                        Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
-                        DialogPane dialogPane = alert1.getDialogPane();
-                        dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-                        alert1.setContentText("vous devez vous reconnecter");
-                        Optional<ButtonType> result1 = alert1.showAndWait();
-
-                        if (result1.isPresent() && result1.get() == ButtonType.OK) {
-                            FXMLLoader fxmlLoader = new FXMLLoader(Login.class.getResource("login.fxml"));
-                            Scene scene = new Scene(fxmlLoader.load());
-                            Stage stage = new Stage();
-                            stage.setScene(scene);
-                            stage.show();
-                            Stage stage1 = (Stage) submit.getScene().getWindow();
-                            stage1.close();
-                            LoginController.id = null;
-                        }
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    insert.close();
-
-
-                } else {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("L'utilisateur  a été mis à jour avec succes");
                     Optional<ButtonType> result = alert.showAndWait();
@@ -660,9 +608,9 @@ public class Privileges implements Initializable {
                     }
                     insert.close();
 
-                }
-            }
-        }
+
+
+        }}
     }
 
     public void load() throws IOException, SQLException {
